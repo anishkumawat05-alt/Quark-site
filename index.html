@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- <img class="image-gradient" src="" alt="gradient"> -->
+    <div class="layer-blur"></div>
+
+    <div class="container">
+        <header>
+            <div><a href="#" class="logo"><img src="logo.png" alt=""></a></div>
+
+            <nav>
+                <a href="#home">HOME <span></span></a>
+                <a href="#color">COLOR PAGE <span></span></a>
+                <a href="#about-section">ABOUT <span></span></a>
+                <a href="#service-section">SERVICES <span></span></a>
+            </nav>
+            <button class="btn-signin">SIGNING</button>
+        </header>
+        <main>
+            <div class="content" id="home">
+                <div class="tag-box">
+                    <div class="tag">INTRUCING &wedbar;</div>
+                </div>
+                <h1><span>QUARK STUDIO</span></h1>
+                <p class="description">
+                    A new platform to give your videos a professional touch. Edit, enhance, and take your content to the
+                    next level.
+                </p>
+                <div class="buttons">
+                    <a href="#" class="btn-get-started">View Portfolio&gt;</a>
+                    <div class="btn-wrap" id="btnWrap">
+                        <a href="#">
+                            <button class="liquid-btn" id="liquidBtn">
+
+                                <!-- Liquid fill — mask ke andar clip hoga, taaki button ke bahar na dikhe -->
+                                <div class="liquid-mask">
+                                    <div class="liquid"></div>
+                                </div>
+
+                                <span>Contect Us</span>
+
+                                <!-- Sparkles — center se hi start honge, JS click par active karega -->
+                                <span class="sparkle" style="--tx: -70px; --ty: -55px; color:#5be3e3;"></span>
+                                <span class="sparkle" style="--tx: 65px;  --ty: -60px; color:#ffd76a;"></span>
+                                <span class="sparkle" style="--tx: -85px; --ty: 10px;  color:#ff7ad9;"></span>
+                                <span class="sparkle" style="--tx: 80px;  --ty: 15px;  color:#b98bff;"></span>
+                                <span class="sparkle" style="--tx: -55px; --ty: 60px;  color:#7ad9ff;"></span>
+                                <span class="sparkle" style="--tx: 60px;  --ty: 65px;  color:#5be3e3;"></span>
+                                <span class="sparkle" style="--tx: 0px;   --ty: -75px; color:#ff7ad9;"></span>
+                                <span class="sparkle" style="--tx: 0px;   --ty: 75px;  color:#ffd76a;"></span>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <spline-viewer class="robot-3d"
+            url="https://prod.spline.design/itQcYFPcVt2d0So2/scene.splinecode"></spline-viewer>
+    </div>
+
+    <hr class="divider">
+
+    <h1 class="section-heading" id="color">Color Grading </h1>
+    <!-- color grading slide  -->
+    <!-- =========================================================
+     grid = dono boxes ko side-by-side (ya mobile pe niche-niche)
+     rakhne wala outer container
+     ========================================================= -->
+    <section class="color-box">
+        <div class="grid">
+
+            <!-- ============ PEHLA COMPARE BOX ============ -->
+            <div class="wrap">
+                <!-- <p class="title">Video 1 — Before / After</p> -->
+
+                <!-- data-compare="1" se hum JS me is box ko pehchante hain -->
+                <div class="compare" data-compare="1">
+
+                    <!-- "BEFORE" video -->
+                    <video class="video-before" src="1.mov" muted loop autoplay playsinline></video>
+
+                    <!-- "AFTER" video -->
+                    <video class="video-after" src="2.mov" muted loop autoplay playsinline></video>
+
+                    <div class="tag tag-before">BEFORE</div>
+                    <div class="tag tag-after">AFTER</div>
+
+                    <div class="divider-line"></div>
+                    <div class="handle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14M5 12l4-4M5 12l4 4M19 12l-4-4M19 12l4 4" />
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- <p class="hint">Beech wale handle ko left-right drag karein</p> -->
+            </div>
+
+            <!-- ============ DUSRA COMPARE BOX ============ -->
+            <div class="wrap">
+                <!-- <p class="title">Video 2 — Before / After</p> -->
+
+                <!-- data-compare="2" — alag identifier, taaki ye box pehle se independent chale -->
+                <div class="compare" data-compare="2">
+
+                    <!-- "BEFORE" video -->
+                    <video class="video-before" src="1.mov" muted loop autoplay playsinline></video>
+
+                    <!-- "AFTER" video -->
+                    <video class="video-after" src="2.mov" muted loop autoplay playsinline></video>
+
+                    <div class="tag tag-before">BEFORE</div>
+                    <div class="tag tag-after">AFTER</div>
+
+                    <div class="divider-line"></div>
+                    <div class="handle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14M5 12l4-4M5 12l4 4M19 12l-4-4M19 12l4 4" />
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- <p class="hint">Beech wale handle ko left-right drag karein</p> -->
+            </div>
+
+        </div>
+    </section>
+
+    <hr class="divider">
+    <h1 class="section-heading">About Us</h1>
+    <section class="about" id="about-section">
+        <div class="about-card">
+
+            <img class="profile-img" src="about.webp" alt="Profile Photo">
+
+            <h1>Anish Kumawat</h1>
+            <div class="role">Video Editor &amp; Developer</div>
+
+            <div class="info-rows">
+                <!-- <div class="row">
+                    <span class="label">NAME :</span>
+                    <span class="value">3</span>
+                </div> -->
+                <div class="row">
+                    <span class="label">WORK :</span>
+                    <span class="value">Video Editing, 3D-Modeling</span>
+                </div>
+                <div class="row">
+                    <span class="label">EXPRIENCE :</span>
+                    <span class="value"> 3+Years</span>
+                </div>
+            </div>
+
+        </div>
+        <div class="about-card">
+
+            <img class="profile-img" src="about.webp" alt="Profile Photo">
+
+            <h1>Anish Kumawat</h1>
+            <div class="role">Video Editor &amp; Developer</div>
+
+            <div class="info-rows">
+                <!-- <div class="row">
+                    <span class="label">NAME :</span>
+                    <span class="value">3</span>
+                </div> -->
+                <div class="row">
+                    <span class="label">WORK :</span>
+                    <span class="value">Video Editing, 3D-Modeling</span>
+                </div>
+                <div class="row">
+                    <span class="label">EXPRIENCE :</span>
+                    <span class="value"> 3+Years</span>
+                </div>
+            </div>
+
+        </div>
+        <div class="about-card">
+
+            <img class="profile-img" src="about.webp" alt="Profile Photo">
+
+            <h1>Anish Kumawat</h1>
+            <div class="role">Video Editor &amp; Developer</div>
+
+            <div class="info-rows">
+                <!-- <div class="row">
+                    <span class="label">NAME :</span>
+                    <span class="value">3</span>
+                </div> -->
+                <div class="row">
+                    <span class="label">WORK :</span>
+                    <span class="value">Video Editing, 3D-Modeling</span>
+                </div>
+                <div class="row">
+                    <span class="label">EXPRIENCE :</span>
+                    <span class="value"> 3+Years</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <hr class="divider">
+    <h1 class="section-heading">SERVICES</h1>
+
+    <section class="skills" id="service-section">
+        <div class="skills-wrapper">
+
+            <div class="skill-card">
+                <img src="about.webp" alt="HTML">
+                <h3>Video Editing</h3>
+                <p>Structure banane ke liye</p>
+            </div>
+
+            <div class="skill-card">
+                <img src="about.webp" alt="CSS">
+                <h3>Color Grading</h3>
+                <p>Color Grading</p>
+            </div>
+
+            <div class="skill-card">
+                <img src="about.webp" alt="JavaScript">
+                <h3>Motion Graphics</h3>
+                <p>Interactivity ke liye</p>
+            </div>
+            <div class="skill-card">
+                <img src="about.webp" alt="HTML">
+                <h3>3D Modeling</h3>
+                <p>Structure banane ke liye</p>
+            </div>
+
+            <div class="skill-card">
+                <img src="about.webp" alt="CSS">
+                <h3>Video Editing</h3>
+                <p>Design aur styling</p>
+            </div>
+
+            <div class="skill-card">
+                <img src="about.webp" alt="JavaScript">
+                <h3>Video Editing</h3>
+                <p>Interactivity ke liye</p>
+            </div>
+
+        </div>
+    </section>
+
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.98/build/spline-viewer.js"></script>
+    <script src="script.js"></script>
+
+</body>
+
+</html>
