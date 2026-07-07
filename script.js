@@ -13,10 +13,10 @@ const allCompareBoxes = document.querySelectorAll('.compare');
 allCompareBoxes.forEach(function (compare) {
 
   // is specific box ke andar se uske apne elements nikal rahe hain
-  const videoAfter   = compare.querySelector('.video-after');
-  const videoBefore  = compare.querySelector('.video-before');
-  const dividerLine  = compare.querySelector('.divider-line');
-  const handle       = compare.querySelector('.handle');
+  const videoAfter = compare.querySelector('.video-after');
+  const videoBefore = compare.querySelector('.video-before');
+  const dividerLine = compare.querySelector('.divider-line');
+  const handle = compare.querySelector('.handle');
 
   // har box ka apna "dragging" state — isliye ek box drag hone se
   // doosre box ki dragging state disturb nahi hoti
@@ -104,7 +104,6 @@ allCompareBoxes.forEach(function (compare) {
 });
 
 
-
 // button 
 // Click hone par button pe "sparkle-active" class add karte hain,
 // jisse CSS ke sparkle-active .sparkle wale rules trigger hote hain
@@ -129,3 +128,28 @@ liquidBtn.addEventListener("click", (e) => {
     btnWrap.classList.remove("sparkle-active");
   }, 700); // 0.7s = burst animation ki duration (CSS se match honi chahiye)
 });
+
+
+/* <!-- Latest uploaded section  --> */
+//  // Set this to your channel URL. All video cards will open this same link.
+// const CHANNEL_URL = "https://www.instagram.com/anish_009s?igsh=MTA4OG15MHJlbGttbA==";
+
+// document.addEventListener("DOMContentLoaded", () => {
+//   const cards = document.querySelectorAll(".card");
+
+//   cards.forEach((card) => {
+//     // Make every card point to the channel link
+//     card.setAttribute("href", CHANNEL_URL);
+//     card.setAttribute("target", "_blank");
+//     card.setAttribute("rel", "noopener");
+
+//     // Optional: click feedback / handling in JS (in case href is ever removed)
+//     card.addEventListener("click", (e) => {
+//       // If for some reason it's not an <a> tag, force navigation
+//       if (card.tagName.toLowerCase() !== "a") {
+//         e.preventDefault();
+//         window.open(CHANNEL_URL, "_blank");
+//       }
+//     });
+//   });
+// });
