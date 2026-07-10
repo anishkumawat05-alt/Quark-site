@@ -14,15 +14,15 @@
 
     <div class="container">
         <header>
-            <div><a href="#" class="logo"><img src="logo2.png" alt=""></a></div>
+            <div><a href="#" class="logo"><img src="images/logo2.png" alt=""></a></div>
 
             <nav>
                 <a href="#home">HOME <span></span></a>
-                <a href="#color">COLOUR PAGE <span></span></a>
+                <a href="#color-section">COLOUR PAGE <span></span></a>
                 <a href="#about-section">ABOUT <span></span></a>
                 <a href="#service-section">SERVICES <span></span></a>
             </nav>
-            <button class="btn-signin">SIGNING</button>
+            <a href="signin-button.html" class="btn-signin">SIGNING</a>
         </header>
         <main>
             <div class="content" id="home">
@@ -35,9 +35,11 @@
                     next level.
                 </p>
                 <div class="buttons">
-                    <a href="#" class="btn-get-started">View Portfolio&gt;</a>
-                    <div class="btn-wrap" id="btnWrap">
-                        <a href="#">
+                    <a href="https://www.instagram.com/anish_009s?igsh=MTA4OG15MHJlbGttbA=="
+                        class="btn-get-started">View Portfolio&gt;</a>
+                    <a href="contact.html">
+                        <div class="btn-wrap" id="btnWrap">
+
                             <button class="liquid-btn" id="liquidBtn">
 
                                 <!-- Liquid fill — mask ke andar clip hoga, taaki button ke bahar na dikhe -->
@@ -57,8 +59,8 @@
                                 <span class="sparkle" style="--tx: 0px;   --ty: -75px; color:#ff7ad9;"></span>
                                 <span class="sparkle" style="--tx: 0px;   --ty: 75px;  color:#ffd76a;"></span>
                             </button>
-                        </a>
-                    </div>
+                        </div>
+                    </a>
                 </div>
             </div>
         </main>
@@ -72,7 +74,7 @@
     <h1 class="section-title">LATEST <span class="accent">UPLOADS</span></h1>
 
     <div class="subscribe-wrap">
-        <a class="subscribe-btn yt-btn" href="https://youtu.be/eWbHgS8e2bE?si=CPHzflnBE0n44imO" target="_blank"
+        <a class="subscribe-btn yt-btn" href="https://youtube.com/@abeatsmusic2783?si=a18peo36rX_Ss0hf" target="_blank"
             rel="noopener">
             <svg class="social-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
                 <path
@@ -117,7 +119,7 @@
             href="https://www.instagram.com/reel/DZypHSThtp3/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
             target="_blank" rel="noopener">
             <div class="thumb-wrap">
-                <img src="logo.png" alt="">
+                <img src="images/logo.png" alt="">
                 <div class="play-btn"></div>
             </div>
             <div class="card-body">
@@ -131,7 +133,7 @@
             href="https://www.instagram.com/reel/DZsNbhQBvdL/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
             target="_blank" rel="noopener">
             <div class="thumb-wrap">
-                <img src="logo.png" alt="">
+                <img src="images/logo.png" alt="">
                 <div class="play-btn"></div>
             </div>
             <div class="card-body">
@@ -145,7 +147,7 @@
             href="https://www.instagram.com/reel/DZypHSThtp3/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
             target="_blank" rel="noopener">
             <div class="thumb-wrap">
-                <img src="logo.png" alt="">
+                <img src="images/logo.png" alt="">
                 <div class="play-btn"></div>
             </div>
             <div class="card-body">
@@ -166,25 +168,23 @@
 
     <h1 class="section-heading">COLOUR <span class="accent">GRADING</span></h1>
 
-    <section class="color-box">
-        <div class="grid">
-
-            <!-- ============ PEHLA COMPARE BOX ============ -->
-            <div class="wrap">
-                <!-- <p class="title">Video 1 — Before / After</p> -->
-
-                <!-- data-compare="1" se hum JS me is box ko pehchante hain -->
-                <div class="compare" data-compare="1">
-
+     <section class="color-box" id="color-section">
+ 
+        <!-- ============ COMPARE BOX (left) + VIDEO SELECT GALLERY (right) ============ -->
+        <div class="slide-layout">
+ 
+            <div class="wrap single-wrap">
+                <div class="compare" id="colourCompare" data-compare="colour">
+ 
                     <!-- "BEFORE" video -->
-                    <video class="video-before" src="1.mov" muted loop autoplay playsinline></video>
-
+                    <video class="video-before" src="images/1.mov" muted loop autoplay playsinline></video>
+ 
                     <!-- "AFTER" video -->
-                    <video class="video-after" src="2.mov" muted loop autoplay playsinline></video>
-
+                    <video class="video-after" src="images/2.mov" muted loop autoplay playsinline></video>
+ 
                     <div class="tag tag-before">BEFORE</div>
                     <div class="tag tag-after">AFTER</div>
-
+ 
                     <div class="divider-line"></div>
                     <div class="handle">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
@@ -193,26 +193,74 @@
                         </svg>
                     </div>
                 </div>
-
-                <!-- <p class="hint">Beech wale handle ko left-right drag karein</p> -->
             </div>
-
-            <!-- ============ DUSRA COMPARE BOX ============ -->
-            <div class="wrap">
-                <!-- <p class="title">Video 2 — Before / After</p> -->
-
-                <!-- data-compare="2" — alag identifier, taaki ye box pehle se independent chale -->
-                <div class="compare" data-compare="2">
-
+ 
+            <div class="video-select-panel">
+                <p class="video-select-hint">VIDEO CHUNE</p>
+                <div class="video-select-grid" data-target="colourCompare">
+ 
+                    <button class="video-select-item active" type="button" data-before="images/1.mov" data-after="images/2.mov">
+                        <span class="video-select-thumb">
+                            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor"
+                                stroke-width="1.8">
+                                <circle cx="12" cy="12" r="10" />
+                                <polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none" />
+                            </svg>
+                        </span>
+                        <span class="video-select-label">Video 1</span>
+                    </button>
+ 
+                    <button class="video-select-item" type="button" data-before="images/vfx3.mp4" data-after="images/vfx4.mp4">
+                        <span class="video-select-thumb">
+                            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor"
+                                stroke-width="1.8">
+                                <circle cx="12" cy="12" r="10" />
+                                <polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none" />
+                            </svg>
+                        </span>
+                        <span class="video-select-label">Video 2</span>
+                    </button>
+ 
+                    <button class="video-select-item" type="button" data-before="images/1.mov" data-after="images/3.mov">
+                        <span class="video-select-thumb">
+                            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor"
+                                stroke-width="1.8">
+                                <circle cx="12" cy="12" r="10" />
+                                <polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none" />
+                            </svg>
+                        </span>
+                        <span class="video-select-label">Video 3</span>
+                    </button>
+ 
+                </div>
+            </div>
+ 
+        </div>
+    </section>
+ 
+    <!-- gap between colour slide and vfx slide -->
+    <div class="section-gap"></div>
+ 
+    <!-- vfx slide  -->
+    <h1 class="section-heading">VFX <span class="accent">EDITING</span></h1>
+ 
+    <section class="color-box" id="vfx-section">
+ 
+        <!-- ============ COMPARE BOX (left) + VIDEO SELECT GALLERY (right) ============ -->
+        <div class="slide-layout">
+ 
+            <div class="wrap single-wrap">
+                <div class="compare" id="vfxCompare" data-compare="vfx">
+ 
                     <!-- "BEFORE" video -->
-                    <video class="video-before" src="1.mov" muted loop autoplay playsinline></video>
-
+                    <video class="video-before" src="images/7.mov" muted loop autoplay playsinline></video>
+ 
                     <!-- "AFTER" video -->
-                    <video class="video-after" src="2.mov" muted loop autoplay playsinline></video>
-
+                    <video class="video-after" src="images/8.mov" muted loop autoplay playsinline></video>
+ 
                     <div class="tag tag-before">BEFORE</div>
                     <div class="tag tag-after">AFTER</div>
-
+ 
                     <div class="divider-line"></div>
                     <div class="handle">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
@@ -221,9 +269,48 @@
                         </svg>
                     </div>
                 </div>
-
             </div>
-
+ 
+            <div class="video-select-panel">
+                <p class="video-select-hint">VIDEO CHUNE</p>
+                <div class="video-select-grid" data-target="vfxCompare">
+ 
+                    <button class="video-select-item active" type="button" data-before="images/vfx1.mov" data-after="images/vfx2.mov">
+                        <span class="video-select-thumb">
+                            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor"
+                                stroke-width="1.8">
+                                <circle cx="12" cy="12" r="10" />
+                                <polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none" />
+                            </svg>
+                        </span>
+                        <span class="video-select-label">VFX 1</span>
+                    </button>
+ 
+                    <button class="video-select-item" type="button" data-before="images/vfx3.mp4" data-after="images/vfx4.mp4">
+                        <span class="video-select-thumb">
+                            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor"
+                                stroke-width="1.8">
+                                <circle cx="12" cy="12" r="10" />
+                                <polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none" />
+                            </svg>
+                        </span>
+                        <span class="video-select-label">VFX 2</span>
+                    </button>
+ 
+                    <button class="video-select-item" type="button" data-before="images/vfx1.mov" data-after="images/vfx2.mov">
+                        <span class="video-select-thumb">
+                            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor"
+                                stroke-width="1.8">
+                                <circle cx="12" cy="12" r="10" />
+                                <polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none" />
+                            </svg>
+                        </span>
+                        <span class="video-select-label">VFX 3</span>
+                    </button>
+ 
+                </div>
+            </div>
+ 
         </div>
     </section>
 
@@ -232,7 +319,37 @@
     <section class="about" id="about-section">
         <div class="about-card">
 
-            <img class="profile-img" src="about.webp" alt="Profile Photo">
+            <img class="profile-img" src="images/about.webp" alt="Profile Photo">
+
+            <h1>Abeats</h1>
+            <div class="role">Audio Engineer</div>
+
+            <div class="info-rows">
+                <div class="row">
+                    <span class="label">WORK :</span>
+                    <span class="value">Music Production,Sound Designer</span>
+                </div>
+                <div class="row">
+                    <span class="label">EXPERIENCE :</span>
+                    <span class="value">10+Years</span>
+                </div>
+                <div class="row social-row">
+                    <span class="label">INSTAGRAM :</span>
+                    <a class="value ig-link" href="https://www.instagram.com/anish_009s?igsh=MTA4OG15MHJlbGttbA=="
+                        target="_blank" rel="noopener">
+                        <svg class="ig-icon" viewBox="0 0 24 24" width="15" height="15" fill="currentColor">
+                            <path
+                                d="M12 2.2c3.2 0 3.58.01 4.85.07 1.17.05 1.97.24 2.43.4a4.9 4.9 0 0 1 1.77 1.15 4.9 4.9 0 0 1 1.15 1.77c.16.46.35 1.26.4 2.43.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.24 1.97-.4 2.43a4.9 4.9 0 0 1-1.15 1.77 4.9 4.9 0 0 1-1.77 1.15c-.46.16-1.26.35-2.43.4-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.97-.24-2.43-.4a4.9 4.9 0 0 1-1.77-1.15 4.9 4.9 0 0 1-1.15-1.77c-.16-.46-.35-1.26-.4-2.43C2.21 15.58 2.2 15.2 2.2 12s.01-3.58.07-4.85c.05-1.17.24-1.97.4-2.43A4.9 4.9 0 0 1 3.62 3.62a4.9 4.9 0 0 1 1.77-1.15c.46-.16 1.26-.35 2.43-.4C9.29 1.34 9.67 1.33 12 1.33m0 4.51A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84Zm0 10.16A4 4 0 1 1 16 12a4 4 0 0 1-4 4Zm6.4-10.4a1.44 1.44 0 1 1-1.44-1.44 1.44 1.44 0 0 1 1.44 1.44Z" />
+                        </svg>
+                        Follow
+                    </a>
+                </div>
+            </div>
+
+        </div>
+        <div class="about-card">
+
+            <img class="profile-img" src="images/about.webp" alt="Profile Photo">
 
             <h1>Anish Kumawat</h1>
             <div class="role">Video Editor &amp; Developer</div>
@@ -262,37 +379,7 @@
         </div>
         <div class="about-card">
 
-            <img class="profile-img" src="about.webp" alt="Profile Photo">
-
-            <h1>Anish Kumawat</h1>
-            <div class="role">Video Editor &amp; Developer</div>
-
-            <div class="info-rows">
-                <div class="row">
-                    <span class="label">WORK :</span>
-                    <span class="value">Video Editing, 3D-Modeling</span>
-                </div>
-                <div class="row">
-                    <span class="label">EXPERIENCE :</span>
-                    <span class="value">3+Years</span>
-                </div>
-                <div class="row social-row">
-                    <span class="label">INSTAGRAM :</span>
-                    <a class="value ig-link" href="https://www.instagram.com/anish_009s?igsh=MTA4OG15MHJlbGttbA=="
-                        target="_blank" rel="noopener">
-                        <svg class="ig-icon" viewBox="0 0 24 24" width="15" height="15" fill="currentColor">
-                            <path
-                                d="M12 2.2c3.2 0 3.58.01 4.85.07 1.17.05 1.97.24 2.43.4a4.9 4.9 0 0 1 1.77 1.15 4.9 4.9 0 0 1 1.15 1.77c.16.46.35 1.26.4 2.43.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.24 1.97-.4 2.43a4.9 4.9 0 0 1-1.15 1.77 4.9 4.9 0 0 1-1.77 1.15c-.46.16-1.26.35-2.43.4-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.97-.24-2.43-.4a4.9 4.9 0 0 1-1.77-1.15 4.9 4.9 0 0 1-1.15-1.77c-.16-.46-.35-1.26-.4-2.43C2.21 15.58 2.2 15.2 2.2 12s.01-3.58.07-4.85c.05-1.17.24-1.97.4-2.43A4.9 4.9 0 0 1 3.62 3.62a4.9 4.9 0 0 1 1.77-1.15c.46-.16 1.26-.35 2.43-.4C9.29 1.34 9.67 1.33 12 1.33m0 4.51A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84Zm0 10.16A4 4 0 1 1 16 12a4 4 0 0 1-4 4Zm6.4-10.4a1.44 1.44 0 1 1-1.44-1.44 1.44 1.44 0 0 1 1.44 1.44Z" />
-                        </svg>
-                        Follow
-                    </a>
-                </div>
-            </div>
-
-        </div>
-        <div class="about-card">
-
-            <img class="profile-img" src="about.webp" alt="Profile Photo">
+            <img class="profile-img" src="images/about.webp" alt="Profile Photo">
 
             <h1>Anish Kumawat</h1>
             <div class="role">Video Editor &amp; Developer</div>
@@ -325,14 +412,14 @@
 
     <!-- poster  -->
     <div class="hero-banner">
-        <img src="hero_full.png" alt="...">
+        <img src="images/hero_full.png" alt="...">
     </div>
     <!-- services page -->
 
     <section class="services-section" id="service-section">
         <h2 class="section-title"><span class="spaced">OUR</span> <span class="spaced accent">SERVICES</span></h2>
 
-        <p class="demo">CLICK FOR DEMO</p>
+        <h3 class="demo">CLICK FOR DEMO</h3>
 
         <div class="services-grid">
             <a href="https://www.instagram.com/reel/DZypHSThtp3/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
@@ -364,8 +451,7 @@
                 </div>
             </a>
 
-            <a href="https://www.instagram.com/reel/DZypHSThtp3/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
-                target="_blank" rel="noopener">
+            <a href="https://youtube.com/shorts/ERANXoJV9T0?si=lnWUPLasZS4drWMP" target="_blank" rel="noopener">
                 <div class="service-card">
                     <svg class="service-icon" viewBox="0 0 24 24" width="34" height="34" fill="none"
                         stroke="currentColor" stroke-width="1.6">
@@ -418,24 +504,23 @@
 
         <div class="perfect-grid">
             <div class="perfect-card">
-                <img src="https://via.placeholder.com/400x520/111114/8b5cf6?text=YouTuber"
-                    alt="Content creator filming">
+                <img src="images/youtube.jpeg" alt="Content creator filming">
                 <span>YOUTUBERS</span>
             </div>
             <div class="perfect-card">
-                <img src="https://via.placeholder.com/400x520/111114/8b5cf6?text=Wedding" alt="Wedding couple">
+                <img src="images/wedding.jpeg" alt="Wedding couple">
                 <span>WEDDINGS</span>
             </div>
             <div class="perfect-card">
-                <img src="https://via.placeholder.com/400x520/111114/8b5cf6?text=Corporate" alt="City skyline at night">
+                <img src="images/corporet.jpeg" alt="City skyline at night">
                 <span>CORPORATE</span>
             </div>
             <div class="perfect-card">
-                <img src="https://via.placeholder.com/400x520/111114/8b5cf6?text=Sports" alt="Athlete running">
+                <img src="images/sports.jpeg" alt="Athlete running">
                 <span>SPORTS</span>
             </div>
             <div class="perfect-card">
-                <img src="https://via.placeholder.com/400x520/111114/8b5cf6?text=Events" alt="Concert crowd">
+                <img src="images/event.jpeg" alt="Concert crowd">
                 <span>EVENTS</span>
             </div>
         </div>
@@ -446,13 +531,14 @@
             LET'S CREATE SOMETHING<br>
             <span class="accent">EXTRAORDINARY</span> TOGETHER.
         </h2>
-        <a class="cta-btn" href="#contact">
+        <a class="cta-btn" href="contact.html">
             START YOUR PROJECT TODAY <span class="arrow">&#8594;</span>
         </a>
     </section>
 
     <script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.98/build/spline-viewer.js"></script>
     <script src="script.js"></script>
+    <!-- <script src="script-signin.js"></script> -->
 
 </body>
 

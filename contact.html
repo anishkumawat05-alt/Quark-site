@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact us</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <link rel="stylesheet" href="contact.css">
+</head>
+
+<body>
+  <div class="stage" id="stage">
+
+    <div class="panel info" id="infoPanel">
+      <div class="inner">
+        <span class="eyebrow"><i class="fa-solid fa-phone"></i> Contact</span>
+        <h1>Reach us anytime</h1>
+        <p class="lead">Have questions or need help? We're here for you</p>
+
+        <div class="card-grid">
+          <div class="card">
+            <div class="icon-box"><i class="fa-regular fa-envelope"></i></div>
+            <h3>Email us</h3>
+            <p>Facing technical challenges or product concerns? We're here to assist</p>
+            <a href="mailto:agent@support.com">agent@support.com</a>
+          </div>
+
+          <div class="card">
+            <div class="icon-box"><i class="fa-regular fa-user"></i></div>
+            <h3>Contact sales</h3>
+            <p>Let's collaborate on custom solutions or discuss product insights</p>
+            <a href="#">Book a call</a>
+          </div>
+
+          <div class="card">
+            <div class="icon-box whatsapp"><i class="fa-brands fa-whatsapp"></i></div>
+            <h3>WhatsApp us</h3>
+            <p>Prefer to chat? Message us directly on WhatsApp</p>
+            <a href="https://wa.me/911234567890" target="_blank" rel="noopener">Start a chat</a>
+          </div>
+        </div>
+
+        <p class="hint">If you want to send a message, click on "Send a message"</p>
+        <button type="button" id="showForm">Send a message</button>
+      </div>
+    </div>
+
+    <div class="panel form" id="formPanel">
+      <form class="inner">
+        <div class="icon-box center"><i class="fa-solid fa-headset"></i></div>
+        <h1>We'd love to help!</h1>
+        <p class="lead">Let us know how</p>
+
+        <input type="text" placeholder="Full name">
+        <input type="email" placeholder="Email address">
+        <input type="text" placeholder="Subject of interest">
+        <textarea placeholder="How may we assist you?" rows="3"></textarea>
+        <button type="submit">Send your message</button>
+        <button type="button" id="showInfo" class="ghost">Back to contact info</button>
+      </form>
+    </div>
+
+    <div class="reel-overlay" id="reelOverlay">
+      <i class="fa-solid fa-compact-disc"></i>
+    </div>
+  </div>
+
+  <script src="contact.js"></script>
+</body>
+
+</html>

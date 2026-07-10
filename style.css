@@ -37,7 +37,8 @@
 
         width: 100%;
         min-height: 52rem;
-        margin: 0 auto;
+        /* margin: 0 auto; */
+        margin-top: -100px;
         padding: 0 2rem;
         position: relative;
         overflow: hidden;
@@ -125,10 +126,12 @@
         font-weight: 500;
         transition: background-color 0.2s ease;
         z-index: 999;
+        text-decoration: none;
     }
 
     .btn-signin:hover {
         background-color: white;
+        cursor: pointer;
     }
 
     /* main contant */
@@ -734,225 +737,283 @@
     /* badal sakein                                     */
     /* ============================================= */
     :root {
-    --bg: #0e0f11;
-    /* poori page ka background color (dark) */
-    --line: #f2f2f2;
-    /* beech wali divider line ka color */
-    --handle: #ffffff;
-    /* gol handle (button) ka color */
-    --handle-shadow: rgba(0, 0, 0, 0.35);
-    /* handle ke niche ka shadow */
-    --label-bg: rgba(0, 0, 0, 0.55);
-    /* BEFORE/AFTER label ka background */
-}
-
-body {
-    margin: 0;
-    padding: 60px 20px;
-    background: var(--bg);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-}
-
-/* =========================================================
-   grid = DONO compare-boxes ko side-by-side rakhne wala container
+        --bg: #0e0f11;
+        /* poori page ka background color (dark) */
+        --line: #f2f2f2;
+        /* beech wali divider line ka color */
+        --handle: #ffffff;
+        /* gol handle (button) ka color */
+        --handle-shadow: rgba(0, 0, 0, 0.35);
+        /* handle ke niche ka shadow */
+        --label-bg: rgba(0, 0, 0, 0.55);
+        /* BEFORE/AFTER label ka background */
+    }
+ 
+    /* wrap = ek single widget (heading + video-box + hint) ka container */
+    .wrap {
+        width: 100%;
+    }
+ 
+    /* single-wrap: ab sirf EK compare box hota hai (colour ya vfx) */
+    .single-wrap {
+        max-width: 700px;
+        margin: 0;
+    }
+ 
+    /* =========================================================
+   slide-layout: compare box (LEFT) aur video-select gallery
+   (RIGHT) ko side-by-side rakhne wala flex container.
+   Chhoti screen pe flex-wrap se video boxes apne aap
+   compare box ke NICHE chale jaate hain.
    ========================================================= */
-.grid {
-    display: grid;
-    /* auto-fit + minmax: agar screen chhoti hai (mobile) to
-    boxes apne aap niche-niche stack ho jayenge,
-    bade screen pe side-by-side (2 columns) rahenge */
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-    gap: 32px;
-    /* dono boxes ke beech ki spacing */
-    max-width: 1200px;
-    margin: 0 auto;
-    /* page ke center me rakha */
-}
-
-/* wrap = ek single widget (heading + video-box + hint) ka container */
-.wrap {
-    width: 100%;
-}
-
-/* upar ka chhota heading, jaise "Video 1 — Before / After" */
-/* .title {
-    color: #e9e9e9;
-    font-size: 14px;
-    letter-spacing: 0.04em;
-  
-    text-transform: uppercase;
-   
-    margin: 0 0 12px 2px;
-    opacity: 0.6;
-  
-} */
-
-/* ================================================= */
-/* .compare = wo box jisme dono videos overlap hoti hain */
-/* (ye class ab dono boxes me alag-alag use hoti hai,     */
-/*  isliye [data-compare] attribute se inhe pehchante hain) */
-/* ================================================= */
-.compare {
-    position: relative;
-    /* important: iske andar jo bhi "absolute" hai
+    .slide-layout {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 40px;
+        flex-wrap: wrap;
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+ 
+    .slide-layout .single-wrap {
+        flex: 1 1 500px;
+    }
+ 
+    .video-select-panel {
+        flex: 0 1 220px;
+    }
+ 
+    /* ================================================= */
+    /* .compare = wo box jisme dono videos overlap hoti hain */
+    /* ================================================= */
+    .compare {
+        position: relative;
+        /* important: iske andar jo bhi "absolute" hai
                             wo isi box ke relative position lega */
-    width: 100%;
-    aspect-ratio: 16 / 10;
-    /* pehle 9/16 (lamba, vertical) tha, ab 16/10 (chaura, kam height) kar diya */
-    max-height: 70vh;
-    /* screen se bada na ho */
-    margin: 0 auto;
-    border-radius: 14px;
-    /* gol corners */
-    overflow: hidden;
-    /* box ke bahar kuch bhi na dikhe (clip ho jaye) */
-    background: #000;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-    /* niche halka shadow */
-    border: 2px solid transparent;
-    /* transparent border rakha hai taaki hover pe red border aane se
-       box ka size achanak na badhe (jump na ho) */
-    box-sizing: border-box;
-    user-select: none;
-    /* drag karte waqt text select na ho */
-    touch-action: none;
-    /* mobile pe scroll na ho jab handle drag karein */
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
-    /* hover pe smooth animation ke liye */
-    margin-top: 100px;
-}
-
-/* box par mouse le jaane par thoda bada, red border aur red glow wala effect */
-.compare:hover {
-    transform: scale(1.02);
-    border: 2px solid rgb(255, 255, 255);
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.65), 0 26px 70px rgba(0, 0, 0, 0.65);
-}
-
-/* dono <video> tags (before + after) ke liye common style,
-jo har .compare box ke andar apply hoga */
-.compare video {
-    position: absolute;
-    /* .compare ke andar bilkul upar-left se fix */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    /* video ko box ke andar bina stretch kiye fit karega */
-    display: block;
-    pointer-events: none;
-    /* video pe click/drag events ignore honge,
-                            taaki hamara handle hi drag ho, video nahi */
-}
-
-/* "after" wala video "before" ke bilkul upar (same jagah) rehta hai,
-bas ise clip-path se kaata jata hai taaki sirf upar wala hissa dikhe.
-JS is percentage ko real-time change karega jab us box ka handle drag ho */
-.video-after {
-    clip-path: inset(0 0 0 50%);
-    /* inset(top right bottom left)
-    yaha "left: 50%" ka matlab hai:
-    BAAYI (left) taraf se 50% hissa CUT/HIDE ho jayega,
-    sirf DAAYI (right) taraf ka hissa "after" video dikhega.
-
-    Result: "before" video hamesha poora background me
-    dikhta rehta hai (poori width), aur uske UPAR "after"
-    video sirf handle ke DAAYI taraf (right side) dikhta hai.
-    Isliye: BEFORE = left side, AFTER = right side */
-}
-
-/* beech wali safed VERTICAL line jo before/after ko divide karti hai */
-.divider-line {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    /* JS isko update karega jab drag ho (left-right) */
-    width: 2px;
-    background: var(--line);
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
-    transform: translateX(-1px);
-    /* line ko thoda left shift kiya taaki center align ho */
-    pointer-events: none;
-    /* line pe click na ho, sirf visual hai */
-}
-
-/* beech wala gol drag-able button (handle) — har box ka apna alag handle hai */
-.handle {
-    position: absolute;
-    left: 50%;
-    /* JS isko update karega (left-right position) */
-    top: 50%;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    /* pura gol shape */
-    background: var(--handle);
-    box-shadow: 0 4px 14px var(--handle-shadow);
-    transform: translate(-50%, -50%);
-    /* handle ka center hi (left, top) point pe aaye */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: ew-resize;
-    /* mouse hover pe LEFT-RIGHT wala arrow cursor dikhega */
-}
-
-/* handle ke andar wala arrow icon (upar-neeche wala symbol) */
-.handle svg {
-    width: 20px;
-    height: 20px;
-    color: #222;
-}
-
-/* BEFORE aur AFTER wale chhote label boxes ki common styling */
-.tag {
-    position: absolute;
-    top: 12px;
-    /* dono labels upar hi rahenge, bas left/right alag */
-    padding: 4px 10px;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.03em;
-    color: #fff;
-    background: var(--label-bg);
-    border-radius: 6px;
-    pointer-events: none;
-    /* label pe click na ho */
-}
-
-.tag-before {
-    left: 12px;
-}
-
-/* BEFORE label sabse LEFT (bayi taraf) */
-.tag-after {
-    right: 12px;
-}
-
-/* AFTER label sabse RIGHT (dayi taraf) */
-
-/* video ke box ke neeche wala chhota instruction text */
-.hint {
-    text-align: center;
-    color: #8a8a8a;
-    font-size: 13px;
-    margin-top: 12px;
-}
-
-.section-heading {
-    text-align: center;
-    /* font-family: Georgia, 'Times New Roman', serif; */
-    font-size: 22px;
-    letter-spacing: 1px;
-    margin-bottom: 30px;
-}
-
-.color-box {
-    margin-bottom: 50px;
-}
-
+        width: 100%;
+        aspect-ratio: 16 / 10;
+        max-height: 70vh;
+        /* screen se bada na ho */
+        margin: 0 auto;
+        border-radius: 14px;
+        /* gol corners */
+        overflow: hidden;
+        /* box ke bahar kuch bhi na dikhe (clip ho jaye) */
+        background: #000;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        /* niche halka shadow */
+        border: 2px solid transparent;
+        box-sizing: border-box;
+        user-select: none;
+        /* drag karte waqt text select na ho */
+        touch-action: none;
+        /* mobile pe scroll na ho jab handle drag karein */
+        transition: transform 0.35s ease, box-shadow 0.35s ease;
+        margin-top: 40px;
+    }
+ 
+    /* box par mouse le jaane par thoda bada, white border aur glow wala effect */
+    .compare:hover {
+        transform: scale(1.02);
+        border: 2px solid rgb(255, 255, 255);
+        box-shadow: 0 0 30px rgba(255, 255, 255, 0.65), 0 26px 70px rgba(0, 0, 0, 0.65);
+    }
+ 
+    /* dono <video> tags (before + after) ke liye common style */
+    .compare video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        pointer-events: none;
+    }
+ 
+    .video-after {
+        clip-path: inset(0 0 0 50%);
+    }
+ 
+    /* beech wali safed VERTICAL line jo before/after ko divide karti hai */
+    .divider-line {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        width: 2px;
+        background: var(--line);
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+        transform: translateX(-1px);
+        pointer-events: none;
+    }
+ 
+    /* beech wala gol drag-able button (handle) */
+    .handle {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: var(--handle);
+        box-shadow: 0 4px 14px var(--handle-shadow);
+        transform: translate(-50%, -50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: ew-resize;
+    }
+ 
+    .handle svg {
+        width: 20px;
+        height: 20px;
+        color: #222;
+    }
+ 
+    /* BEFORE aur AFTER wale chhote label boxes ki common styling */
+    .tag {
+        position: absolute;
+        top: 12px;
+        padding: 4px 10px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        color: #fff;
+        background: var(--label-bg);
+        border-radius: 6px;
+        pointer-events: none;
+    }
+ 
+    .tag-before {
+        left: 12px;
+    }
+ 
+    .tag-after {
+        right: 12px;
+    }
+ 
+    .hint {
+        text-align: center;
+        color: #8a8a8a;
+        font-size: 13px;
+        margin-top: 12px;
+    }
+ 
+    .section-heading {
+        text-align: center;
+        font-size: 22px;
+        letter-spacing: 1px;
+        margin-bottom: 30px;
+    }
+ 
+    .color-box {
+        margin-bottom: 50px;
+    }
+ 
+    /* =========================================================
+   GAP between colour slide and vfx slide
+   ========================================================= */
+    .section-gap {
+        height: 90px;
+        border-bottom: 1px solid var(--border, #2a2a2a);
+        max-width: 1100px;
+        margin: 0 auto 40px;
+    }
+ 
+    @media (max-width:600px) {
+        .section-gap {
+            height: 60px;
+        }
+    }
+ 
+    /* =========================================================
+   VIDEO SELECT GALLERY (colour/vfx slider ke NICHE wale
+   3 video boxes). Inpe click karne se us section ke apne
+   compare box ka video change hota hai — script.js me dekh lena
+   ========================================================= */
+ 
+    .video-select-hint {
+        text-align: center;
+        color: #8a8a8a;
+        font-size: 12px;
+        letter-spacing: 1px;
+        margin-bottom: 16px;
+        text-transform: uppercase;
+    }
+ 
+    /* ab video boxes slider ke RIGHT side me ek column me stack hote hain */
+    .video-select-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        width: 100%;
+        max-width: 220px;
+        margin: 0 auto;
+    }
+ 
+    .video-select-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        background: #151517;
+        border: 2px solid var(--border, #2a2a2a);
+        border-radius: 12px;
+        padding: 22px 14px;
+        cursor: pointer;
+        color: #e7e7e7;
+        font-family: inherit;
+        transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease, background .25s ease;
+    }
+ 
+    .video-select-item:hover {
+        transform: translateY(-4px);
+        border-color: #6C63FF;
+        box-shadow: 0 12px 26px rgba(108, 99, 255, 0.25);
+    }
+ 
+    /* jo video abhi compare box me dikh raha hai, uska box highlight rahega */
+    .video-select-item.active {
+        border-color: #6C63FF;
+        background: #1b1b30;
+        box-shadow: 0 0 0 1px #6C63FF, 0 12px 26px rgba(108, 99, 255, 0.35);
+    }
+ 
+    .video-select-thumb {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(108, 99, 255, 0.12);
+        color: #6C63FF;
+        flex-shrink: 0;
+    }
+ 
+    .video-select-item.active .video-select-thumb {
+        background: #6C63FF;
+        color: #fff;
+    }
+ 
+    .video-select-label {
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: .5px;
+    }
+ 
+    @media (max-width:600px) {
+        .video-select-grid {
+            gap: 12px;
+        }
+ 
+        .video-select-item {
+            padding: 16px 10px;
+        }
+    }
 
 
     /* about page  */
@@ -1352,8 +1413,16 @@ JS is percentage ko real-time change karega jab us box ka handle drag ho */
     }
 
     #home,
-    #color,
-    #about-section,
+    #color-section {
+        scroll-margin-top: 230px;
+    }
+
+    #about-section {
+        scroll-margin-top: 190px;
+    }
+
     #service-section {
         scroll-margin-top: 250px;
     }
+
+    /* sign in page  */

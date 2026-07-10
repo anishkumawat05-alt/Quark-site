@@ -1,0 +1,195 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Roboto, -apple-system, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background:
+    radial-gradient(ellipse 500px 260px at 8% 92%, rgba(255,255,255,0.06), rgba(255,255,255,0) 70%),
+    linear-gradient(160deg,#0a0714 0%, #160a2e 45%, #0d1638 75%, #060a1c 100%);
+}
+
+.stage {
+  position: relative;
+  background-color: #14151f;
+  border-radius: 24px;
+  box-shadow: 0 25px 70px rgba(0,0,0,0.5);
+  overflow: hidden;
+  width: 860px;
+  max-width: 96%;
+  display: grid;
+}
+
+.panel {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  min-width: 0;
+}
+.panel .inner { width: 100%; padding: 40px 50px 48px; }
+
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.card-grid .card:nth-child(3) { grid-column: 1 / -1; }
+
+.panel.info { z-index: 2; opacity: 1; background: #14151f; }
+.panel.form { z-index: 1; opacity: 0; background: #191325; }
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  background: #232336;
+  color: #b7b3ff;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 999px;
+  margin-bottom: 16px;
+}
+
+.stage h1 { font-size: 26px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+.stage p { font-size: 14px; line-height: 20px; color: #9a97b3; margin: 6px 0 20px; }
+.stage a { color: #8b7bff; font-size: 13px; font-weight: 600; text-decoration: underline; }
+
+.card {
+  background: #1d1c2b;
+  border: 1px solid #2a2940;
+  border-radius: 16px;
+  padding: 18px 20px;
+}
+.card .icon-box {
+  width: 38px; height: 38px;
+  border-radius: 10px;
+  background: #2a2350;
+  color: #8b7bff;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+.card .icon-box.whatsapp {
+  background: #123d2e;
+  color: #25d366;
+}
+.card h3 { font-size: 15px; color: #fff; margin-bottom: 4px; }
+.card p { font-size: 13px; margin-bottom: 6px; }
+
+.hint {
+  font-size: 12px;
+  color: #7a7891;
+  margin: 18px 0 4px;
+  text-align: center;
+}
+
+.icon-box.center {
+  width: 46px; height: 46px;
+  border-radius: 12px;
+  background: #2a2350;
+  color: #8b7bff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  margin: 0 auto 14px;
+}
+.form h1, .form .lead { text-align: center; }
+
+.stage input, .stage textarea {
+  background: #1d1c2b;
+  border: 1px solid #2a2940;
+  margin: 7px 0;
+  padding: 12px 15px;
+  font-size: 14px;
+  border-radius: 10px;
+  width: 100%;
+  outline: none;
+  color: #fff;
+  font-family: inherit;
+}
+.stage input::placeholder, .stage textarea::placeholder { color: #6b6884; }
+.stage input:focus, .stage textarea:focus { border-color: #6a4de0; }
+.stage textarea { resize: vertical; }
+
+.stage button {
+  background: linear-gradient(to right, #6a4de0, #38b6d9);
+  color: #fff;
+  font-size: 13px;
+  padding: 13px 15px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  margin-top: 14px;
+  cursor: pointer;
+  width: 100%;
+}
+.stage button:hover { opacity: 0.9; }
+.stage button.ghost {
+  background: transparent;
+  border: 1px solid #3a3852;
+  color: #9a97b3;
+  text-transform: none;
+  font-weight: 500;
+}
+
+/* ---- film reel spin transition ---- */
+.reel-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 10;
+}
+.reel-overlay i { font-size: 64px; color: #38b6d9; }
+
+.stage.playing .reel-overlay {
+  animation: reelSpin 0.7s ease-in-out forwards;
+}
+@keyframes reelSpin {
+  0%   { transform: rotate(0deg) scale(0.6); opacity: 0; }
+  20%  { opacity: 1; }
+  50%  { transform: rotate(420deg) scale(1.15); opacity: 1; }
+  80%  { opacity: 1; }
+  100% { transform: rotate(760deg) scale(0.6); opacity: 0; }
+}
+
+.stage.playing .panel.info,
+.stage.playing .panel.form {
+  animation-duration: 0.7s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+.stage.playing.to-form .panel.info { animation-name: reelOut; }
+.stage.playing.to-form .panel.form { animation-name: reelIn; z-index: 3; }
+.stage.playing.to-info .panel.form { animation-name: reelOut; }
+.stage.playing.to-info .panel.info { animation-name: reelIn; z-index: 3; }
+
+@keyframes reelOut {
+  0%   { opacity: 1; transform: scale(1); }
+  45%  { opacity: 0; transform: scale(0.85); }
+  100% { opacity: 0; transform: scale(0.85); }
+}
+@keyframes reelIn {
+  0%   { opacity: 0; transform: scale(1.12); }
+  55%  { opacity: 0; transform: scale(1.12); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@media (max-width: 560px) {
+  .panel .inner { padding: 36px 26px; }
+}
