@@ -1,4 +1,4 @@
-    * {
+* {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
@@ -36,9 +36,9 @@
     .container {
 
         width: 100%;
-        min-height: 52rem;
+        min-height: 55rem;
         /* margin: 0 auto; */
-        margin-top: -100px;
+        margin-top: -30px;
         padding: 0 2rem;
         position: relative;
         overflow: hidden;
@@ -63,7 +63,7 @@
     header img {
 
         margin-top: 11px;
-        width: 140px;
+        width: 155px;
         height: 60px;
     }
 
@@ -115,6 +115,9 @@
         opacity: 1;
     }
 
+    .hamburger{
+        display: none;
+    }
 
     .btn-signin {
         background-color: #a7a7a7;
@@ -132,6 +135,67 @@
     .btn-signin:hover {
         background-color: white;
         cursor: pointer;
+    }
+
+    /* =========================================================
+   HAMBURGER ICON
+   Default state: HIDDEN (desktop pe nav already dikh raha hota
+   hai isliye hamburger ki zaroorat nahi). Ye sirf
+   @media (max-width:768px) ke andar "display:flex" hoke dikhega.
+   ========================================================= */
+    .hamburger {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 6px;
+        width: 38px;
+        height: 38px;
+        padding: 0;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        z-index: 1100;
+        flex-shrink: 0;
+    }
+
+    .hamburger span {
+        display: block;
+        width: 26px;
+        height: 2px;
+        background: #e7e7e7;
+        border-radius: 2px;
+        transition: transform .3s ease, opacity .3s ease, background-color .3s ease;
+    }
+
+    .hamburger:hover span {
+        background: #0ef;
+    }
+
+    /* jab menu khula ho (JS "active" class add karta hai), teeno
+       lines ek "X" shape me animate ho jaati hain */
+    .hamburger.active span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    /* background dim overlay — mobile menu khule hone par content ke
+       peeche dikhega, aur isi pe click karke menu band bhi ho sakta hai */
+    .nav-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 1040;
+        opacity: 0;
+        transition: opacity .3s ease;
     }
 
     /* main contant */
@@ -430,74 +494,10 @@
     }
 
     /* tablet responsiv */
-    @media(max-width:1300px) {
-        header {
-            padding: 1rem 0.5rem;
-        }
-
-        .content {
-            margin-top: 85%;
-        }
-
-        .robot-3d {
-            scale: 0.8;
-            top: -20%;
-            right: 2%;
-        }
-    }
+    
 
     /* mobile  */
-    @media(max-width:768px) {
-        header {
-            padding: 1rem 0.1rem;
-        }
-
-        nav {
-            display: none;
-        }
-
-        header h1 {
-            font-size: 2rem;
-        }
-
-        .content {
-            margin-top: 25rem;
-        }
-
-        .robot-3d {
-            scale: 0.5;
-            top: -25%;
-            right: 0;
-        }
-
-        .content {
-            max-width: 30rem;
-            margin-left: 10%;
-        }
-
-        .tag-box {
-            width: 12rem;
-        }
-
-        .content h1 {
-            font-size: 2.5rem;
-        }
-
-        .description {
-            font-size: 1rem;
-        }
-
-        .btn-get-started {
-            font-size: 0.8rem;
-            padding: 0.8rem 2rem;
-        }
-
-        .btn-signing-main {
-            font-size: 0.8rem;
-            padding: 0.8rem 2rem;
-        }
-    }
-
+    
 
     /* <!-- Latest uploaded section  --> */
 
@@ -595,30 +595,25 @@
         box-shadow: 0 6px 18px rgba(255, 255, 255, 0.25);
     }
 
-    @media (max-width:600px) {
-        .subscribe-wrap {
-            gap: 12px;
-        }
-
-        .subscribe-btn {
-            font-size: 12px;
-            padding: 10px 18px;
-        }
-    }
+    
 
     /* GRID */
+    /* FIX: pehle yahan "height: 500px" fixed tha. Chhoti screens pe jab
+       auto-fit ki wajah se cards ek column me stack hote the, container
+       ki height fixed hi rehti thi — isliye cards box ke bahar overflow
+       karke niche wale "COLOUR GRADING" section ke upar OVERLAP ho jaate
+       the. Ab height hata di hai, taaki grid apne content ke hisaab se
+       khud height le le (auto height) — isse overlap fix ho gaya. */
     .grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         align-items: start;
         gap: 28px;
         max-width: 1100px;
-        height: 500px;
         margin: 0 auto;
         padding: 0 40px 100px;
 
     }
-
 
     .card {
         background: var(--bg-card);
@@ -708,25 +703,7 @@
         color: var(--white);
     }
 
-    @media (max-width:600px) {
-        nav {
-            padding: 18px 20px;
-        }
-
-        .nav-links {
-            gap: 20px;
-        }
-
-        .section-title {
-            font-size: 26px;
-            margin: 50px 0 30px;
-        }
-
-        .grid {
-            padding: 0 20px 60px;
-        }
-    }
-
+    
 
     /* color grading slide  */
 
@@ -748,18 +725,18 @@
         --label-bg: rgba(0, 0, 0, 0.55);
         /* BEFORE/AFTER label ka background */
     }
- 
+
     /* wrap = ek single widget (heading + video-box + hint) ka container */
     .wrap {
         width: 100%;
     }
- 
+
     /* single-wrap: ab sirf EK compare box hota hai (colour ya vfx) */
     .single-wrap {
         max-width: 700px;
         margin: 0;
     }
- 
+
     /* =========================================================
    slide-layout: compare box (LEFT) aur video-select gallery
    (RIGHT) ko side-by-side rakhne wala flex container.
@@ -775,15 +752,15 @@
         max-width: 1100px;
         margin: 0 auto;
     }
- 
+
     .slide-layout .single-wrap {
         flex: 1 1 500px;
     }
- 
+
     .video-select-panel {
         flex: 0 1 220px;
     }
- 
+
     /* ================================================= */
     /* .compare = wo box jisme dono videos overlap hoti hain */
     /* ================================================= */
@@ -812,14 +789,14 @@
         transition: transform 0.35s ease, box-shadow 0.35s ease;
         margin-top: 40px;
     }
- 
+
     /* box par mouse le jaane par thoda bada, white border aur glow wala effect */
     .compare:hover {
         transform: scale(1.02);
         border: 2px solid rgb(255, 255, 255);
         box-shadow: 0 0 30px rgba(255, 255, 255, 0.65), 0 26px 70px rgba(0, 0, 0, 0.65);
     }
- 
+
     /* dono <video> tags (before + after) ke liye common style */
     .compare video {
         position: absolute;
@@ -831,11 +808,11 @@
         display: block;
         pointer-events: none;
     }
- 
+
     .video-after {
         clip-path: inset(0 0 0 50%);
     }
- 
+
     /* beech wali safed VERTICAL line jo before/after ko divide karti hai */
     .divider-line {
         position: absolute;
@@ -848,7 +825,7 @@
         transform: translateX(-1px);
         pointer-events: none;
     }
- 
+
     /* beech wala gol drag-able button (handle) */
     .handle {
         position: absolute;
@@ -865,13 +842,13 @@
         justify-content: center;
         cursor: ew-resize;
     }
- 
+
     .handle svg {
         width: 20px;
         height: 20px;
         color: #222;
     }
- 
+
     /* BEFORE aur AFTER wale chhote label boxes ki common styling */
     .tag {
         position: absolute;
@@ -885,33 +862,33 @@
         border-radius: 6px;
         pointer-events: none;
     }
- 
+
     .tag-before {
         left: 12px;
     }
- 
+
     .tag-after {
         right: 12px;
     }
- 
+
     .hint {
         text-align: center;
         color: #8a8a8a;
         font-size: 13px;
         margin-top: 12px;
     }
- 
+
     .section-heading {
         text-align: center;
         font-size: 22px;
         letter-spacing: 1px;
         margin-bottom: 30px;
     }
- 
+
     .color-box {
         margin-bottom: 50px;
     }
- 
+
     /* =========================================================
    GAP between colour slide and vfx slide
    ========================================================= */
@@ -921,19 +898,15 @@
         max-width: 1100px;
         margin: 0 auto 40px;
     }
- 
-    @media (max-width:600px) {
-        .section-gap {
-            height: 60px;
-        }
-    }
- 
+
+    
+
     /* =========================================================
    VIDEO SELECT GALLERY (colour/vfx slider ke NICHE wale
    3 video boxes). Inpe click karne se us section ke apne
    compare box ka video change hota hai — script.js me dekh lena
    ========================================================= */
- 
+
     .video-select-hint {
         text-align: center;
         color: #8a8a8a;
@@ -942,7 +915,7 @@
         margin-bottom: 16px;
         text-transform: uppercase;
     }
- 
+
     /* ab video boxes slider ke RIGHT side me ek column me stack hote hain */
     .video-select-grid {
         display: flex;
@@ -952,7 +925,7 @@
         max-width: 220px;
         margin: 0 auto;
     }
- 
+
     .video-select-item {
         display: flex;
         flex-direction: column;
@@ -968,20 +941,20 @@
         font-family: inherit;
         transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease, background .25s ease;
     }
- 
+
     .video-select-item:hover {
         transform: translateY(-4px);
         border-color: #6C63FF;
         box-shadow: 0 12px 26px rgba(108, 99, 255, 0.25);
     }
- 
+
     /* jo video abhi compare box me dikh raha hai, uska box highlight rahega */
     .video-select-item.active {
         border-color: #6C63FF;
         background: #1b1b30;
         box-shadow: 0 0 0 1px #6C63FF, 0 12px 26px rgba(108, 99, 255, 0.35);
     }
- 
+
     .video-select-thumb {
         width: 52px;
         height: 52px;
@@ -993,28 +966,19 @@
         color: #6C63FF;
         flex-shrink: 0;
     }
- 
+
     .video-select-item.active .video-select-thumb {
         background: #6C63FF;
         color: #fff;
     }
- 
+
     .video-select-label {
         font-size: 13px;
         font-weight: 700;
         letter-spacing: .5px;
     }
- 
-    @media (max-width:600px) {
-        .video-select-grid {
-            gap: 12px;
-        }
- 
-        .video-select-item {
-            padding: 16px 10px;
-        }
-    }
 
+    
 
     /* about page  */
     .section-heading {
@@ -1026,8 +990,6 @@
         /* margin-bottom: 40px; */
 
     }
-
-
 
     .about {
         display: flex;
@@ -1114,7 +1076,7 @@
         color: var(--white);
     }
 
-    .social-row .ig-link {
+    .social-row .value {
         display: inline-flex;
         align-items: center;
         gap: 6px;
@@ -1124,25 +1086,67 @@
         transition: color .2s ease, gap .2s ease;
     }
 
-    .social-row .ig-link:hover {
+    .social-row .value:hover {
         color: #ff5347;
         gap: 9px;
     }
 
-    .ig-icon {
+    .social-row svg {
         flex-shrink: 0;
     }
 
-    @media (max-width: 600px) {
-        .about {
-            padding: 40px 20px 60px;
-        }
+    
 
-        .about-card {
-            padding: 32px 24px 24px;
-        }
+    /* ================= TOOLS & SOFTWARE WE USE (below About section) ================= */
+    .tools-section {
+        padding: 0 40px 100px;
+        max-width: 1100px;
+        margin: -40px auto 0;
     }
 
+    .tools-grid {
+        display: flex;
+        justify-content: center;
+        align-items: stretch;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .tool-item {
+        flex: 0 1 140px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 26px 16px;
+        transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+    }
+
+    .tool-item:hover {
+        transform: translateY(-6px);
+        border-color: var(--red);
+        box-shadow: 0 12px 30px rgba(224, 39, 29, 0.25);
+    }
+
+    .tool-icon {
+        width: 48px;
+        height: 48px;
+        object-fit: contain;
+    }
+
+    .tool-name {
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: .3px;
+        color: var(--white);
+        text-align: center;
+    }
+
+    
 
     /* services or project page */
 
@@ -1178,7 +1182,6 @@
         display: block;
     }
 
-
     /* ============ SECTION TITLES ============ */
     .services-section .demo {
         text-align: center;
@@ -1193,8 +1196,6 @@
     .services-section a {
         text-decoration: none;
     }
-
-
 
     .section-title {
         text-align: center;
@@ -1255,6 +1256,433 @@
         color: var(--gray);
         font-size: 13px;
         line-height: 1.5;
+    }
+
+    /* music */
+
+    :root {
+        --bg: #f3f1ec;
+        --panel: #ffffff;
+        --field: #f6f5f1;
+        --line: #e7e4dc;
+        --text: #16171b;
+        --sub: #8d8f99;
+        --mono: 'DM Mono', monospace;
+        --disp: 'Space Grotesk', sans-serif;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    /* body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--disp);
+        padding: 56px 20px 80px;
+    } */
+
+    .head {
+        text-align: center;
+        max-width: 640px;
+        margin: 0 auto 48px;
+    }
+
+    .head .eyebrow {
+        font-family: var(--mono);
+        font-size: 25px;
+        letter-spacing: .18em;
+        text-transform: uppercase;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 25px;
+        margin-bottom: 14px;
+        font-weight: 500;
+
+    }
+
+    .head .eyebrow::before,
+    .head .eyebrow::after {
+        content: '';
+        height: 1px;
+        width: 28px;
+        background: var(--line);
+    }
+
+    .head h1 {
+        font-size: 15px;
+        font-weight: 800;
+        margin: 0 0 10px;
+        letter-spacing: .5px;
+        line-height: 1.4;
+        color: #fff;
+    }
+
+    .head p {
+        color: var(--sub);
+        font-size: 14.5px;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    /* MUSIC PLAYER GRID — scoped with the #playerGrid ID so it
+   can NOT be affected by the earlier plain ".grid" rule (which
+   has height:500px, padding, align-items meant for the
+   LATEST UPLOADS video cards). ID selectors always beat plain
+   class selectors, so this wins no matter the source order. */
+    #playerGrid {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 22px;
+        height: auto;
+        align-items: stretch;
+        padding: 0;
+    }
+
+    /* Chhoti screens pe 4 columns force nahi karte — auto-fit se
+   cards apne aap wrap ho jayenge, taaki mobile pe cramped na ho */
+    
+
+    /* MUSIC PLAYER CARD — scoped as "#playerGrid .card" so it does
+   NOT collide with the plain ".card" rule used by the
+   LATEST UPLOADS cards above. */
+    #playerGrid .card {
+        position: relative;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        padding: 16px 14px 14px;
+        overflow: hidden;
+        box-shadow: 0 1px 2px rgba(20, 20, 30, .03);
+        transition: box-shadow .25s ease, transform .25s ease;
+        cursor: default;
+        color: var(--text);
+    }
+
+    #playerGrid .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 14px 28px rgba(20, 20, 30, .06);
+    }
+
+    #playerGrid .card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(140px 90px at 20% -10%, var(--accent-soft), transparent 70%);
+        opacity: .5;
+        pointer-events: none;
+    }
+
+    #playerGrid .card.is-playing {
+        box-shadow: 0 14px 34px var(--accent-soft);
+    }
+
+    #playerGrid .tag {
+        position: static;
+        padding: 0;
+        background: none;
+        pointer-events: auto;
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: .12em;
+        color: var(--accent);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+    }
+
+    #playerGrid .tag .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent);
+    }
+
+    #playerGrid .card.is-playing .tag .dot {
+        animation: pulseDot 1.2s ease-in-out infinite;
+    }
+
+    @keyframes pulseDot {
+
+        0%,
+        100% {
+            box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent);
+        }
+
+        50% {
+            box-shadow: 0 0 0 6px transparent;
+        }
+    }
+
+    #playerGrid .disc-wrap {
+        display: flex;
+        justify-content: center;
+        margin: 2px 0 10px;
+    }
+
+    #playerGrid .disc {
+        width: 82px;
+        height: 82px;
+        border-radius: 50%;
+        background:
+            radial-gradient(circle at 50% 50%, #101114 0 14px, #202127 15px 28px, #101114 29px 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--line);
+        animation-name: spin;
+        animation-duration: 6s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        animation-play-state: paused;
+        position: relative;
+    }
+
+    #playerGrid .disc .core {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 18px var(--accent-soft);
+    }
+
+    .disc::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: repeating-radial-gradient(circle at center, transparent 0 8px, rgba(255, 255, 255, .03) 8px 9px);
+    }
+
+    .disc .core {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 18px var(--accent-soft);
+    }
+
+    @keyframes spin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    .wave {
+        display: flex;
+        align-items: flex-end;
+        gap: 2.5px;
+        height: 24px;
+        margin: 0 0 10px;
+        justify-content: center;
+    }
+
+    .wave span {
+        width: 3px;
+        border-radius: 2px;
+        background: linear-gradient(180deg, var(--accent), var(--accent-2));
+        height: 20%;
+        transform-origin: bottom;
+        animation-name: bounce;
+        animation-duration: 1s;
+        animation-timing-function: ease-in-out;
+        animation-iteration-count: infinite;
+        animation-play-state: paused;
+        opacity: .4;
+    }
+
+    #playerGrid .card.is-playing .wave span {
+        opacity: 1;
+    }
+
+    @keyframes bounce {
+
+        0%,
+        100% {
+            height: 15%;
+        }
+
+        50% {
+            height: var(--h, 80%);
+        }
+    }
+
+    .title-row {
+        text-align: center;
+        margin-bottom: 10px;
+        min-height: 22px;
+    }
+
+    .title-row .name {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .title-row .empty {
+        font-family: var(--mono);
+        font-size: 11.5px;
+        color: var(--sub);
+    }
+
+    .controls {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+    .btn {
+        font-family: var(--disp);
+        border: 1px solid var(--line);
+        background: var(--field);
+        color: var(--text);
+        border-radius: 999px;
+        cursor: pointer;
+        transition: .2s ease;
+    }
+
+    /* FIX: "Play Song" button pehle ".play-btn" class share kar raha tha
+   us gol circular play-icon ke saath jo LATEST UPLOADS video-cards ke
+   thumbnail ke upar dikhta hai (position:absolute, opacity:0,
+   border-radius:50%). Isi wajah se music player ka "Play Song" button
+   sahi se dikhta hi nahi tha. Ab #playerGrid ke andar scope karke saari
+   leaked properties explicitly reset kar di hain. */
+    #playerGrid .play-btn {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        width: 100%;
+        height: auto;
+        border-radius: 999px;
+        opacity: 1;
+        padding: 9px 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+        font-size: 12.5px;
+        font-weight: 600;
+        letter-spacing: .01em;
+    }
+
+    #playerGrid .play-btn::after {
+        content: none;
+    }
+
+    #playerGrid .play-btn:hover {
+        opacity: 1;
+        transform: none;
+        filter: brightness(1.08);
+    }
+
+    input[type=file] {
+        display: none;
+    }
+
+    .queue {
+        border-top: 1px solid var(--line);
+        padding-top: 12px;
+    }
+
+    .queue-label {
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: .1em;
+        color: var(--sub);
+        margin-bottom: 8px;
+    }
+
+    .queue-list {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        max-height: 84px;
+        overflow-y: auto;
+    }
+
+    .queue-list::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .queue-list::-webkit-scrollbar-thumb {
+        background: var(--line);
+        border-radius: 4px;
+    }
+
+    .qitem {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 7px 9px;
+        border-radius: 9px;
+        background: var(--field);
+        border: 1px solid transparent;
+        font-size: 11.5px;
+        cursor: pointer;
+        color: var(--sub);
+    }
+
+    .qitem span.fname {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 110px;
+    }
+
+    .qitem.active {
+        color: var(--text);
+        border-color: var(--accent);
+        background: color-mix(in srgb, var(--accent) 8%, var(--field));
+    }
+
+    .qitem .ext {
+        font-family: var(--mono);
+        font-size: 9px;
+        color: var(--accent);
+    }
+
+    .qempty {
+        font-family: var(--mono);
+        font-size: 11px;
+        color: #c3c4cc;
+    }
+
+    .progress {
+        height: 2px;
+        background: var(--line);
+        border-radius: 2px;
+        margin-bottom: 14px;
+        overflow: hidden;
+    }
+
+    .progress i {
+        display: block;
+        height: 100%;
+        width: 0%;
+        background: var(--accent);
+    }
+
+    footer {
+        text-align: center;
+        margin-top: 44px;
+        font-family: var(--mono);
+        font-size: 11px;
+        color: #c3c4cc;
     }
 
     /* ============ PERFECT FOR ============ */
@@ -1366,47 +1794,9 @@
     }
 
     /* ============ RESPONSIVE ============ */
-    @media (max-width:900px) {
-        .hero-inner {
-            grid-template-columns: 1fr;
-        }
+    
 
-        .hero {
-            padding: 50px 24px 30px;
-        }
-
-        .headline {
-            font-size: 30px;
-        }
-
-        .brand-name {
-            font-size: 32px;
-            letter-spacing: 8px;
-        }
-    }
-
-    @media (max-width:600px) {
-
-        .services-section,
-        .perfect-section {
-            padding: 0 20px 30px;
-        }
-
-        .section-title {
-            font-size: 20px;
-            margin: 50px 0 28px;
-        }
-
-        .cta-title {
-            font-size: 20px;
-        }
-
-        .footer {
-            gap: 20px;
-            font-size: 12px;
-        }
-    }
-
+    
 
     html {
         scroll-behavior: smooth;
@@ -1414,7 +1804,7 @@
 
     #home,
     #color-section {
-        scroll-margin-top: 230px;
+        scroll-margin-top: 200px;
     }
 
     #about-section {
@@ -1424,5 +1814,126 @@
     #service-section {
         scroll-margin-top: 250px;
     }
+    #music-section{
+        scroll-margin-top: 220px;
+    }
 
-    /* sign in page  */
+    /* =========================================================
+   WHATSAPP FLOATING BUTTON
+   position: fixed => viewport ke relative fix rehta hai,
+   isliye page scroll karne par bhi ye apni jagah (right side,
+   bottom) pe hi chipka rahega, scroll nahi hoga.
+   z-index bahut high rakha hai taaki hamesha sabse upar dikhe.
+   ========================================================= */
+    .whatsapp-float {
+        position: fixed;
+        right: 30px;
+        bottom: 30px;
+        width: 60px;
+        height: 60px;
+        background: #25D366;
+        color: #fff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+        z-index: 9999;
+        text-decoration: none;
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+        animation: whatsapp-swing 3s ease-in-out infinite;
+        transform-origin: top center;
+    }
+
+    .whatsapp-float:hover {
+        animation-play-state: paused;
+        transform: scale(1.08) rotate(0deg);
+        box-shadow: 0 8px 26px rgba(37, 211, 102, 0.55);
+    }
+
+    /* SWING: icon ek pendulum ki tarah upar se jhoolta hai —
+   left-right slowly swing karta hai */
+    @keyframes whatsapp-swing {
+
+        0%,
+        100% {
+            transform: rotate(0deg);
+        }
+
+        20% {
+            transform: rotate(10deg);
+        }
+
+        40% {
+            transform: rotate(-8deg);
+        }
+
+        60% {
+            transform: rotate(6deg);
+        }
+
+        80% {
+            transform: rotate(-4deg);
+        }
+    }
+
+    
+
+    /* =========================================================
+       SPIDER CURSOR BACKGROUND (canvas#c) — SABHI PAGES KE LIYE
+       Ye canvas poori website ke peeche fixed rehta hai, poora
+       viewport cover karta hai, aur pointer-events:none isliye
+       koi bhi click/hover/scroll niche wale content pe hi jayega,
+       canvas ise block nahi karega. z-index:-1 se ye hamesha
+       header, nav, cards, sab content ke PEECHE (background me)
+       rahega — chahe user site ke kisi bhi page/section pe ho.
+       ========================================================= */
+    #c {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: -1;
+        pointer-events: none;
+        display: block;
+        background: #000;
+    }
+
+    .spider-hint {
+        position: fixed;
+        left: 50%;
+        bottom: 14px;
+        transform: translateX(-50%);
+        color: #8a8a8a;
+        font-size: 12px;
+        letter-spacing: .05em;
+        text-align: center;
+        pointer-events: none;
+        z-index: -1;
+        opacity: .55;
+    }
+
+    /* =========================================================================
+       ============================ RESPONSIVE ==================================
+       =========================================================================
+       Ye poori website ke SAARE media-query (responsive) rules ab is EK jagah
+       pe rakhe hain — pehle ye idhar-udhar (beech-beech me) alag-alag jagah
+       likhe hue the, jisse dhoondhna mushkil ho jata tha. Ab agar kisi bhi
+       breakpoint (screen size) ka style change karna ho, to sirf yahi section
+       kholna hai — kisi aur jagah media query dhoondhne ki zaroorat nahi.
+
+       Breakpoints (bade se chhote screen ki taraf):
+         1) max-width: 1300px  -> chhota laptop / bada tablet
+         2) max-width: 900px   -> tablet
+         3) max-width: 768px   -> bada mobile / choti tablet (nav yahin hide hota hai)
+         4) max-width: 600px   -> mobile phones
+       ========================================================================= */
+
+    /* -----------------------------------------------------------------------
+       1) BREAKPOINT: max-width 1300px
+       Chhote laptop/tablet screens ke liye — hero header padding kam,
+       content ko niche shift karte hain (kyunki robot-3d chhota ho jata hai),
+       aur 3D robot ko scale down karke thoda upar-left move karte hain.
+       ----------------------------------------------------------------------- */
+   

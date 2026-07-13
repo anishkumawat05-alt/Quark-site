@@ -1,0 +1,23 @@
+html, body {                          /* target both the root and body elements */
+  margin: 0;                          /* remove default browser margin */
+  padding: 0;                         /* remove default browser padding */
+  overflow: hidden;                   /* hide scrollbars so canvas fills the view cleanly */
+  background: #000;                   /* black page background, matches the night-sky theme */
+  height: 100%;                       /* make body take the full viewport height */
+                       /* hide the real mouse cursor since the spider replaces it */
+}                                      /* end of html, body rule */
+
+canvas {                              /* target the canvas element */
+  display: block;                     /* removes the tiny inline-element gap canvases have by default */
+}                                      /* end of canvas rule */
+
+.hint {                               /* target the small instruction text */
+  position: fixed;                    /* keep it fixed on screen regardless of scrolling */
+  bottom: 16px;                       /* place it 16px from the bottom edge */
+  left: 50%;                          /* start at horizontal center */
+  transform: translateX(-50%);        /* shift it back by half its own width to truly center it */
+  color: rgba(255, 255, 255, 0.3);    /* faint white text so it doesn't distract */
+  font: 12px system-ui, sans-serif;   /* small, clean system font */
+  letter-spacing: 0.5px;              /* slightly spaced-out letters for readability */
+  pointer-events: none;               /* let clicks/moves pass through it to the canvas below */
+}                                      /* end of .hint rule */

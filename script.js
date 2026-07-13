@@ -236,3 +236,417 @@ liquidBtn.addEventListener("click", (e) => {
     });
   });
 })();
+
+// music
+/* ============================================================
+   SONG LIST — apne actual mp3 files ke path yahan daalo.
+   Har player ka apna alag gaana-list hai (SONG QUEUE se dikhega).
+   Example: { name: "Tera Yaar Hoon Main.mp3", url: "songs/tera-yaar-hoon-main.mp3" }
+
+   NOTE: Ab har player card (id="p0", "p1", "p2", "p3") ALAG-ALAG
+   apni khud ki <div> ke roop me index.html me already likhi hui hai
+   (dynamically JS se banti nahi). Yahan sirf har card ke andar
+   song-list aur waveform-bars bharte hain, id ke through.
+   ============================================================ */
+const ACCENTS = [
+  {
+    songs: [
+      { name: 'anish', url: 'songs/audio1.mp3' },
+      { name: 'music2.mp3', url: 'songs/audio2.mp3' },
+    ]
+  },
+  {
+    songs: [
+      { name: 'music3.mp3', url: 'songs/audio2.mp3' },
+      { name: 'music4.mp3', url: 'songs/audio1.mp3' },
+    ]
+  },
+  {
+    songs: [
+      { name: 'music5.mp3', url: 'songs/audio1.mp3' },
+      { name: 'music6.mp3', url: 'songs/audio2.mp3' },
+    ]
+  },
+  {
+    songs: [
+      { name: 'music7.mp3', url: 'songs/audio2.mp3' },
+      { name: 'music8.mp3', url: 'songs/audio1.mp3' },
+    ]
+  },
+];
+
+const grid = document.getElementById('playerGrid');
+
+function buildWaveBars(n){
+  let out = '';
+  for(let i=0;i<n;i++){
+    const h = 30 + Math.round(Math.random()*70);
+    const d = (0.5 + Math.random()*0.7).toFixed(2);
+    out += `<span style="--h:${h}%;animation-duration:${d}s;animation-delay:${(Math.random()*0.4).toFixed(2)}s"></span>`;
+  }
+  return out;
+}
+
+function buildQueueHTML(songs){
+  if(!songs.length){
+    return `<div class="qempty">Koi gaana nahi mila</div>`;
+  }
+  return songs.map((s,i) => `
+    <div class="qitem" data-i="${i}">
+      <span class="fname">${s.name}</span>
+      <span class="ext">MP3</span>
+    </div>
+  `).join('');
+}
+
+// Har existing card (HTML me pehle se likhi hui) ke andar
+// waveform bars aur song-queue bhar dete hain
+ACCENTS.forEach((theme, idx) => {
+  const id = 'p' + idx;
+  const waveEl = document.getElementById('wave-' + id);
+  const queueEl = document.getElementById('queue-' + id);
+  if (waveEl) waveEl.innerHTML = buildWaveBars(26);
+  if (queueEl) queueEl.innerHTML = buildQueueHTML(theme.songs);
+});
+
+// FIX: pehle har player independent tha, isliye ek saath 2-3 gaane
+// ek saath baj sakte the. Ab ek global tracker rakha hai — jab bhi
+// koi naya player play() hota hai, agar koi DOOSRA player pehle se
+// baj raha ho to use pehle pause kar diya jata hai. Isse hamesha
+// EK time pe sirf EK hi card ka gaana chalega.
+let currentlyPlayingPlayer = null;
+
+class Player{
+  constructor(id, songs){
+    this.id = id;
+    this.audio = new Audio();
+    this.songs = songs;
+    this.currentIndex = -1;
+    this.playBtn = document.getElementById('play-p'+id);
+    this.queueEl = document.getElementById('queue-p'+id);
+    this.titleEl = document.getElementById('title-p'+id);
+    this.discEl = document.getElementById('disc-p'+id);
+    this.waveEl = document.getElementById('wave-p'+id);
+    this.progEl = document.getElementById('prog-p'+id);
+    // Har card ka apna fixed id (p0, p1, p2, p3) HTML me already
+    // likha hua hai, isliye seedha getElementById se sahi card
+    // milta hai — LATEST UPLOADS wale video-cards se koi clash
+    // nahi hota, kyunki unke id alag (ya koi id nahi) hai.
+    this.cardEl = document.getElementById('p' + id);
+
+    this.renderQueue();
+
+    this.playBtn.addEventListener('click', () => {
+      if(this.currentIndex === -1){
+        alert('Please select the song from song queue');
+        return;
+      }
+      this.toggle();
+    });
+
+    this.audio.addEventListener('timeupdate', () => this.updateProgress());
+    this.audio.addEventListener('ended', () => this.next());
+  }
+
+  renderQueue(){
+    this.queueEl.querySelectorAll('.qitem').forEach(el => {
+      const i = parseInt(el.dataset.i, 10);
+      el.classList.toggle('active', i === this.currentIndex);
+      el.onclick = () => {
+        this.loadSong(i);
+        this.play();
+      };
+    });
+  }
+
+  loadSong(i){
+    if(i < 0 || i >= this.songs.length) return;
+    this.currentIndex = i;
+    this.audio.src = this.songs[i].url;
+    this.titleEl.textContent = this.songs[i].name;
+    this.renderQueue();
+  }
+
+  play(){
+    if(this.currentIndex === -1){
+      alert('Please select the song from song queue');
+      return;
+    }
+
+    // agar koi doosra player pehle se baj raha hai, use pehle pause karo
+    if(currentlyPlayingPlayer && currentlyPlayingPlayer !== this){
+      currentlyPlayingPlayer.pause();
+    }
+    currentlyPlayingPlayer = this;
+
+    this.audio.play();
+    this.playBtn.textContent = 'Pause Song';
+    this.discEl.style.animationPlayState = 'running';
+    this.waveEl.querySelectorAll('span').forEach(s => s.style.animationPlayState = 'running');
+    this.cardEl.classList.add('is-playing');
+  }
+
+  pause(){
+    this.audio.pause();
+    this.playBtn.textContent = 'Play Song';
+    this.discEl.style.animationPlayState = 'paused';
+    this.waveEl.querySelectorAll('span').forEach(s => s.style.animationPlayState = 'paused');
+    this.cardEl.classList.remove('is-playing');
+
+    if(currentlyPlayingPlayer === this){
+      currentlyPlayingPlayer = null;
+    }
+  }
+
+  toggle(){
+    if(this.audio.paused) this.play(); else this.pause();
+  }
+
+  next(){
+    if(!this.songs.length) return;
+    const i = (this.currentIndex + 1) % this.songs.length;
+    this.loadSong(i);
+    this.play();
+  }
+
+  updateProgress(){
+    if(!this.audio.duration) return;
+    const pct = (this.audio.currentTime / this.audio.duration) * 100;
+    this.progEl.style.width = pct + '%';
+  }
+}
+
+// Ab har card ka id HTML me pehle se fix hai (p0-p3), isliye
+// alag se id-assignment loop ki zaroorat nahi hai.
+const players = ACCENTS.map((theme, i) => new Player(i, theme.songs));
+
+
+/* =========================================================
+   MOBILE HAMBURGER MENU
+   ---------------------------------------------------------
+   Sirf 768px aur usse chhoti screens pe hamburger icon (CSS me
+   display:flex) dikhta hai, aur nav (class="main-nav") ek
+   slide-in panel ban jata hai (CSS me .main-nav.active).
+
+   Yahan hum PRIMARILY ".main-nav" CLASS se hi nav ko dhoondte
+   hain (id="mainNav" sirf accessibility ke "aria-controls" ke
+   liye rakha hai) — taaki agar future me kisi aur page pe isi
+   class wala koi aur <nav> ho, wahan bhi yahi script kaam kare.
+   ========================================================= */
+(function () {
+  const hamburger = document.getElementById('hamburgerBtn');
+  const nav = document.querySelector('.main-nav');
+  const overlay = document.getElementById('navOverlay');
+  if (!hamburger || !nav) return; // is page pe mobile menu hai hi nahi
+
+  function openMenu() {
+    nav.classList.add('active');
+    hamburger.classList.add('active');
+    hamburger.setAttribute('aria-expanded', 'true');
+    if (overlay) overlay.classList.add('active');
+    document.body.style.overflow = 'hidden'; // menu khule me background scroll na ho
+  }
+
+  function closeMenu() {
+    nav.classList.remove('active');
+    hamburger.classList.remove('active');
+    hamburger.setAttribute('aria-expanded', 'false');
+    if (overlay) overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  hamburger.addEventListener('click', () => {
+    if (nav.classList.contains('active')) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  });
+
+  // overlay pe click karke bhi menu band ho jaye
+  if (overlay) overlay.addEventListener('click', closeMenu);
+
+  // kisi bhi nav link pe click karne ke baad menu apne aap band ho jaye
+  nav.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  // agar user screen resize kare aur wapas desktop-size ho jaye,
+  // to mobile menu ki leftover "active" state clear kar do
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) closeMenu();
+  });
+})();
+
+
+/* =========================================================
+   SPIDER CURSOR BACKGROUND
+   ---------------------------------------------------------
+   Ye poori website ke background me ek canvas (#c) chalata hai
+   jo pointer (mouse/finger) ko follow karta hai — jaisa
+   index.html me <canvas id="c"></canvas> pehle se hai.
+
+   IIFE (function(){...})() ke andar isliye wrap kiya hai taaki:
+   - agar kisi page pe #c canvas na ho to chup-chaap kuch na ho
+     (guard clause "if (!canvas) return;")
+   - andar ke saare helper functions (rnd, drawCircle, drawLine,
+     many, lerp, noise, pt) sirf ISI block ke andar rahein aur
+     upar wale music-player / video-compare code se collide na karein
+
+   Isi script.js ko site ke HAR page pe include karne se (jahan
+   bhi <canvas id="c"> aur style.css linked ho) ye spider effect
+   automatically us page pe bhi chalu ho jayega.
+   ========================================================= */
+(function () {
+  const canvas = document.getElementById('c');
+  if (!canvas) return; // is page pe spider canvas hai hi nahi, to kuch mat karo
+
+  const ctx = canvas.getContext('2d');
+  const { sin, cos, PI, hypot, min, max } = Math;
+
+  let w, h;
+
+  function spawn() {
+
+    const pts = many(333, () => {
+      return {
+        x: rnd(innerWidth),
+        y: rnd(innerHeight),
+        len: 0,
+        r: 0
+      };
+    });
+
+    const pts2 = many(9, (i) => {
+      return {
+        x: cos((i / 9) * PI * 2),
+        y: sin((i / 9) * PI * 2)
+      };
+    });
+
+    let seed = rnd(100);
+    let tx = rnd(innerWidth);
+    let ty = rnd(innerHeight);
+    let x = rnd(innerWidth);
+    let y = rnd(innerHeight);
+    let kx = rnd(0.5, 0.5);
+    let ky = rnd(0.5, 0.5);
+    let walkRadius = pt(rnd(50, 50), rnd(50, 50));
+    let r = innerWidth / rnd(100, 150);
+
+    function paintPt(pt) {
+      pts2.forEach((pt2) => {
+        if (!pt.len)
+          return;
+        drawLine(
+          lerp(x + pt2.x * r, pt.x, pt.len * pt.len),
+          lerp(y + pt2.y * r, pt.y, pt.len * pt.len),
+          x + pt2.x * r,
+          y + pt2.y * r
+        );
+      });
+      drawCircle(pt.x, pt.y, pt.r);
+    }
+
+    return {
+      follow(nx, ny) {
+        tx = nx;
+        ty = ny;
+      },
+
+      tick(t) {
+
+        const selfMoveX = cos(t * kx + seed) * walkRadius.x;
+        const selfMoveY = sin(t * ky + seed) * walkRadius.y;
+        let fx = tx + selfMoveX;
+        let fy = ty + selfMoveY;
+
+        x += min(innerWidth / 100, (fx - x) / 10);
+        y += min(innerWidth / 100, (fy - y) / 10);
+
+        let i = 0;
+        pts.forEach((pt) => {
+          const dx = pt.x - x,
+            dy = pt.y - y;
+          const len = hypot(dx, dy);
+          let r = min(2, innerWidth / len / 5);
+          pt.t = 0;
+          const increasing = len < innerWidth / 10
+            && (i++) < 8;
+          let dir = increasing ? 0.1 : -0.1;
+          if (increasing) {
+            r *= 1.5;
+          }
+          pt.r = r;
+          pt.len = max(0, min(pt.len + dir, 1));
+          paintPt(pt);
+        });
+
+      }
+    };
+  }
+
+  const spiders = many(2, spawn);
+
+  addEventListener("pointermove", (e) => {
+    spiders.forEach(spider => {
+      spider.follow(e.clientX, e.clientY);
+    });
+  });
+
+  requestAnimationFrame(function anim(t) {
+    if (w !== innerWidth) w = canvas.width = innerWidth;
+    if (h !== innerHeight) h = canvas.height = innerHeight;
+    ctx.fillStyle = "#000";
+    drawCircle(0, 0, w * 10);
+    ctx.fillStyle = ctx.strokeStyle = "#fff";
+    t /= 1000;
+    spiders.forEach(spider => spider.tick(t));
+    requestAnimationFrame(anim);
+  });
+
+  function rnd(x = 1, dx = 0) {
+    return Math.random() * x + dx;
+  }
+
+  function drawCircle(x, y, r) {
+    ctx.beginPath();
+    ctx.ellipse(x, y, r, r, 0, 0, PI * 2);
+    ctx.fill();
+  }
+
+  function drawLine(x0, y0, x1, y1) {
+    ctx.beginPath();
+    ctx.moveTo(x0, y0);
+
+    many(100, (i) => {
+      i = (i + 1) / 100;
+      let x = lerp(x0, x1, i);
+      let y = lerp(y0, y1, i);
+      let k = noise(x / 5 + x0, y / 5 + y0) * 2;
+      ctx.lineTo(x + k, y + k);
+    });
+
+    ctx.stroke();
+  }
+
+  function many(n, f) {
+    return [...Array(n)].map((_, i) => f(i));
+  }
+
+  function lerp(a, b, t) {
+    return a + (b - a) * t;
+  }
+
+  function noise(x, y, t = 101) {
+    let w0 = sin(0.3 * x + 1.4 * t + 2.0 +
+      2.5 * sin(0.4 * y + -1.3 * t + 1.0));
+    let w1 = sin(0.2 * y + 1.5 * t + 2.8 +
+      2.3 * sin(0.5 * x + -1.2 * t + 0.5));
+    return w0 + w1;
+  }
+
+  function pt(x, y) {
+    return { x, y };
+  }
+})();

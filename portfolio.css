@@ -1,0 +1,169 @@
+/* ================= Portfolio page ke liye styles ================= */
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        .portfolio-wrap {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 60px 20px;
+            overflow: hidden;
+        }
+
+        /* Background glow — jaisa home page pe .layer-blur hai, waisa hi
+           soft ambient glow yahan bhi taaki page khaali na lage */
+        .portfolio-glow {
+            position: absolute;
+            top: -10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40rem;
+            height: 40rem;
+            background: radial-gradient(circle, rgba(108, 99, 255, 0.25), transparent 70%);
+            filter: blur(10px);
+            pointer-events: none;
+            z-index: -1;
+            animation: glowPulse 6s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+
+            0%,
+            100% {
+                opacity: 0.6;
+                transform: translateX(-50%) scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: translateX(-50%) scale(1.08);
+            }
+        }
+
+        .portfolio-wrap .logo-link {
+            display: inline-block;
+            margin-bottom: 36px;
+            animation: fadeDown .6s ease both;
+        }
+
+        .portfolio-wrap .logo-link img {
+            width: 150px;
+        }
+
+        .portfolio-eyebrow {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: .3em;
+            color: #6C63FF;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+            animation: fadeDown .6s ease .1s both;
+        }
+
+        .portfolio-wrap h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            margin-bottom: 14px;
+            animation: fadeDown .6s ease .15s both;
+        }
+
+        .portfolio-wrap h1 span {
+            color: #6C63FF;
+            text-shadow: 0 0 25px rgba(108, 99, 255, 0.5);
+        }
+
+        .portfolio-wrap p {
+            color: gray;
+            max-width: 32rem;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 48px;
+            animation: fadeDown .6s ease .2s both;
+        }
+
+        .portfolio-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 24px;
+            animation: fadeDown .6s ease .3s both;
+        }
+
+        /* Har link ko chhota card jaisa banaya, taaki simple button se
+           zyada premium/professional feel aaye */
+        .portfolio-links .subscribe-btn {
+            flex-direction: column;
+            gap: 12px;
+            width: 170px;
+            padding: 28px 20px;
+            border-radius: 16px;
+            font-size: 13px;
+            transition: transform .3s ease, box-shadow .3s ease, filter .3s ease;
+        }
+
+        .portfolio-links .subscribe-btn .social-icon {
+            width: 30px;
+            height: 30px;
+        }
+
+        .portfolio-links .subscribe-btn:hover {
+            transform: translateY(-8px) scale(1.03);
+        }
+
+        .portfolio-links .ig-btn:hover {
+            box-shadow: 0 16px 40px rgba(214, 41, 118, 0.55);
+        }
+
+        .portfolio-links .yt-btn:hover {
+            box-shadow: 0 16px 40px rgba(224, 39, 29, 0.55);
+        }
+
+        .back-home {
+            margin-top: 56px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: gray;
+            text-decoration: none;
+            font-size: 14px;
+            letter-spacing: .5px;
+            transition: color .2s ease, gap .2s ease;
+            animation: fadeDown .6s ease .4s both;
+        }
+
+        .back-home:hover {
+            color: #0ef;
+            gap: 10px;
+        }
+
+        @keyframes fadeDown {
+            from {
+                opacity: 0;
+                transform: translateY(-14px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .portfolio-links {
+                gap: 16px;
+            }
+
+            .portfolio-links .subscribe-btn {
+                width: 140px;
+                padding: 22px 14px;
+            }
+        }
