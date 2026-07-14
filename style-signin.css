@@ -12,7 +12,11 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
+  padding: 30px 12px;
+  /* min-height (not fixed height) + padding: if the card is ever
+     taller than the browser window, the page scrolls instead of
+     clipping the top/bottom of the card. */
 }
 
 .container {
@@ -23,7 +27,12 @@ body {
   overflow: hidden;
   width: 768px;
   max-width: 100%;
-  min-height: 480PX;
+  min-height: 550px;
+  /* was 480px — raised because both forms now carry extra content
+     (Google/Apple buttons + divider). The form is vertically centered
+     inside this box, so if min-height is shorter than the content,
+     it gets clipped equally off the top AND bottom — that's the
+     cropping bug. */
 }
 
 .container P {
@@ -56,11 +65,17 @@ body {
   text-transform: uppercase;
   margin-top: 10px;
   cursor: pointer;
+  width: 100%;
+  min-height: 44px;
+  /* 44px = comfortable minimum tap target on touchscreens */
 }
 
 .container button.hidden {
   background-color: transparent;
   border-color: #fff;
+  width: auto;
+  min-height: auto;
+  padding: 10px 30px;
 }
 
 .container form {
@@ -89,7 +104,6 @@ body {
   top: 0;
   height: 100%;
   transition: all 0.6s ease-in-out;
-
 }
 
 .sign-in {
@@ -102,7 +116,7 @@ body {
   transform: translateX(100%);
 }
 
-.sign-up {          /* ✅ isko .sign-up hona chahiye */
+.sign-up {
   left: 0;
   width: 50%;
   opacity: 0;
@@ -115,17 +129,22 @@ body {
   z-index: 5;
   animation: move 0.6s;
 }
+
 @keyframes move {
-  0%  ,49.99%{
+
+  0%,
+  49.99% {
     opacity: 0;
     z-index: 1;
   }
-  50%,100%{
+
+  50%,
+  100% {
     opacity: 1;
     z-index: 5;
   }
-  
 }
+
 .social-icons {
   margin: 20px 0;
   display: flex;
@@ -144,7 +163,8 @@ body {
   color: #333;
   text-decoration: none;
 }
-.toggle-container{
+
+.toggle-container {
   position: absolute;
   top: 0;
   left: 50%;
@@ -155,15 +175,16 @@ body {
   border-radius: 150px 0 0 100px;
   z-index: 1000;
 }
-.container.active .toggle-container{
+
+.container.active .toggle-container {
   transform: translateX(-100%);
   border-radius: 0 150px 100px 0;
 }
-.toggle{
+
+.toggle {
   background-color: #512da8;
   height: 100%;
-  background: linear-gradient(to
-  right , #5c6bc0,#512da8);
+  background: linear-gradient(to right, #5c6bc0, #512da8);
   color: #fff;
   position: relative;
   left: -100%;
@@ -173,10 +194,11 @@ body {
   transition: all 0.6s ease-in-out;
 }
 
-.container.active .toggle{
+.container.active .toggle {
   transform: translateX(50%);
 }
-.toggle-panel{
+
+.toggle-panel {
   position: absolute;
   width: 50%;
   height: 100%;
@@ -191,16 +213,328 @@ body {
   transition: all 0.6s ease-in-out;
 }
 
-.toggle-left{
+.toggle-left {
   transform: translateX(-200%);
 }
-.container.active .toggle-left{
+
+.container.active .toggle-left {
   transform: translateX(0);
 }
-.toggle-right{
+
+.toggle-right {
   right: 0;
   transform: translateX(0);
 }
-.container.active .toggle-right{
+
+.container.active .toggle-right {
   transform: translateX(200%);
+}
+
+/* ==========================================================
+   NEW: "Forget your password" — moved to the right side
+   ========================================================== */
+.forget-link {
+  align-self: flex-end;
+  /* pushes it to the right inside the centered flex form */
+  margin: 6px 0 4px;
+}
+
+/* ==========================================================
+   NEW: Google / Apple sign-in buttons (sit just above Sign in)
+   ========================================================== */
+.oauth-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.oauth-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  background-color: #fff;
+  color: #333;
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+  padding: 10px 15px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  margin-top: 0;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.oauth-btn:hover {
+  background-color: #f5f5f5;
+  color: black;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+.oauth-btn i {
+  font-size: 16px;
+}
+
+.google-btn i {
+  color: #4285F4;
+}
+
+.apple-btn {
+  background-color: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+.apple-btn i {
+  color: #fff;
+}
+
+.apple-btn:hover {
+  background-color: #222;
+  color: #FFF;
+}
+
+/* divider between oauth buttons and the email/password submit button */
+.divider {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+  color: #999;
+  font-size: 12px;
+  margin: 14px 0 2px;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.divider span {
+  padding: 0 10px;
+}
+
+/* =====================================================================
+   media.css — responsive rules for the Sign in / Sign up page
+   Loaded AFTER style-signin.css, so these rules override the desktop
+   defaults once the matching breakpoint is active.
+   ===================================================================== */
+
+/* -----------------------------------------------------------------
+   TABLET (<=900px): shrink the card a bit, keep the desktop
+   sliding animation (there's still enough width for it to look right)
+   ----------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .container {
+    width: 90%;
+  }
+
+  .container form {
+    padding: 0 28px;
+  }
+
+  .toggle-panel h1 {
+    font-size: 1.6rem;
+  }
+
+  .toggle-panel p {
+    font-size: 13px;
+  }
+
+  .container button:not(.hidden) {
+    font-size: 12.5px;
+    padding: 11px 15px;
+  }
+}
+
+/* -----------------------------------------------------------------
+   MOBILE (<=650px): the classic sliding two-panel layout doesn't
+   work on narrow screens (text gets crushed), so we switch to a
+   simple stacked layout: one form visible at a time, full width,
+   with a small link strip to switch between Sign in / Sign up.
+   Reuses the SAME #container.active class the JS already toggles,
+   just interpreted differently at this width.
+   ----------------------------------------------------------------- */
+@media (max-width: 650px) {
+  body {
+    height: auto;
+    min-height: 100vh;
+    padding: 24px 12px;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 420px;
+    min-height: auto;
+    height: auto;
+    border-radius: 20px;
+    overflow: hidden;
+    /* hidden (not visible) so the container's own 20px rounded
+       corners clip the toggle strip cleanly at the bottom */
+  }
+
+  /* Forms: no more absolute sliding panels, just plain stacked blocks */
+  .form-container {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    height: auto;
+    transition: none;
+    transform: none !important;
+    animation: none !important;
+    opacity: 1 !important;
+    z-index: 1 !important;
+  }
+
+  .container form {
+    padding: 36px 24px 24px;
+  }
+
+  /* Only one form shows at a time. Default = Sign in visible. */
+  .sign-up {
+    display: none;
+  }
+
+  .sign-in {
+    display: block;
+  }
+
+  .container.active .sign-in {
+    display: none;
+  }
+
+  .container.active .sign-up {
+    display: block;
+  }
+
+  /* Toggle panel becomes a slim strip under the form instead of a
+     full-height side panel with a sliding animation */
+  .toggle-container {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    height: auto;
+    border-radius: 0 !important;
+    /* !important needed: desktop has a more specific
+       ".container.active .toggle-container" rule with a
+       150px/100px blob radius that would otherwise win here.
+       The outer .container (overflow: hidden, border-radius: 20px)
+       handles the rounded bottom corners instead. */
+    transform: none !important;
+  }
+
+  .toggle {
+    position: relative;
+    left: 0;
+    width: 100%;
+    height: auto;
+    transform: none !important;
+  }
+
+  .toggle-panel {
+    position: relative;
+    width: 100%;
+    height: auto;
+    padding: 18px 24px 26px;
+    transform: none !important;
+  }
+
+  /* Only show the panel that matches the current form.
+     Default (sign-in showing) -> show toggle-right (has the
+     "Sign up" / register button). Active (sign-up showing) ->
+     show toggle-left (has the "Sign in" / login button). */
+  .toggle-left {
+    display: none;
+  }
+
+  .toggle-right {
+    display: flex;
+  }
+
+  .container.active .toggle-right {
+    display: none;
+  }
+
+  .container.active .toggle-left {
+    display: flex;
+  }
+
+  .toggle-panel h1 {
+    font-size: 1.3rem;
+  }
+
+  .toggle-panel p {
+    font-size: 12.5px;
+    margin: 8px 0 4px;
+  }
+
+  .toggle-panel button.hidden {
+    color: #fff;
+    padding: 8px 20px;
+  }
+
+  /* Inputs & buttons scale down slightly */
+  .container input {
+    padding: 11px 14px;
+    font-size: 14px;
+  }
+
+  .oauth-btn {
+    padding: 11px 14px;
+    font-size: 13px;
+  }
+
+  .forget-link {
+    font-size: 12px;
+  }
+
+  /* The main Sign in / Sign up submit button: full width, comfortably
+     tall for a thumb tap, and not shouting in tiny caps on a small screen */
+  .container button:not(.hidden) {
+    width: 100%;
+    min-height: 46px;
+    font-size: 14px;
+    letter-spacing: 0.3px;
+    border-radius: 10px;
+  }
+}
+
+/* -----------------------------------------------------------------
+   SMALL PHONES (<=380px)
+   ----------------------------------------------------------------- */
+@media (max-width: 380px) {
+  .container form {
+    padding: 30px 18px 20px;
+  }
+
+  .oauth-buttons {
+    gap: 8px;
+  }
+
+  .oauth-btn span {
+    font-size: 12.5px;
+  }
+
+  .social-icons {
+    gap: 8px;
+  }
+
+  .icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .container button:not(.hidden) {
+    font-size: 13px;
+    min-height: 44px;
+  }
 }

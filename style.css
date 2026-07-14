@@ -44,7 +44,16 @@ body {
     overflow: hidden;
 }
 
-header {
+/* =========================================================
+   .main-nav
+   NOTE: ye saari properties pehle <header> tag pe thi. Ab
+   <header>/<nav> tags HTML se hata diye gaye hain, isliye
+   unki saari CSS (fixed positioning, background, padding,
+   z-index, etc.) seedha isi ".main-nav" div pe move kar di
+   gayi hai — taaki header remove karne se layout/behaviour
+   me koi farak na pade.
+   ========================================================= */
+.main-nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -54,13 +63,24 @@ header {
     left: 0;
     width: 100%;
     max-height: 12%;
-    z-index: 1000;
+    /* FIX: pehle z-index:1000 tha. ".nav-links" (mobile slide-in
+       panel) aur ".hamburger" ab isi ".main-nav" ke ANDAR nested
+       hain, isliye unka apna z-index (1050 / 1100) sirf ".main-nav"
+       ke andar hi kaam karta hai — bahar (page level) pe wo poora
+       ".main-nav" ke z-index (1000) ke barabar treat hote the.
+       ".nav-overlay" (dim background, z-index:1040) ".main-nav" ka
+       SIBLING hai, isliye 1040 > 1000 hone ki wajah se overlay poore
+       nav (menu + hamburger) ke UPAR aa jaata tha aur menu click/tap
+       kaam nahi karta tha. Ab z-index badhakar 2000 kar diya, taaki
+       ".main-nav" (aur uske andar ka nav-links + hamburger) hamesha
+       overlay ke upar rahe aur menu sahi se open/click ho. */
+    z-index: 2000;
     background-color: #000000d3;
     /* background:transparent; */
     padding: 0 5rem;
 }
 
-header img {
+.main-nav img {
 
     margin-top: 11px;
     width: 155px;

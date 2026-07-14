@@ -7,10 +7,17 @@
   <title>Sign in page</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
   <link rel="stylesheet" href="style-signin.css">
+
+  <!-- Google Identity Services (real Google login) -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <!-- Sign in with Apple JS (real Apple login) -->
+  <script src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js" async defer></script>
 </head>
 
 <body>
   <div class="container" id="container">
+
+    <!-- SIGN UP -->
     <div class="form-container sign-up">
       <form>
         <h1>Create Account</h1>
@@ -27,16 +34,28 @@
           <a href="#" class="icon">
             <i class="fa-brands fa-linkedin"></i>
           </a>
-
         </div>
         <span>or use your email for registeration</span>
         <input type="text" placeholder="Name">
         <input type="email" placeholder="Email">
         <input type="password" placeholder="Password">
         <button type="button" id="signUpBtn">Sign up</button>
-        <button>lalit</button>
+        <div class="divider"><span>or</span></div>
+        <div class="oauth-buttons">
+          <button type="button" id="googleSignUpBtn" class="oauth-btn google-btn">
+            <i class="fa-brands fa-google"></i>
+            <span>Continue with Google</span>
+          </button>
+          <button type="button" id="appleSignUpBtn" class="oauth-btn apple-btn">
+            <i class="fa-brands fa-apple"></i>
+            <span>Continue with Apple</span>
+          </button>
+        </div>
+
       </form>
     </div>
+
+    <!-- SIGN IN -->
     <div class="form-container sign-in">
       <form>
         <h1>Sign in</h1>
@@ -53,20 +72,34 @@
           <a href="#" class="icon">
             <i class="fa-brands fa-linkedin"></i>
           </a>
-
         </div>
         <span>or use your email password</span>
         <input type="email" placeholder="Email">
         <input type="password" placeholder="Password">
-        <a href="forget.html">Forget your password</a>
+
+        <a href="forget.html" class="forget-link">Forget your password</a>
+
+        <!-- NEW: Google & Apple sign-in buttons, just above Sign in -->
+        <div class="oauth-buttons">
+          <button type="button" id="googleSignInBtn" class="oauth-btn google-btn">
+            <i class="fa-brands fa-google"></i>
+            <span>Continue with Google</span>
+          </button>
+          <button type="button" id="appleSignInBtn" class="oauth-btn apple-btn">
+            <i class="fa-brands fa-apple"></i>
+            <span>Continue with Apple</span>
+          </button>
+        </div>
+
+        <div class="divider"><span>or</span></div>
+
         <button type="button" id="signInBtn">Sign in</button>
-        <button>google</button>
       </form>
     </div>
+
     <div class="toggle-container">
       <div class="toggle">
-        <div class="toggle-panel 
-        toggle-left">
+        <div class="toggle-panel toggle-left">
           <h1>Wellcome back</h1>
           <p>enter you personal detailes to use all of site features</p>
           <button class="hidden" id="login">Sign in</button>
@@ -76,7 +109,6 @@
           <p> register with you personal detailes to use all of site features</p>
           <button class="hidden" id="register">Sign up</button>
         </div>
-
       </div>
     </div>
   </div>

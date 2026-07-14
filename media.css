@@ -1,5 +1,13 @@
 @media (max-width: 1300px) {
-    header {
+    /* FIX: pehle "header { }" tha. <header> tag ab HTML se hata
+       diya gaya hai — asli top-bar ab ".main-nav" div hai. Selector
+       ko update na karne se ye padding-override kabhi apply hi
+       nahi ho raha tha, isliye chhoti screens pe ".main-nav" apna
+       DEFAULT desktop wala "padding: 0 5rem" (80px dono side) hi
+       use kar raha tha — jisse logo aur hamburger dono squeeze hoke
+       screen ke BEECH me aa jaate the. Ab ".main-nav" target karte
+       hain, taaki padding sahi se chhoti ho. */
+    .main-nav {
         padding: 1rem 0.5rem;
     }
 
@@ -81,10 +89,12 @@
    lekin CSS ka slide-in-panel style ".main-nav.active" ko target
    kar raha tha — dono alag elements the, isliye kuch dikhta hi
    nahi tha. Ab dono same element (".nav-links") ko target karte
-   hain, isliye toggle sahi se kaam karta hai.
+   hain, isliye toggle sahi se kaam karta hai. (".main-nav" ab
+   khud <header> ki jagah lene wala outer bar hai, isliye ".main-nav"
+   ko yahan "position/padding" ke alawa touch nahi kiya gaya.)
    ----------------------------------------------------------------------- */
 @media screen and (max-width: 860px) {
-    header {
+    .main-nav {
         padding: 1rem 1.2rem;
     }
 
@@ -159,8 +169,14 @@
         opacity: 1;
     }
 
-    header h1 {
+    .main-nav h1 {
         font-size: 2rem;
+    }
+    .btn-signin{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
     }
 
     .content {

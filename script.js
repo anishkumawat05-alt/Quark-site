@@ -429,23 +429,24 @@ const players = ACCENTS.map((theme, i) => new Player(i, theme.songs));
    class="nav-links") ek slide-in panel ban jata hai (CSS me
    media.css ke andar ".nav-links.active").
 
-   FIX (SCROLL BUG): Pehle nav links pe sirf "closeMenu" laga hua
-   tha aur baaki sab kaam browser ke default "#hash" navigation par
-   chhoda hua tha. Problem ye thi ki jab link click hote hi menu
-   band ho raha tha (transform transition + body.style.overflow
-   reset ek saath ho rahe the), tab browser ka native "#section"
-   jump kai baar silently skip/ignore ho jata tha — isliye menu
-   open/close to sahi chal raha tha, lekin kisi bhi link (HOME,
-   ABOUT, SERVICES, etc.) par click karne se page us section tak
-   scroll hi nahi ho raha tha.
+   ASLI (REAL) WAJAH scroll na hone ki:
+   "#home" wala section ".container" ke andar hai, aur ".container"
+   pe CSS me "overflow: hidden;" laga hua hai (style.css me
+   ".container { ... overflow: hidden; }"). Jab kisi element pe
+   "overflow:hidden" wala ancestor hota hai, to browser ka
+   ".scrollIntoView()" kabhi-kabhi confuse ho jata hai ki KISKO
+   scroll kare — poore PAGE (window) ko, ya us "overflow:hidden"
+   wale ancestor ko (jo waise scroll ho hi nahi sakta, bas silently
+   fail ho jata hai). Isi wajah se pehle "scrollIntoView()" use
+   karne par kuch links (khaaskar HOME) pe scroll hota hi nahi tha.
 
-   Ab har in-page link (jo "#" se start hota hai) ke liye hum khud
-   manually "scrollIntoView()" call karte hain — default anchor
-   jump par depend nahi karte. Menu pehle close hota hai, phir
-   thoda sa delay (taaki close-animation/body-overflow reset ho
-   jaaye) ke baad target section tak smooth scroll hota hai.
-   "SIGNING" jaisa normal page link (signin-button.html, jo "#" se
-   start nahi hota) apne default behaviour se hi navigate hoga.
+   FIX: Ab hum "scrollIntoView()" bilkul use nahi karte. Iske
+   bajaye khud target element ki exact position (getBoundingClientRect
+   + window.scrollY) calculate karke seedha "window.scrollTo()" call
+   karte hain — ye hamesha ASLI window/page ko hi scroll karta hai,
+   chahe target element kisi bhi "overflow:hidden" wale container
+   ke andar kyun na ho. Isse HOME, ABOUT, SERVICES, SOUND — sab
+   links reliably kaam karte hain.
    ========================================================= */
 (function () {
   const hamburger = document.getElementById('hamburgerBtn');
@@ -469,8 +470,29 @@ const players = ACCENTS.map((theme, i) => new Player(i, theme.songs));
     document.body.style.overflow = '';
   }
 
+  // target element tak page ko manually scroll karta hai —
+  // scrollIntoView() ke bharose nahi rehte (upar wajah likhi hai)
+  function scrollToTarget(targetEl) {
+    if (!targetEl) return;
+
+    const rect = targetEl.getBoundingClientRect();
+
+    // CSS me kuch sections pe "scroll-margin-top" diya hua hai
+    // (taaki fixed header content ko cover na kare) — usko bhi
+    // yahan manually respect karte hain
+    const marginTop = parseFloat(getComputedStyle(targetEl).scrollMarginTop) || 0;
+
+    const targetY = window.scrollY + rect.top - marginTop;
+
+    window.scrollTo({
+      top: Math.max(0, targetY),
+      left: 0,
+      behavior: 'smooth'
+    });
+  }
+
   hamburger.addEventListener('click', (e) => {
-    // e.preventDefault(); // <a href="#"> ka default jump/navigation rokte hain
+    e.preventDefault(); // <a href="#"> ka default jump/navigation rokte hain
     if (nav.classList.contains('active')) {
       closeMenu();
     } else {
@@ -496,13 +518,11 @@ const players = ACCENTS.map((theme, i) => new Player(i, theme.songs));
 
         closeMenu();
 
-        if (targetEl) {
-          // menu close animation/body-scroll-reset ke turant baad
-          // scroll karte hain, taaki dono ek doosre se clash na karein
-          setTimeout(() => {
-            targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }, 60);
-        }
+        // menu ki "active" class hatte hi turant scroll shuru kar
+        // dete hain — koi setTimeout wait ki zaroorat nahi, kyunki
+        // window.scrollTo() body/.container ki apni transition se
+        // bilkul independent hai
+        scrollToTarget(targetEl);
       } else {
         // SIGNING jaisa normal page link — sirf menu close karo,
         // navigation apne aap default se ho jayega

@@ -32,22 +32,22 @@
     <div class="layer-blur"></div>
 
     <div class="container">
-        <header>
-            <div><a href="#" class="logo"><img src="images/logo2.png" alt=""></a></div>
 
-            <!-- =========================================================
-                 NAV-LINKS
-                 Pehle ye poora block ek <nav id="mainNav" class="main-nav">
-                 ke andar wrap tha. Ab us <nav> tag ko hata diya gaya hai
-                 aur uski saari zimmedari (id, mobile slide-in panel wala
-                 kaam, styling) seedha isi neeche wale
-                 <div class="nav-links" id="nav-links"> ko de di gayi hai.
-                 CSS me (style.css + media.css) selectors ab isi
-                 ".nav-links" / "#nav-links" ko target karte hain, aur
-                 script.js ka hamburger toggle bhi isi id par kaam karta
-                 hai — isi wajah se 860px wale mobile toggle button ab
-                 sahi se open/close hota hai.
-                 ========================================================= -->
+        <!-- =========================================================
+             NAV (ex-<header>)
+             Pehle ye poora block <header><nav>...</nav></header> ke
+             andar tha. Ab <header> aur <nav> dono tags hata diye
+             gaye hain — unki saari CSS (position:fixed, background,
+             padding, etc.) seedha ".main-nav" div pe move kar di gayi
+             hai (style.css + media.css me dekh lena), isliye layout
+             me koi farak nahi padega. Hamburger icon bhi ab isi
+             ".main-nav" div ke andar hai (pehle <header> ke seedhe
+             andar, <nav> ke bahar tha).
+             ========================================================= -->
+        <div id="mainNav" class="main-nav">
+            <a href="#" class="logo">
+                <img src="images/logo2.png" alt="">
+            </a>
             <div class="nav-links" id="nav-links">
                 <ul>
                     <li><a href="#home">HOME <span></span></a></li>
@@ -59,27 +59,24 @@
                 </ul>
             </div>
 
-
             <!-- =========================================================
                  HAMBURGER ICON — sirf 768px aur usse chhoti screens pe
                  dikhta hai (CSS me @media max-width:768px ke andar
                  display:flex kiya hai). Click par script.js is link
                  pe "active" class toggle karta hai, jisse 3 lines ek
-                 "X" me animate ho jaati hain aur ".nav-links" (id="nav-links")
+                 "X" me animate ho jaati hain aur poora <nav> (id="mainNav")
                  ek slide-in panel ki tarah right side se open hota hai.
                  Ye ab <a> tag hai (pehle <button> tha) — isliye JS me
                  iske default "#" navigation ko preventDefault() se
-                 rok diya gaya hai. aria-controls ab "nav-links" ko point
-                 karta hai (pehle "mainNav" tha, jo <nav> tag ke saath
-                 hata diya gaya).
+                 rok diya gaya hai.
                  ========================================================= -->
-            <a class="hamburger" id="hamburgerBtn" href="#nav-links" aria-label="Toggle menu" aria-expanded="false"
-                aria-controls="nav-links">
+            <a class="hamburger" id="hamburgerBtn" href="#" aria-label="Toggle menu" aria-expanded="false"
+                aria-controls="mainNav">
                 <span></span>
                 <span></span>
                 <span></span>
             </a>
-        </header>
+        </div>
 
         <!-- Mobile nav khula hone par background ko dim karne wala overlay —
              isi pe click karne se bhi menu band ho jayega -->
