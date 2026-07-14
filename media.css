@@ -1,3 +1,25 @@
+/* =========================================================================
+   ============================ RESPONSIVE ==================================
+   =========================================================================
+   Ye poori website ke SAARE media-query (responsive) rules ab is EK jagah
+   pe rakhe hain — pehle ye idhar-udhar (beech-beech me) alag-alag jagah
+   likhe hue the, jisse dhoondhna mushkil ho jata tha. Ab agar kisi bhi
+   breakpoint (screen size) ka style change karna ho, to sirf yahi section
+   kholna hai — kisi aur jagah media query dhoondhne ki zaroorat nahi.
+
+   Breakpoints (bade se chhote screen ki taraf):
+     1) max-width: 1300px  -> chhota laptop / bada tablet
+     2) max-width: 900px   -> tablet
+     3) max-width: 768px   -> bada mobile / choti tablet (nav yahin hide hota hai)
+     4) max-width: 600px   -> mobile phones
+   ========================================================================= */
+
+/* -----------------------------------------------------------------------
+   1) BREAKPOINT: max-width 1300px
+   Chhote laptop/tablet screens ke liye — hero header padding kam,
+   content ko niche shift karte hain (kyunki robot-3d chhota ho jata hai),
+   aur 3D robot ko scale down karke thoda upar-left move karte hain.
+   ----------------------------------------------------------------------- */
 @media (max-width: 1300px) {
     /* FIX: pehle "header { }" tha. <header> tag ab HTML se hata
        diya gaya hai — asli top-bar ab ".main-nav" div hai. Selector
@@ -70,14 +92,16 @@
    3) BREAKPOINT: max-width 860px
    Mobile-size screens ke liye — yahan par:
    - top nav links chhup jaate hain (hamburger slide-in menu dikhta hai)
-   - hero heading/description/buttons chhote ho jaate hain
+   - nav bar ki height/padding chhoti kar di hai, logo bhi chhota
+   - hero heading/description chhote ho jaate hain aur content upar +
+     left shift ho jaata hai (LATEST UPLOADS box jitna hi left space)
+   - "View Portfolio" aur "Contect Us" button ab EK HI LINE me
+     side-by-side rehte hain (pehle Contect Us niche chala jaata tha)
    - 3D robot aur bhi zyada scale down hota hai
    - color/vfx slide ke niche wale 3 video-select boxes ab COLUMN ki
      jagah ROW me aa jaate hain
    - hamburger menu khulne par nav links ka text WHITE ho jaata hai
    - About cards aur Music player cards EK LINE me 2-2 karke aate hain
-   - Contact Us (liquid) button ki width portfolio button jaisi fix
-     kar di gayi hai, taaki overflow/misalign na ho
 
    NOTE: Pehle ye poori mobile slide-in panel styling ".main-nav"
    (jo <nav id="mainNav" class="main-nav"> tag pe lagti thi) ke
@@ -94,8 +118,17 @@
    ko yahan "position/padding" ke alawa touch nahi kiya gaya.)
    ----------------------------------------------------------------------- */
 @media screen and (max-width: 860px) {
+    /* NAYA FIX: nav bar ki height chhoti — padding kam aur logo
+       image ka size bhi chhota kar diya, taaki chhoti screens pe
+       nav zyada jagah na khaye */
     .main-nav {
-        padding: 1rem 1.2rem;
+        padding: 0.6rem 1.2rem;
+    }
+
+    .main-nav img {
+        width: 120px;
+        height: 46px;
+        margin-top: 2px;
     }
 
     /* hamburger icon ab yahan dikhega */
@@ -172,17 +205,23 @@
     .main-nav h1 {
         font-size: 2rem;
     }
-    .btn-signin{
+
+    .btn-signin {
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 10px;
     }
 
+    /* NAYA FIX: hero content ab pehle se bahut UPAR (kam margin-top)
+       aur LEFT me (margin-left hata diya) rehta hai — utna hi left
+       space jitna "LATEST UPLOADS" wale grid box ka hai (.grid ka
+       apna padding + body ka padding), taaki dono cheezein visually
+       align dikhein. */
     .content {
-        margin-top: 25rem;
-        max-width: 30rem;
-        margin-left: 10%;
+        margin-top: 7rem;
+        max-width: 26rem;
+        margin-left: 0;
     }
 
     .robot-3d {
@@ -196,16 +235,32 @@
     }
 
     .content h1 {
-        font-size: 2.5rem;
+        font-size: 2.3rem;
     }
 
     .description {
         font-size: 1rem;
     }
 
+    /* NAYA FIX: "View Portfolio" aur "Contect Us" button ab wrap
+       nahi karenge — dono ek hi row me side-by-side rahenge.
+       Dono buttons ki width/font-size bhi chhoti kar di hai taaki
+       tight mobile width me bhi aaram se fit ho jayein. */
+    .buttons {
+        flex-wrap: nowrap;
+        gap: 0.7rem;
+        align-items: center;
+        margin-top: 2rem;
+    }
+
     .btn-get-started {
-        font-size: 0.8rem;
-        padding: 0.8rem 2rem;
+        width: auto;
+        flex: 1 1 0;
+        min-width: 0;
+        height: 40px;
+        font-size: 0.78rem;
+        padding: 0.6rem 0.7rem;
+        white-space: nowrap;
     }
 
     .btn-signing-main {
@@ -213,35 +268,33 @@
         padding: 0.8rem 2rem;
     }
 
-    /* NAYA FIX: "Contect Us" button (liquid-btn, #btnWrap ke andar)
-       ka parent <a href="contact.html"> tag by default INLINE hota
-       hai, isliye chhoti screens pe uske andar wala button apni
-       fixed 200px width ki wajah se doosre button (View Portfolio)
-       ke saath align/overflow theek se nahi ho pa raha tha.
-       Yahan us <a> ko (jo #btnWrap ko wrap karta hai) inline-flex
-       bana diya, aur .buttons ko wrap karne diya taaki agar jagah
-       kam pade to dono buttons neat tarike se agli line me chale
-       jayen, overflow ya cut na ho. */
-    .buttons {
-        flex-wrap: wrap;
-        row-gap: 0.9rem;
-    }
-
+    /* NAYA FIX: pehle is <a> (jo #btnWrap ko wrap karta hai) aur
+       uske andar wale liquid-btn ki width:100% force kar di gayi
+       thi, jiski wajah se "Contect Us" button flex-wrap ki wajah se
+       "View Portfolio" ke NICHE chala jaata tha. Ab width:auto +
+       ek chhota fixed size diya hai, taaki ye "View Portfolio" ke
+       just right side me, ek hi line me fit ho jaaye. */
     .buttons a:has(.btn-wrap) {
         display: inline-flex;
+        flex: 0 0 auto;
     }
 
     .btn-wrap,
     .liquid-btn {
-        width: 100%;
-        max-width: 220px;
+        width: auto;
+        max-width: none;
     }
 
-    /* NAYA FIX: color/vfx compare slider ke niche wale
-       video-select boxes (Video 1/2/3 ya VFX 1/2/3) ab
-       COLUMN ki jagah ROW me side-by-side aa jaayenge.
-       Panel ki max-width bhi 100% kar di taaki wo poori
-       width use kar sake aur teeno box aaram se fit ho jaayen. */
+    .liquid-btn {
+        width: 150px;
+        height: 40px;
+        font-size: 14px;
+    }
+
+    /* color/vfx compare slider ke niche wale video-select boxes ab
+       COLUMN ki jagah ROW me side-by-side aa jaayenge. Panel ki
+       max-width bhi 100% kar di taaki wo poori width use kar sake
+       aur teeno box aaram se fit ho jaayen. */
     .video-select-panel {
         flex: 1 1 100%;
         max-width: 100%;
@@ -259,22 +312,15 @@
         padding: 14px 8px;
     }
 
-    /* NAYA FIX (REVERT): About cards ab wapas SINGLE (1 per line)
-       rahenge — pehle yahan flex-basis 45% karke 2-per-line kiya
-       gaya tha, ab usko hata diya hai taaki default single-column
-       behavior (style.css ke .about-card { flex:1 1 320px; max-
-       width:360px; }) hi apply ho. */
-
-    /* NAYA FIX: "Music Demo" cards ab EK LINE me 2-2 karke rahenge,
-       lekin ab WIDTH aur HEIGHT dono pehle se chhoti kar di gayi
-       hain:
-       - WIDTH: columns ko "repeat(2, 1fr)" ki jagah ek FIXED
-         chhoti width (140px) di hai aur justify-content:center
-         se grid ko beech me la diya — isse cards poori row-width
-         nahi stretch karte, chhote/compact dikhte hain.
-       - HEIGHT: andar ke elements (padding, disc, waveform,
-         queue list) sabki size/height kam karke overall card ki
-         height bhi ghata di hai. */
+    /* "Music Demo" cards ab EK LINE me 2-2 karke rahenge, lekin ab
+       WIDTH aur HEIGHT dono pehle se chhoti kar di gayi hain:
+       - WIDTH: columns ko "repeat(2, 1fr)" ki jagah ek FIXED chhoti
+         width (140px) di hai aur justify-content:center se grid ko
+         beech me la diya — isse cards poori row-width nahi stretch
+         karte, chhote/compact dikhte hain.
+       - HEIGHT: andar ke elements (padding, disc, waveform, queue
+         list) sabki size/height kam karke overall card ki height
+         bhi ghata di gayi hai. */
     #playerGrid {
         grid-template-columns: repeat(2, minmax(0, 140px));
         justify-content: center;
@@ -338,6 +384,24 @@
         font-size: 9px;
         margin-bottom: 10px;
     }
+
+    /* NAYA FIX: "PERFECT FOR" section ke boxes ab EK LINE me 2-2
+       karke aayenge (fixed 2 columns), aur unki height/width dono
+       chhoti kar di hai (aspect-ratio adjust karke) taaki compact
+       dikhein. */
+    .perfect-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .perfect-card {
+        aspect-ratio: 1 / 1;
+    }
+
+    .perfect-card span {
+        font-size: 11px;
+        padding: 10px 8px;
+    }
 }
 
 /* -----------------------------------------------------------------------
@@ -355,14 +419,21 @@
         padding: 0 16px;
     }
 
-    /* -- Latest Uploads section -- */
-    .subscribe-wrap {
-        gap: 12px;
+    /* NAYA FIX: nav bar ab aur bhi chhoti — chhote phones pe padding
+       aur logo dono aur kam kar diye, taaki nav bar ki height kam ho
+       aur content ke liye jagah bache. */
+    .main-nav {
+        padding: 0.45rem 0.9rem;
     }
 
-    .subscribe-btn {
-        font-size: 12px;
-        padding: 10px 18px;
+    .main-nav img {
+        width: 96px;
+        height: 36px;
+        margin-top: 0;
+    }
+
+    .container {
+        padding: 0 1rem;
     }
 
     .nav-links {
@@ -373,9 +444,60 @@
         gap: 20px;
     }
 
+    /* NAYA FIX: hero content — ab aur bhi upar (kam margin-top) aur
+       left side me "LATEST UPLOADS" grid box jitna hi space rehta
+       hai (margin-left: 0, container ka padding bhi kam kar diya). */
+    .content {
+        margin-top: 5.5rem;
+        max-width: 22rem;
+        margin-left: 0;
+    }
+
+    .content h1 {
+        font-size: 1.9rem;
+        margin: 1.2rem 0;
+    }
+
+    .description {
+        font-size: 0.92rem;
+    }
+
+    .tag-box {
+        width: 10.5rem;
+        height: 2.1rem;
+    }
+
+    /* View Portfolio + Contect Us ek hi row me, aur bhi chhote */
+    .buttons {
+        gap: 0.5rem;
+        margin-top: 1.6rem;
+    }
+
+    .btn-get-started {
+        font-size: 0.7rem;
+        padding: 0.55rem 0.6rem;
+        height: 36px;
+    }
+
+    .liquid-btn {
+        width: 130px;
+        height: 36px;
+        font-size: 12px;
+    }
+
     .section-title {
         font-size: 26px;
         margin: 50px 0 30px;
+    }
+
+    /* -- Latest Uploads section -- */
+    .subscribe-wrap {
+        gap: 12px;
+    }
+
+    .subscribe-btn {
+        font-size: 12px;
+        padding: 10px 18px;
     }
 
     /* FIX: "LATEST UPLOADS" grid ab chhoti screen pe force EK
@@ -435,6 +557,26 @@
     .services-section,
     .perfect-section {
         padding: 0 20px 30px;
+    }
+
+    /* NAYA FIX: "PERFECT FOR" boxes chhote phones pe bhi 2-per-line
+       hi rahenge, bas gap aur thoda kam kar diya hai taaki tight
+       width me aur neat dikhein. Height/width .perfect-card wale
+       aspect-ratio:1/1 rule (860px breakpoint me set kiya) se
+       already chhoti ho chuki hai — ye yahan bhi apply rehta hai. */
+    .perfect-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .perfect-card {
+        aspect-ratio: 1 / 1;
+    }
+
+    .perfect-card span {
+        font-size: 10px;
+        padding: 8px 6px;
+        letter-spacing: 0.5px;
     }
 
     /* NOTE: .section-title dobara yahan hai — pehle bhi (upar isi
