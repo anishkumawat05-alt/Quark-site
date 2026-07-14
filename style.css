@@ -1,1281 +1,1327 @@
 * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    body {
+body {
 
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        background-color: black;
-        color: #e7e7e7;
-        min-height: 100vh;
-        line-height: 1.5;
-        padding: 0 50px;
-    }
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: black;
+    color: #e7e7e7;
+    min-height: 100vh;
+    line-height: 1.5;
+    padding: 0 50px;
+}
 
-    .image-gradint {
-        position: absolute;
-        top: 0;
-        right: 0;
-        opacity: 0.5;
-        z-index: -1;
-    }
+.image-gradint {
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 0.5;
+    z-index: -1;
+}
 
-    .layer-blur {
-        height: 0;
-        width: 30rem;
-        position: absolute;
-        top: 20%;
-        right: 0;
-        box-shadow: 0 0 700px 15px white;
-        rotate: -30deg;
-        z-index: -1;
-    }
+.layer-blur {
+    height: 0;
+    width: 30rem;
+    position: absolute;
+    top: 20%;
+    right: 0;
+    box-shadow: 0 0 700px 15px white;
+    rotate: -30deg;
+    z-index: -1;
+}
 
-    .container {
+.container {
 
-        width: 100%;
-        min-height: 55rem;
-        /* margin: 0 auto; */
-        margin-top: -30px;
-        padding: 0 2rem;
-        position: relative;
-        overflow: hidden;
-    }
+    width: 100%;
+    min-height: 55rem;
+    /* margin: 0 auto; */
+    margin-top: -30px;
+    padding: 0 2rem;
+    position: relative;
+    overflow: hidden;
+}
 
-    header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        /* padding: 0rem 5rem; */
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        max-height: 12%;
-        z-index: 1000;
-        background-color: #000000d3;
-        /* background:transparent; */
-        padding: 0 5rem;
-    }
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* padding: 0rem 5rem; */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    max-height: 12%;
+    z-index: 1000;
+    background-color: #000000d3;
+    /* background:transparent; */
+    padding: 0 5rem;
+}
 
-    header img {
+header img {
 
-        margin-top: 11px;
-        width: 155px;
-        height: 60px;
-    }
+    margin-top: 11px;
+    width: 155px;
+    height: 60px;
+}
 
-    /* header h1 {
+/* header h1 {
         margin: 0;
         font-size: 3rem;
         font-weight: 300;
     } */
 
-    nav {
-        display: flex;
-        align-items: center;
-        gap: 3rem;
-        margin-left: -5%;
+/* =========================================================
+   NAV-LINKS
+   Pehle ye poora block ek <nav> tag ke andar tha (jo ".main-nav"
+   class + id="mainNav" carry karta tha) aur uske andar ek
+   <div class="nav-links" id="nav-links"> nested thi. Ab <nav>
+   tag ko HTML se hata diya gaya hai — uski saari zimmedari
+   (desktop horizontal layout + mobile slide-in panel + link
+   styling) seedha isi ".nav-links" / "#nav-links" div ko de
+   di gayi hai. Mobile (<=860px) wali slide-in panel styling
+   media.css me ".nav-links" ke naam se hi defined hai.
+   ========================================================= */
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    margin-left: -5%;
+}
 
-    }
+.nav-links ul {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
 
-    nav a {
-        position: relative;
-        font-size: 1.1rem;
-        font-weight: 500;
-        color: gray;
-        text-decoration: none;
-        padding: 6px 7px;
-        transition: .5s;
+.nav-links li {
+    list-style: none;
+}
 
-    }
+/* Sirf <li> ke andar wale links (HOME, ABOUT, etc.) ko hi ye
+   underline-hover-span effect milta hai — SIGNING button
+   (.btn-signin) <li> ke andar nahi hai, isliye ye rules use
+   touch nahi karte aur uski apni styling (background, radius,
+   black text) bina kisi conflict ke sahi dikhti hai. */
+.nav-links li a {
+    position: relative;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: gray;
+    text-decoration: none;
+    padding: 6px 7px;
+    transition: .5s;
 
-    nav a:hover {
-        color: #0ef;
-    }
+}
 
-    nav a span {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-        border-bottom: 2px solid #0ef;
-        border-radius: 15px;
-        transform: scale(0) translateY(50px);
-        opacity: 0;
-        transition: .5s;
-    }
+.nav-links li a:hover {
+    color: #0ef;
+}
 
-    nav a:hover span {
-        transform: scale(1) translateY(0);
-        opacity: 1;
-    }
+.nav-links li a span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    border-bottom: 2px solid #0ef;
+    border-radius: 15px;
+    transform: scale(0) translateY(50px);
+    opacity: 0;
+    transition: .5s;
+}
 
-    .hamburger{
-        display: none;
-    }
+.nav-links li a:hover span {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
 
-    .btn-signin {
-        background-color: #a7a7a7;
-        color: black;
-        padding: 0.8rem 2rem;
-        border-radius: 50px;
-        border: none;
-        font-size: 1rem;
-        font-weight: 500;
-        transition: background-color 0.2s ease;
-        z-index: 999;
-        text-decoration: none;
-    }
+.hamburger {
+    display: none;
+}
 
-    .btn-signin:hover {
-        background-color: white;
-        cursor: pointer;
-    }
+.hamburger span {
+    display: block;
+    width: 26px;
+    height: 2px;
+    background: #e7e7e7;
+    /* already halka white-grey hai */
+    border-radius: 2px;
+    transition: transform .3s ease, opacity .3s ease, background-color .3s ease;
+}
 
-    /* =========================================================
+.hamburger:hover span {
+    background: #0ef;
+    /* ye hover effect hai jo hatana hai */
+}
+
+.btn-signin {
+    background-color: #a7a7a7;
+    color: black;
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+    z-index: 999;
+    text-decoration: none;
+}
+
+.btn-signin:hover {
+    background-color: white;
+    cursor: pointer;
+}
+
+/* =========================================================
    HAMBURGER ICON
    Default state: HIDDEN (desktop pe nav already dikh raha hota
    hai isliye hamburger ki zaroorat nahi). Ye sirf
    @media (max-width:768px) ke andar "display:flex" hoke dikhega.
+   Ab ye <a> tag hai (pehle <button> tha), isliye anchor ki
+   default underline/pointer bhi yahin reset kar di hai.
    ========================================================= */
-    .hamburger {
-        display: none;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 6px;
-        width: 38px;
-        height: 38px;
-        padding: 0;
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        z-index: 1100;
-        flex-shrink: 0;
-    }
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1100;
+    flex-shrink: 0;
+    text-decoration: none;
+}
 
-    .hamburger span {
-        display: block;
-        width: 26px;
-        height: 2px;
-        background: #e7e7e7;
-        border-radius: 2px;
-        transition: transform .3s ease, opacity .3s ease, background-color .3s ease;
-    }
+.hamburger span {
+    display: block;
+    width: 26px;
+    height: 2px;
+    background: #e7e7e7;
+    border-radius: 2px;
+    transition: transform .3s ease, opacity .3s ease, background-color .3s ease;
+}
 
-    .hamburger:hover span {
-        background: #0ef;
-    }
+.hamburger:hover span {
+    background: #0ef;
+}
 
-    /* jab menu khula ho (JS "active" class add karta hai), teeno
+/* jab menu khula ho (JS "active" class add karta hai), teeno
        lines ek "X" shape me animate ho jaati hain */
-    .hamburger.active span:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
-    }
+.hamburger.active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
 
-    .hamburger.active span:nth-child(2) {
-        opacity: 0;
-    }
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
 
-    .hamburger.active span:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg);
-    }
+.hamburger.active span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
 
-    /* background dim overlay — mobile menu khule hone par content ke
+/* background dim overlay — mobile menu khule hone par content ke
        peeche dikhega, aur isi pe click karke menu band bhi ho sakta hai */
-    .nav-overlay {
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.6);
-        z-index: 1040;
-        opacity: 0;
-        transition: opacity .3s ease;
+.nav-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1040;
+    opacity: 0;
+    transition: opacity .3s ease;
+}
+
+/* main contant */
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(90vh - 6rem);
+}
+
+.content {
+    max-width: 40rem;
+    /* margin-left: 10%; */
+    margin-top: 20%;
+    z-index: 999;
+}
+
+.tag-box {
+    position: relative;
+    width: 18rem;
+    height: 2.5rem;
+    border-radius: 50px;
+    background: linear-gradient(to right, #656565, #7f42a7, #6600c5,
+            #5300a0, #757575, #656565);
+    background-size: 200%;
+    animation: animationGradient 2.5s linear infinite;
+    box-shadow: 0 0 15px white;
+}
+
+@keyframes animationGradient {
+    to {
+        background-position: 200%;
     }
+}
 
-    /* main contant */
-    main {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        min-height: calc(90vh - 6rem);
-    }
+.tag-box .tag {
+    position: absolute;
+    inset: 3px 3px 3px 3px;
+    background-color: black;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.5s ease;
+    cursor: pointer;
+}
 
-    .content {
-        max-width: 40rem;
-        /* margin-left: 10%; */
-        margin-top: 20%;
-        z-index: 999;
-    }
+.tag-box .tag:hover {
+    color: #5300a4;
+}
 
-    .tag-box {
-        position: relative;
-        width: 18rem;
-        height: 2.5rem;
-        border-radius: 50px;
-        background: linear-gradient(to right, #656565, #7f42a7, #6600c5,
-                #5300a0, #757575, #656565);
-        background-size: 200%;
-        animation: animationGradient 2.5s linear infinite;
-        box-shadow: 0 0 15px white;
-    }
+.content h1 {
+    font-size: 3rem;
+    font-weight: 600;
+    letter-spacing: 0.1rem;
+    margin: 2rem 0;
+    line-height: 1.2;
+    text-shadow: 0 0 10px rgba(128, 128, 128, 0.418);
 
-    @keyframes animationGradient {
-        to {
-            background-position: 200%;
-        }
-    }
+}
 
-    .tag-box .tag {
-        position: absolute;
-        inset: 3px 3px 3px 3px;
-        background-color: black;
-        border-radius: 50px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: 0.5s ease;
-        cursor: pointer;
-    }
+.content h1 span {
+    color: #6C63FF;
+}
 
-    .tag-box .tag:hover {
-        color: #5300a4;
-    }
+.content p {
+    text-transform: capitalize;
+}
 
-    .content h1 {
-        font-size: 3rem;
-        font-weight: 600;
-        letter-spacing: 0.1rem;
-        margin: 2rem 0;
-        line-height: 1.2;
-        text-shadow: 0 0 10px rgba(128, 128, 128, 0.418);
+.description {
+    font-size: 1.2rem;
+    letter-spacing: 0.05rem;
+    max-width: 35rem;
+    color: gray;
+}
 
-    }
+.buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 3rem;
+}
 
-    .content h1 span {
-        color: #6C63FF;
-    }
+.btn-get-started {
+    width: 220px;
+    height: 45px;
+    text-decoration: none;
+    border: 1px solid #2a2a2a;
+    padding: 0.7rem 1.2rem;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    .content p {
-        text-transform: capitalize;
-    }
+}
 
-    .description {
-        font-size: 1.2rem;
-        letter-spacing: 0.05rem;
-        max-width: 35rem;
-        color: gray;
-    }
+.btn-get-started:hover {
+    background-color: #1a1a1a;
+}
 
-    .buttons {
-        display: flex;
-        gap: 1rem;
-        margin-top: 3rem;
-    }
+.btn-wrap {
+    position: relative;
+    display: inline-block;
+}
 
-    .btn-get-started {
-        width: 220px;
-        height: 45px;
-        text-decoration: none;
-        border: 1px solid #2a2a2a;
-        padding: 0.7rem 1.2rem;
-        border-radius: 10px;
-        font-size: 1.2rem;
-        font-weight: 600;
-        letter-spacing: 0.1em;
-        transition: background-color 0.2s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+.btn-wrap a {
+    text-decoration: none;
+}
 
-    }
+/* ================= LIQUID BUTTON (hover pe fill hota hai) ================= */
+.liquid-btn {
+    position: relative;
+    width: 200px;
+    height: 45px;
+    border: 2px solid #00d4ff;
+    border-radius: 10px;
+    overflow: visible;
+    /* visible taaki sparkles bahar burst ho sakein */
+    background: transparent;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    color: #00d4ff;
+    letter-spacing: 1px;
+    transition: color 0.4s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    .btn-get-started:hover {
-        background-color: #1a1a1a;
-    }
+}
 
-    .btn-wrap {
-        position: relative;
-        display: inline-block;
-    }
+.liquid-btn span:not(.sparkle) {
+    position: relative;
+    z-index: 2;
+}
 
-    .btn-wrap a {
-        text-decoration: none;
-    }
-
-    /* ================= LIQUID BUTTON (hover pe fill hota hai) ================= */
-    .liquid-btn {
-        position: relative;
-        width: 200px;
-        height: 45px;
-        border: 2px solid #00d4ff;
-        border-radius: 10px;
-        overflow: visible;
-        /* visible taaki sparkles bahar burst ho sakein */
-        background: transparent;
-        cursor: pointer;
-        font-size: 18px;
-        font-weight: bold;
-        color: #00d4ff;
-        letter-spacing: 1px;
-        transition: color 0.4s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-    }
-
-    .liquid-btn span:not(.sparkle) {
-        position: relative;
-        z-index: 2;
-    }
-
-    /* liquid ko sirf isi mask ke andar clip kiya jata hai,
+/* liquid ko sirf isi mask ke andar clip kiya jata hai,
    isliye ye button ke bahar kabhi nahi dikhega, sirf andar hi fill hoga */
-    .liquid-mask {
-        position: absolute;
-        inset: 0;
-        border-radius: 8px;
-        overflow: hidden;
-        z-index: 1;
+.liquid-mask {
+    position: absolute;
+    inset: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.liquid {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #00d4ff;
+    transition: top 0.4s ease;
+}
+
+.liquid::before,
+.liquid::after {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -150%;
+    left: -50%;
+    border-radius: 10%;
+    background: rgba(255, 255, 255, 0.3);
+    animation: wave 4s linear infinite;
+}
+
+.liquid::after {
+    border-radius: 10%;
+    animation-duration: 6s;
+    opacity: 0.5;
+}
+
+.liquid-btn:hover .liquid {
+    top: 0;
+}
+
+.liquid-btn:hover {
+    color: #1e1e1e;
+}
+
+@keyframes wave {
+    0% {
+        transform: rotate(0deg);
     }
 
-    .liquid {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: #00d4ff;
-        transition: top 0.4s ease;
+    100% {
+        transform: rotate(360deg);
     }
+}
 
-    .liquid::before,
-    .liquid::after {
-        content: "";
-        position: absolute;
-        width: 200%;
-        height: 200%;
-        top: -150%;
-        left: -50%;
-        border-radius: 10%;
-        background: rgba(255, 255, 255, 0.3);
-        animation: wave 4s linear infinite;
-    }
-
-    .liquid::after {
-        border-radius: 10%;
-        animation-duration: 6s;
-        opacity: 0.5;
-    }
-
-    .liquid-btn:hover .liquid {
-        top: 0;
-    }
-
-    .liquid-btn:hover {
-        color: #1e1e1e;
-    }
-
-    @keyframes wave {
-        0% {
-            transform: rotate(0deg);
-        }
-
-        100% {
-            transform: rotate(360deg);
-        }
-    }
-
-    /* =========================================================
+/* =========================================================
    CLICK STATE: jab btnWrap pe "sparkle-active" class lagti hai
    (JS click par lagata hai), button ka background TRANSPARENT
    ho jata hai aur sirf glowing border reh jata hai — jaisa
    original sparkle button me tha
    ========================================================= */
-    .sparkle-active .liquid-btn {
-        background: transparent;
-        color: #ffffff;
-        border: 2px solid #00d4ff;
-        box-shadow: 0 0 14px rgba(0, 212, 255, 0.5);
-    }
+.sparkle-active .liquid-btn {
+    background: transparent;
+    color: #ffffff;
+    border: 2px solid #00d4ff;
+    box-shadow: 0 0 14px rgba(0, 212, 255, 0.5);
+}
 
-    /* click ke time liquid fill ko bhi chhupa dete hain,
+/* click ke time liquid fill ko bhi chhupa dete hain,
    taaki sirf clean transparent + glow wala look aaye.
    transition: none isliye taaki ye INSTANT ho, smoothly animate na ho */
-    .sparkle-active .liquid {
-        top: 100% !important;
-        transition: none !important;
-    }
+.sparkle-active .liquid {
+    top: 100% !important;
+    transition: none !important;
+}
 
-    /* ================= SPARKLE EFFECT (CLICK pe trigger hota hai) ================= */
-    .sparkle {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 12px;
-        height: 12px;
-        pointer-events: none;
-        z-index: 3;
-        /* liquid aur text dono ke upar */
+/* ================= SPARKLE EFFECT (CLICK pe trigger hota hai) ================= */
+.sparkle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    pointer-events: none;
+    z-index: 3;
+    /* liquid aur text dono ke upar */
 
-        background: currentColor;
-        clip-path: polygon(50% 0%, 61% 39%, 100% 50%,
-                61% 61%, 50% 100%, 39% 61%,
-                0% 50%, 39% 39%);
+    background: currentColor;
+    clip-path: polygon(50% 0%, 61% 39%, 100% 50%,
+            61% 61%, 50% 100%, 39% 61%,
+            0% 50%, 39% 39%);
 
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+}
+
+/* ye class JS click par add/remove karega */
+.sparkle-active .sparkle {
+    animation: burst 0.7s ease-out forwards;
+}
+
+.sparkle-active .sparkle:nth-child(3) {
+    animation-delay: 0s;
+}
+
+.sparkle-active .sparkle:nth-child(4) {
+    animation-delay: 0.03s;
+}
+
+.sparkle-active .sparkle:nth-child(5) {
+    animation-delay: 0.06s;
+}
+
+.sparkle-active .sparkle:nth-child(6) {
+    animation-delay: 0.02s;
+}
+
+.sparkle-active .sparkle:nth-child(7) {
+    animation-delay: 0.08s;
+}
+
+.sparkle-active .sparkle:nth-child(8) {
+    animation-delay: 0.05s;
+}
+
+.sparkle-active .sparkle:nth-child(9) {
+    animation-delay: 0.01s;
+}
+
+.sparkle-active .sparkle:nth-child(10) {
+    animation-delay: 0.07s;
+}
+
+@keyframes burst {
+    0% {
+        transform: translate(-50%, -50%) translate(0, 0) scale(0);
         opacity: 0;
-        transform: translate(-50%, -50%) scale(0);
     }
 
-    /* ye class JS click par add/remove karega */
-    .sparkle-active .sparkle {
-        animation: burst 0.7s ease-out forwards;
+    30% {
+        transform: translate(-50%, -50%) translate(calc(var(--tx) * 0.3), calc(var(--ty) * 0.3)) scale(1);
+        opacity: 1;
     }
 
-    .sparkle-active .sparkle:nth-child(3) {
-        animation-delay: 0s;
+    100% {
+        transform: translate(-50%, -50%) translate(var(--tx), var(--ty)) scale(0.3);
+        opacity: 0;
     }
+}
 
-    .sparkle-active .sparkle:nth-child(4) {
-        animation-delay: 0.03s;
-    }
+.robot-3d {
+    position: absolute;
+    top: 0;
+    right: -20%;
+}
 
-    .sparkle-active .sparkle:nth-child(5) {
-        animation-delay: 0.06s;
-    }
+/* tablet responsiv */
 
-    .sparkle-active .sparkle:nth-child(6) {
-        animation-delay: 0.02s;
-    }
 
-    .sparkle-active .sparkle:nth-child(7) {
-        animation-delay: 0.08s;
-    }
+/* mobile  */
 
-    .sparkle-active .sparkle:nth-child(8) {
-        animation-delay: 0.05s;
-    }
 
-    .sparkle-active .sparkle:nth-child(9) {
-        animation-delay: 0.01s;
-    }
+/* <!-- Latest uploaded section  --> */
 
-    .sparkle-active .sparkle:nth-child(10) {
-        animation-delay: 0.07s;
-    }
+:root {
+    --bg: #0d0d0d;
+    --bg-card: #1a1a1a;
+    --red: #e0271d;
+    --white: #f5f5f5;
+    --gray: #9a9a9a;
+    --border: #2a2a2a;
+}
 
-    @keyframes burst {
-        0% {
-            transform: translate(-50%, -50%) translate(0, 0) scale(0);
-            opacity: 0;
-        }
+/* SECTION HEADER */
+.section-title {
+    text-align: center;
+    font-size: 34px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    margin-top: 60px;
+    margin-bottom: 40px;
 
-        30% {
-            transform: translate(-50%, -50%) translate(calc(var(--tx) * 0.3), calc(var(--ty) * 0.3)) scale(1);
-            opacity: 1;
-        }
+}
 
-        100% {
-            transform: translate(-50%, -50%) translate(var(--tx), var(--ty)) scale(0.3);
-            opacity: 0;
-        }
-    }
+.accent {
+    color: red;
+}
 
-    .robot-3d {
-        position: absolute;
-        top: 0;
-        right: -20%;
-    }
+/* SUBSCRIBE BUTTON */
+.subscribe-wrap {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 100px;
+}
 
-    /* tablet responsiv */
-    
+.subscribe-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 1px;
+    padding: 12px 24px;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+    transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+}
 
-    /* mobile  */
-    
+.subscribe-btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.12);
+}
 
-    /* <!-- Latest uploaded section  --> */
+.social-icon {
+    flex-shrink: 0;
+}
 
-    :root {
-        --bg: #0d0d0d;
-        --bg-card: #1a1a1a;
-        --red: #e0271d;
-        --white: #f5f5f5;
-        --gray: #9a9a9a;
-        --border: #2a2a2a;
-    }
+.yt-btn {
+    background: var(--red);
 
-    /* SECTION HEADER */
-    .section-title {
-        text-align: center;
-        font-size: 34px;
-        font-weight: 900;
-        letter-spacing: 1px;
-        margin-top: 60px;
-        margin-bottom: 40px;
+}
 
-    }
+.yt-btn:hover {
+    box-shadow: 0 6px 18px rgba(224, 39, 29, 0.6);
+}
 
-    .accent {
-        color: red;
-    }
+.ig-btn {
+    background: linear-gradient(45deg, #feda75, #d62976, #962fbf, #4f5bd5);
 
-    /* SUBSCRIBE BUTTON */
-    .subscribe-wrap {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 16px;
-        margin-bottom: 100px;
-    }
+}
 
-    .subscribe-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        color: #fff;
-        text-decoration: none;
-        font-weight: 800;
-        font-size: 13px;
-        letter-spacing: 1px;
-        padding: 12px 24px;
-        border-radius: 10px;
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
-        transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
-    }
+.ig-btn:hover {
+    box-shadow: 0 6px 18px rgba(214, 41, 118, 0.6);
+}
 
-    .subscribe-btn:hover {
-        transform: translateY(-2px);
-        filter: brightness(1.12);
-    }
+.fb-btn {
+    background: #1877f2;
 
-    .social-icon {
-        flex-shrink: 0;
-    }
+}
 
-    .yt-btn {
-        background: var(--red);
+.fb-btn:hover {
+    box-shadow: 0 6px 18px rgba(24, 119, 242, 0.5);
+}
 
-    }
+.tw-btn {
+    background: #000000;
+    border: 1px solid var(--border);
 
-    .yt-btn:hover {
-        box-shadow: 0 6px 18px rgba(224, 39, 29, 0.6);
-    }
+}
 
-    .ig-btn {
-        background: linear-gradient(45deg, #feda75, #d62976, #962fbf, #4f5bd5);
+.tw-btn:hover {
+    box-shadow: 0 6px 18px rgba(255, 255, 255, 0.25);
+}
 
-    }
 
-    .ig-btn:hover {
-        box-shadow: 0 6px 18px rgba(214, 41, 118, 0.6);
-    }
 
-    .fb-btn {
-        background: #1877f2;
-
-    }
-
-    .fb-btn:hover {
-        box-shadow: 0 6px 18px rgba(24, 119, 242, 0.5);
-    }
-
-    .tw-btn {
-        background: #000000;
-        border: 1px solid var(--border);
-
-    }
-
-    .tw-btn:hover {
-        box-shadow: 0 6px 18px rgba(255, 255, 255, 0.25);
-    }
-
-    
-
-    /* GRID */
-    /* FIX: pehle yahan "height: 500px" fixed tha. Chhoti screens pe jab
+/* GRID */
+/* FIX: pehle yahan "height: 500px" fixed tha. Chhoti screens pe jab
        auto-fit ki wajah se cards ek column me stack hote the, container
        ki height fixed hi rehti thi — isliye cards box ke bahar overflow
        karke niche wale "COLOUR GRADING" section ke upar OVERLAP ho jaate
        the. Ab height hata di hai, taaki grid apne content ke hisaab se
        khud height le le (auto height) — isse overlap fix ho gaya. */
-    .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        align-items: start;
-        gap: 28px;
-        max-width: 1100px;
-        margin: 0 auto;
-        padding: 0 40px 100px;
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    align-items: start;
+    gap: 28px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 40px 100px;
 
-    }
+}
 
-    .card {
-        background: var(--bg-card);
-        border: 1px solid var(--border);
-        border-radius: 6px;
-        overflow: hidden;
-        text-decoration: none;
-        color: var(--white);
-        display: block;
-        cursor: pointer;
-        transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
-    }
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--white);
+    display: block;
+    cursor: pointer;
+    transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
 
-    .card:hover {
-        transform: translateY(-6px);
-        border-color: var(--red);
-        box-shadow: 0 12px 30px rgba(224, 39, 29, 0.25);
-    }
+.card:hover {
+    transform: translateY(-6px);
+    border-color: var(--red);
+    box-shadow: 0 12px 30px rgba(224, 39, 29, 0.25);
+}
 
-    .thumb-wrap {
-        position: relative;
-        width: 100%;
-        aspect-ratio: 16/9;
-        overflow: hidden;
-        background: #000;
+.thumb-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    background: #000;
 
-    }
+}
 
-    .thumb-wrap img {
-        width: 100%;
-        height: 100%;
-        object-fit: fill;
-        display: block;
-        transition: transform .35s ease;
-    }
+.thumb-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    display: block;
+    transition: transform .35s ease;
+}
 
-    .card:hover .thumb-wrap img {
-        transform: scale(1.06);
-    }
+.card:hover .thumb-wrap img {
+    transform: scale(1.06);
+}
 
-    .play-btn {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 52px;
-        height: 52px;
-        background: rgba(255, 255, 255, 0.9);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        opacity: 0;
-        transition: opacity .25s ease, transform .25s ease;
-    }
+.play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 52px;
+    height: 52px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity .25s ease, transform .25s ease;
+}
 
-    .card:hover .play-btn {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1.05);
-    }
+.card:hover .play-btn {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.05);
+}
 
-    .play-btn::after {
-        content: "";
-        border-style: solid;
-        border-width: 9px 0 9px 15px;
-        border-color: transparent transparent transparent var(--red);
-        margin-left: 4px;
-    }
+.play-btn::after {
+    content: "";
+    border-style: solid;
+    border-width: 9px 0 9px 15px;
+    border-color: transparent transparent transparent var(--red);
+    margin-left: 4px;
+}
 
-    .card-body {
-        padding: 16px 18px 20px;
-    }
+.card-body {
+    padding: 16px 18px 20px;
+}
 
-    .date {
-        color: var(--red);
-        font-size: 12px;
-        font-weight: 700;
-        letter-spacing: .5px;
-        margin-bottom: 8px;
-        display: block;
-    }
+.date {
+    color: var(--red);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    margin-bottom: 8px;
+    display: block;
+}
 
-    .title {
-        font-size: 15px;
-        font-weight: 700;
-        line-height: 1.4;
-        color: var(--white);
-    }
+.title {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--white);
+}
 
-    
 
-    /* color grading slide  */
 
-    /* ============================================= */
-    /* :root ke andar "CSS variables" define kiye hain */
-    /* inko baad me var(--bg) jaise use karte hain,     */
-    /* taaki color change karna ho to yaha se ek jagah  */
-    /* badal sakein                                     */
-    /* ============================================= */
-    :root {
-        --bg: #0e0f11;
-        /* poori page ka background color (dark) */
-        --line: #f2f2f2;
-        /* beech wali divider line ka color */
-        --handle: #ffffff;
-        /* gol handle (button) ka color */
-        --handle-shadow: rgba(0, 0, 0, 0.35);
-        /* handle ke niche ka shadow */
-        --label-bg: rgba(0, 0, 0, 0.55);
-        /* BEFORE/AFTER label ka background */
-    }
+/* color grading slide  */
 
-    /* wrap = ek single widget (heading + video-box + hint) ka container */
-    .wrap {
-        width: 100%;
-    }
+/* ============================================= */
+/* :root ke andar "CSS variables" define kiye hain */
+/* inko baad me var(--bg) jaise use karte hain,     */
+/* taaki color change karna ho to yaha se ek jagah  */
+/* badal sakein                                     */
+/* ============================================= */
+:root {
+    --bg: #0e0f11;
+    /* poori page ka background color (dark) */
+    --line: #f2f2f2;
+    /* beech wali divider line ka color */
+    --handle: #ffffff;
+    /* gol handle (button) ka color */
+    --handle-shadow: rgba(0, 0, 0, 0.35);
+    /* handle ke niche ka shadow */
+    --label-bg: rgba(0, 0, 0, 0.55);
+    /* BEFORE/AFTER label ka background */
+}
 
-    /* single-wrap: ab sirf EK compare box hota hai (colour ya vfx) */
-    .single-wrap {
-        max-width: 700px;
-        margin: 0;
-    }
+/* wrap = ek single widget (heading + video-box + hint) ka container */
+.wrap {
+    width: 100%;
+}
 
-    /* =========================================================
+/* single-wrap: ab sirf EK compare box hota hai (colour ya vfx) */
+.single-wrap {
+    max-width: 700px;
+    margin: 0;
+}
+
+/* =========================================================
    slide-layout: compare box (LEFT) aur video-select gallery
    (RIGHT) ko side-by-side rakhne wala flex container.
    Chhoti screen pe flex-wrap se video boxes apne aap
    compare box ke NICHE chale jaate hain.
    ========================================================= */
-    .slide-layout {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 40px;
-        flex-wrap: wrap;
-        max-width: 1100px;
-        margin: 0 auto;
-    }
+.slide-layout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    max-width: 1100px;
+    margin: 0 auto;
+}
 
-    .slide-layout .single-wrap {
-        flex: 1 1 500px;
-    }
+.slide-layout .single-wrap {
+    flex: 1 1 500px;
+}
 
-    .video-select-panel {
-        flex: 0 1 220px;
-    }
+.video-select-panel {
+    flex: 0 1 220px;
+}
 
-    /* ================================================= */
-    /* .compare = wo box jisme dono videos overlap hoti hain */
-    /* ================================================= */
-    .compare {
-        position: relative;
-        /* important: iske andar jo bhi "absolute" hai
+/* ================================================= */
+/* .compare = wo box jisme dono videos overlap hoti hain */
+/* ================================================= */
+.compare {
+    position: relative;
+    /* important: iske andar jo bhi "absolute" hai
                             wo isi box ke relative position lega */
-        width: 100%;
-        aspect-ratio: 16 / 10;
-        max-height: 70vh;
-        /* screen se bada na ho */
-        margin: 0 auto;
-        border-radius: 14px;
-        /* gol corners */
-        overflow: hidden;
-        /* box ke bahar kuch bhi na dikhe (clip ho jaye) */
-        background: #000;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-        /* niche halka shadow */
-        border: 2px solid transparent;
-        box-sizing: border-box;
-        user-select: none;
-        /* drag karte waqt text select na ho */
-        touch-action: none;
-        /* mobile pe scroll na ho jab handle drag karein */
-        transition: transform 0.35s ease, box-shadow 0.35s ease;
-        margin-top: 40px;
-    }
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    max-height: 70vh;
+    /* screen se bada na ho */
+    margin: 0 auto;
+    border-radius: 14px;
+    /* gol corners */
+    overflow: hidden;
+    /* box ke bahar kuch bhi na dikhe (clip ho jaye) */
+    background: #000;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    /* niche halka shadow */
+    border: 2px solid transparent;
+    box-sizing: border-box;
+    user-select: none;
+    /* drag karte waqt text select na ho */
+    touch-action: none;
+    /* mobile pe scroll na ho jab handle drag karein */
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    margin-top: 40px;
+}
 
-    /* box par mouse le jaane par thoda bada, white border aur glow wala effect */
-    .compare:hover {
-        transform: scale(1.02);
-        border: 2px solid rgb(255, 255, 255);
-        box-shadow: 0 0 30px rgba(255, 255, 255, 0.65), 0 26px 70px rgba(0, 0, 0, 0.65);
-    }
+/* box par mouse le jaane par thoda bada, white border aur glow wala effect */
+.compare:hover {
+    transform: scale(1.02);
+    border: 2px solid rgb(255, 255, 255);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.65), 0 26px 70px rgba(0, 0, 0, 0.65);
+}
 
-    /* dono <video> tags (before + after) ke liye common style */
-    .compare video {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-        pointer-events: none;
-    }
+/* dono <video> tags (before + after) ke liye common style */
+.compare video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    pointer-events: none;
+}
 
-    .video-after {
-        clip-path: inset(0 0 0 50%);
-    }
+.video-after {
+    clip-path: inset(0 0 0 50%);
+}
 
-    /* beech wali safed VERTICAL line jo before/after ko divide karti hai */
-    .divider-line {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 50%;
-        width: 2px;
-        background: var(--line);
-        box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
-        transform: translateX(-1px);
-        pointer-events: none;
-    }
+/* beech wali safed VERTICAL line jo before/after ko divide karti hai */
+.divider-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    background: var(--line);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+    transform: translateX(-1px);
+    pointer-events: none;
+}
 
-    /* beech wala gol drag-able button (handle) */
-    .handle {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        width: 44px;
-        height: 44px;
-        border-radius: 50%;
-        background: var(--handle);
-        box-shadow: 0 4px 14px var(--handle-shadow);
-        transform: translate(-50%, -50%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: ew-resize;
-    }
+/* beech wala gol drag-able button (handle) */
+.handle {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--handle);
+    box-shadow: 0 4px 14px var(--handle-shadow);
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: ew-resize;
+}
 
-    .handle svg {
-        width: 20px;
-        height: 20px;
-        color: #222;
-    }
+.handle svg {
+    width: 20px;
+    height: 20px;
+    color: #222;
+}
 
-    /* BEFORE aur AFTER wale chhote label boxes ki common styling */
-    .tag {
-        position: absolute;
-        top: 12px;
-        padding: 4px 10px;
-        font-size: 12px;
-        font-weight: 600;
-        letter-spacing: 0.03em;
-        color: #fff;
-        background: var(--label-bg);
-        border-radius: 6px;
-        pointer-events: none;
-    }
+/* BEFORE aur AFTER wale chhote label boxes ki common styling */
+.tag {
+    position: absolute;
+    top: 12px;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: #fff;
+    background: var(--label-bg);
+    border-radius: 6px;
+    pointer-events: none;
+}
 
-    .tag-before {
-        left: 12px;
-    }
+.tag-before {
+    left: 12px;
+}
 
-    .tag-after {
-        right: 12px;
-    }
+.tag-after {
+    right: 12px;
+}
 
-    .hint {
-        text-align: center;
-        color: #8a8a8a;
-        font-size: 13px;
-        margin-top: 12px;
-    }
+.hint {
+    text-align: center;
+    color: #8a8a8a;
+    font-size: 13px;
+    margin-top: 12px;
+}
 
-    .section-heading {
-        text-align: center;
-        font-size: 22px;
-        letter-spacing: 1px;
-        margin-bottom: 30px;
-    }
+.section-heading {
+    text-align: center;
+    font-size: 22px;
+    letter-spacing: 1px;
+    margin-bottom: 30px;
+}
 
-    .color-box {
-        margin-bottom: 50px;
-    }
+.color-box {
+    margin-bottom: 50px;
+}
 
-    /* =========================================================
+/* =========================================================
    GAP between colour slide and vfx slide
    ========================================================= */
-    .section-gap {
-        height: 90px;
-        border-bottom: 1px solid var(--border, #2a2a2a);
-        max-width: 1100px;
-        margin: 0 auto 40px;
-    }
+.section-gap {
+    height: 90px;
+    border-bottom: 1px solid var(--border, #2a2a2a);
+    max-width: 1100px;
+    margin: 0 auto 40px;
+}
 
-    
 
-    /* =========================================================
+
+/* =========================================================
    VIDEO SELECT GALLERY (colour/vfx slider ke NICHE wale
    3 video boxes). Inpe click karne se us section ke apne
    compare box ka video change hota hai — script.js me dekh lena
    ========================================================= */
 
-    .video-select-hint {
-        text-align: center;
-        color: #8a8a8a;
-        font-size: 12px;
-        letter-spacing: 1px;
-        margin-bottom: 16px;
-        text-transform: uppercase;
-    }
+.video-select-hint {
+    text-align: center;
+    color: #8a8a8a;
+    font-size: 12px;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+}
 
-    /* ab video boxes slider ke RIGHT side me ek column me stack hote hain */
-    .video-select-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 14px;
-        width: 100%;
-        max-width: 220px;
-        margin: 0 auto;
-    }
+/* ab video boxes slider ke RIGHT side me ek column me stack hote hain */
+.video-select-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+    max-width: 220px;
+    margin: 0 auto;
+}
 
-    .video-select-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        background: #151517;
-        border: 2px solid var(--border, #2a2a2a);
-        border-radius: 12px;
-        padding: 22px 14px;
-        cursor: pointer;
-        color: #e7e7e7;
-        font-family: inherit;
-        transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease, background .25s ease;
-    }
+.video-select-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: #151517;
+    border: 2px solid var(--border, #2a2a2a);
+    border-radius: 12px;
+    padding: 22px 14px;
+    cursor: pointer;
+    color: #e7e7e7;
+    font-family: inherit;
+    transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease, background .25s ease;
+}
 
-    .video-select-item:hover {
-        transform: translateY(-4px);
-        border-color: #6C63FF;
-        box-shadow: 0 12px 26px rgba(108, 99, 255, 0.25);
-    }
+.video-select-item:hover {
+    transform: translateY(-4px);
+    border-color: #6C63FF;
+    box-shadow: 0 12px 26px rgba(108, 99, 255, 0.25);
+}
 
-    /* jo video abhi compare box me dikh raha hai, uska box highlight rahega */
-    .video-select-item.active {
-        border-color: #6C63FF;
-        background: #1b1b30;
-        box-shadow: 0 0 0 1px #6C63FF, 0 12px 26px rgba(108, 99, 255, 0.35);
-    }
+/* jo video abhi compare box me dikh raha hai, uska box highlight rahega */
+.video-select-item.active {
+    border-color: #6C63FF;
+    background: #1b1b30;
+    box-shadow: 0 0 0 1px #6C63FF, 0 12px 26px rgba(108, 99, 255, 0.35);
+}
 
-    .video-select-thumb {
-        width: 52px;
-        height: 52px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(108, 99, 255, 0.12);
-        color: #6C63FF;
-        flex-shrink: 0;
-    }
+.video-select-thumb {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(108, 99, 255, 0.12);
+    color: #6C63FF;
+    flex-shrink: 0;
+}
 
-    .video-select-item.active .video-select-thumb {
-        background: #6C63FF;
-        color: #fff;
-    }
+.video-select-item.active .video-select-thumb {
+    background: #6C63FF;
+    color: #fff;
+}
 
-    .video-select-label {
-        font-size: 13px;
-        font-weight: 700;
-        letter-spacing: .5px;
-    }
+.video-select-label {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .5px;
+}
 
-    
 
-    /* about page  */
-    .section-heading {
-        text-align: center;
-        font-size: 34px;
-        font-weight: 900;
-        letter-spacing: 1px;
-        margin-top: 60px;
-        /* margin-bottom: 40px; */
 
-    }
+/* about page  */
+.section-heading {
+    text-align: center;
+    font-size: 34px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    margin-top: 60px;
+    /* margin-bottom: 40px; */
 
-    .about {
-        display: flex;
-        justify-content: center;
-        align-items: stretch;
-        flex-wrap: wrap;
-        gap: 30px;
-        padding: 60px 40px 100px;
-        max-width: 1200px;
-        margin: 0 auto;
-        margin-bottom: 90px;
+}
 
-    }
+.about {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 60px 40px 100px;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-bottom: 90px;
 
-    .about-card {
-        flex: 1 1 320px;
-        max-width: 360px;
-        background: var(--bg-card);
-        border: 1px solid var(--border);
-        border-radius: 14px;
-        padding: 40px 32px 30px;
-        text-align: center;
-        transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
-    }
+}
 
-    .about-card:hover {
-        transform: translateY(-6px);
-        border-color: var(--red);
-        box-shadow: 0 12px 30px rgba(224, 39, 29, 0.25);
-    }
+.about-card {
+    flex: 1 1 320px;
+    max-width: 360px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 40px 32px 30px;
+    text-align: center;
+    transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
 
-    .profile-img {
-        width: 130px;
-        height: 130px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 3px solid var(--red);
-        margin: 0 auto 20px;
-        display: block;
-    }
+.about-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--red);
+    box-shadow: 0 12px 30px rgba(224, 39, 29, 0.25);
+}
 
-    .about-card h1 {
-        font-family: Georgia, 'Times New Roman', serif;
-        font-size: 24px;
-        letter-spacing: 0.5px;
-        margin-bottom: 6px;
-        color: var(--white);
-    }
+.profile-img {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--red);
+    margin: 0 auto 20px;
+    display: block;
+}
 
-    .about-card .role {
-        color: var(--red);
-        font-size: 13px;
-        font-weight: bold;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        margin-bottom: 30px;
-    }
+.about-card h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 24px;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+    color: var(--white);
+}
 
-    .info-rows {
-        text-align: left;
-    }
+.about-card .role {
+    color: var(--red);
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+}
 
-    .row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 16px 4px;
-        border-bottom: 1px solid var(--border);
-    }
+.info-rows {
+    text-align: left;
+}
 
-    .row:last-child {
-        border-bottom: none;
-    }
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 4px;
+    border-bottom: 1px solid var(--border);
+}
 
-    .row .label {
-        font-size: 13px;
-        color: var(--gray);
-        letter-spacing: .5px;
-    }
+.row:last-child {
+    border-bottom: none;
+}
 
-    .row .value {
-        font-size: 14px;
-        font-weight: 600;
-        color: var(--white);
-    }
+.row .label {
+    font-size: 13px;
+    color: var(--gray);
+    letter-spacing: .5px;
+}
 
-    .social-row .value {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        text-decoration: none;
-        color: #6C63FF;
-        font-weight: 700;
-        transition: color .2s ease, gap .2s ease;
-    }
+.row .value {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--white);
+}
 
-    .social-row .value:hover {
-        color: #ff5347;
-        gap: 9px;
-    }
+.social-row .value {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    color: #6C63FF;
+    font-weight: 700;
+    transition: color .2s ease, gap .2s ease;
+}
 
-    .social-row svg {
-        flex-shrink: 0;
-    }
+.social-row .value:hover {
+    color: #ff5347;
+    gap: 9px;
+}
 
-    
+.social-row svg {
+    flex-shrink: 0;
+}
 
-    /* ================= TOOLS & SOFTWARE WE USE (below About section) ================= */
-    .tools-section {
-        padding: 0 40px 100px;
-        max-width: 1100px;
-        margin: -40px auto 0;
-    }
 
-    .tools-grid {
-        display: flex;
-        justify-content: center;
-        align-items: stretch;
-        flex-wrap: wrap;
-        gap: 20px;
-    }
 
-    .tool-item {
-        flex: 0 1 140px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 14px;
-        background: var(--bg-card);
-        border: 1px solid var(--border);
-        border-radius: 14px;
-        padding: 26px 16px;
-        transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
-    }
+/* ================= TOOLS & SOFTWARE WE USE (below About section) ================= */
+.tools-section {
+    padding: 0 40px 100px;
+    max-width: 1100px;
+    margin: -40px auto 0;
+}
 
-    .tool-item:hover {
-        transform: translateY(-6px);
-        border-color: var(--red);
-        box-shadow: 0 12px 30px rgba(224, 39, 29, 0.25);
-    }
+.tools-grid {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 20px;
+}
 
-    .tool-icon {
-        width: 48px;
-        height: 48px;
-        object-fit: contain;
-    }
+.tool-item {
+    flex: 0 1 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 26px 16px;
+    transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
 
-    .tool-name {
-        font-size: 13px;
-        font-weight: 700;
-        letter-spacing: .3px;
-        color: var(--white);
-        text-align: center;
-    }
+.tool-item:hover {
+    transform: translateY(-6px);
+    border-color: var(--red);
+    box-shadow: 0 12px 30px rgba(224, 39, 29, 0.25);
+}
 
-    
+.tool-icon {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+}
 
-    /* services or project page */
+.tool-name {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .3px;
+    color: var(--white);
+    text-align: center;
+}
 
-    :root {
-        --bg: #0b0b0d;
-        --bg-card: #151317;
-        --violet: #8b5cf6;
-        --violet-soft: rgba(139, 92, 246, 0.25);
-        --white: #f5f5f5;
-        --gray: #9a9a9a;
-        --border: #2a2a30;
-    }
 
-    /* body {
+
+/* services or project page */
+
+:root {
+    --bg: #0b0b0d;
+    --bg-card: #151317;
+    --violet: #8b5cf6;
+    --violet-soft: rgba(139, 92, 246, 0.25);
+    --white: #f5f5f5;
+    --gray: #9a9a9a;
+    --border: #2a2a30;
+}
+
+/* body {
         background: var(--bg);
         color: var(--white);
         font-family: 'Segoe UI', Arial, sans-serif;
     } */
 
-    /* poster */
+/* poster */
 
-    .hero-banner {
-        width: 100%;
-        margin-top: 40px;
-        overflow: hidden;
-    }
+.hero-banner {
+    width: 100%;
+    margin-top: 40px;
+    overflow: hidden;
+}
 
-    .hero-banner img {
-        width: 100%;
-        height: auto;
-        max-height: 700px;
-        object-fit: fill;
-        display: block;
-    }
+.hero-banner img {
+    width: 100%;
+    height: auto;
+    max-height: 700px;
+    object-fit: fill;
+    display: block;
+}
 
-    /* ============ SECTION TITLES ============ */
-    .services-section .demo {
-        text-align: center;
-        font-size: 20px;
-        font-weight: 800;
-        letter-spacing: 1px;
-        margin-bottom: 100px;
-        color: #6C63FF;
+/* ============ SECTION TITLES ============ */
+.services-section .demo {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-bottom: 100px;
+    color: #6C63FF;
 
-    }
+}
 
-    .services-section a {
-        text-decoration: none;
-    }
+.services-section a {
+    text-decoration: none;
+}
 
-    .section-title {
-        text-align: center;
-        font-size: 26px;
-        font-weight: 800;
-        letter-spacing: 1px;
-        margin-top: 100px;
-        margin-bottom: 30px;
-    }
+.section-title {
+    text-align: center;
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-top: 100px;
+    margin-bottom: 30px;
+}
 
-    .spaced {
-        letter-spacing: 5px;
-    }
+.spaced {
+    letter-spacing: 5px;
+}
 
-    /* ============ SERVICES ============ */
-    .services-section {
-        padding: 0 40px 30px;
-    }
+/* ============ SERVICES ============ */
+.services-section {
+    padding: 0 40px 30px;
+}
 
-    .services-grid {
-        max-width: 1200px;
-        margin: 0 auto;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-        gap: 22px;
-    }
+.services-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 22px;
+}
 
-    .service-card {
-        background: var(--bg-card);
-        border: 1px solid var(--border);
-        border-radius: 10px;
-        padding: 34px 20px;
-        text-align: center;
-        transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
-    }
+.service-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 34px 20px;
+    text-align: center;
+    transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
 
-    .service-card:hover {
-        transform: translateY(-6px);
-        border-color: var(--violet);
-        box-shadow: 0 12px 30px var(--violet-soft);
-    }
+.service-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--violet);
+    box-shadow: 0 12px 30px var(--violet-soft);
+}
 
-    .service-icon {
-        color: var(--violet);
-        margin-bottom: 18px;
-    }
+.service-icon {
+    color: var(--violet);
+    margin-bottom: 18px;
+}
 
-    .service-card h3 {
-        color: #fff;
-        font-size: 15px;
-        font-weight: 800;
-        letter-spacing: .5px;
-        line-height: 1.4;
-        margin-bottom: 10px;
-    }
+.service-card h3 {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: .5px;
+    line-height: 1.4;
+    margin-bottom: 10px;
+}
 
-    .service-card p {
-        color: var(--gray);
-        font-size: 13px;
-        line-height: 1.5;
-    }
+.service-card p {
+    color: var(--gray);
+    font-size: 13px;
+    line-height: 1.5;
+}
 
-    /* music */
+/* music */
 
-    :root {
-        --bg: #f3f1ec;
-        --panel: #ffffff;
-        --field: #f6f5f1;
-        --line: #e7e4dc;
-        --text: #16171b;
-        --sub: #8d8f99;
-        --mono: 'DM Mono', monospace;
-        --disp: 'Space Grotesk', sans-serif;
-    }
+:root {
+    --bg: #f3f1ec;
+    --panel: #ffffff;
+    --field: #f6f5f1;
+    --line: #e7e4dc;
+    --text: #16171b;
+    --sub: #8d8f99;
+    --mono: 'DM Mono', monospace;
+    --disp: 'Space Grotesk', sans-serif;
+}
 
-    * {
-        box-sizing: border-box;
-    }
+* {
+    box-sizing: border-box;
+}
 
-    /* body {
+/* body {
         margin: 0;
         background: var(--bg);
         color: var(--text);
@@ -1283,603 +1329,604 @@
         padding: 56px 20px 80px;
     } */
 
-    .head {
-        text-align: center;
-        max-width: 640px;
-        margin: 0 auto 48px;
-    }
+.head {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 48px;
+}
 
-    .head .eyebrow {
-        font-family: var(--mono);
-        font-size: 25px;
-        letter-spacing: .18em;
-        text-transform: uppercase;
-        color: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        margin-top: 25px;
-        margin-bottom: 14px;
-        font-weight: 500;
+.head .eyebrow {
+    font-family: var(--mono);
+    font-size: 25px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 25px;
+    margin-bottom: 14px;
+    font-weight: 500;
 
-    }
+}
 
-    .head .eyebrow::before,
-    .head .eyebrow::after {
-        content: '';
-        height: 1px;
-        width: 28px;
-        background: var(--line);
-    }
+.head .eyebrow::before,
+.head .eyebrow::after {
+    content: '';
+    height: 1px;
+    width: 28px;
+    background: var(--line);
+}
 
-    .head h1 {
-        font-size: 15px;
-        font-weight: 800;
-        margin: 0 0 10px;
-        letter-spacing: .5px;
-        line-height: 1.4;
-        color: #fff;
-    }
+.head h1 {
+    font-size: 15px;
+    font-weight: 800;
+    margin: 0 0 10px;
+    letter-spacing: .5px;
+    line-height: 1.4;
+    color: #fff;
+}
 
-    .head p {
-        color: var(--sub);
-        font-size: 14.5px;
-        line-height: 1.6;
-        margin: 0;
-    }
+.head p {
+    color: var(--sub);
+    font-size: 14.5px;
+    line-height: 1.6;
+    margin: 0;
+}
 
-    /* MUSIC PLAYER GRID — scoped with the #playerGrid ID so it
+/* MUSIC PLAYER GRID — scoped with the #playerGrid ID so it
    can NOT be affected by the earlier plain ".grid" rule (which
    has height:500px, padding, align-items meant for the
    LATEST UPLOADS video cards). ID selectors always beat plain
    class selectors, so this wins no matter the source order. */
-    #playerGrid {
-        max-width: 1200px;
-        margin: 0 auto;
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 22px;
-        height: auto;
-        align-items: stretch;
-        padding: 0;
-    }
+#playerGrid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+    height: auto;
+    align-items: stretch;
+    padding: 0;
+}
 
-    /* Chhoti screens pe 4 columns force nahi karte — auto-fit se
+/* Chhoti screens pe 4 columns force nahi karte — auto-fit se
    cards apne aap wrap ho jayenge, taaki mobile pe cramped na ho */
-    
 
-    /* MUSIC PLAYER CARD — scoped as "#playerGrid .card" so it does
+
+/* MUSIC PLAYER CARD — scoped as "#playerGrid .card" so it does
    NOT collide with the plain ".card" rule used by the
    LATEST UPLOADS cards above. */
-    #playerGrid .card {
-        position: relative;
-        background: var(--panel);
-        border: 1px solid var(--line);
-        border-radius: 20px;
-        padding: 16px 14px 14px;
-        overflow: hidden;
-        box-shadow: 0 1px 2px rgba(20, 20, 30, .03);
-        transition: box-shadow .25s ease, transform .25s ease;
-        cursor: default;
-        color: var(--text);
+#playerGrid .card {
+    position: relative;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 16px 14px 14px;
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(20, 20, 30, .03);
+    transition: box-shadow .25s ease, transform .25s ease;
+    cursor: default;
+    color: var(--text);
+}
+
+#playerGrid .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 28px rgba(20, 20, 30, .06);
+}
+
+#playerGrid .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(140px 90px at 20% -10%, var(--accent-soft), transparent 70%);
+    opacity: .5;
+    pointer-events: none;
+}
+
+#playerGrid .card.is-playing {
+    box-shadow: 0 14px 34px var(--accent-soft);
+}
+
+#playerGrid .tag {
+    position: static;
+    padding: 0;
+    background: none;
+    pointer-events: auto;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: .12em;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+#playerGrid .tag .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+}
+
+#playerGrid .card.is-playing .tag .dot {
+    animation: pulseDot 1.2s ease-in-out infinite;
+}
+
+@keyframes pulseDot {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent);
     }
 
-    #playerGrid .card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 14px 28px rgba(20, 20, 30, .06);
+    50% {
+        box-shadow: 0 0 0 6px transparent;
+    }
+}
+
+#playerGrid .disc-wrap {
+    display: flex;
+    justify-content: center;
+    margin: 2px 0 10px;
+}
+
+#playerGrid .disc {
+    width: 82px;
+    height: 82px;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 50% 50%, #101114 0 14px, #202127 15px 28px, #101114 29px 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--line);
+    animation-name: spin;
+    animation-duration: 6s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-play-state: paused;
+    position: relative;
+}
+
+#playerGrid .disc .core {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 18px var(--accent-soft);
+}
+
+.disc::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: repeating-radial-gradient(circle at center, transparent 0 8px, rgba(255, 255, 255, .03) 8px 9px);
+}
+
+.disc .core {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 18px var(--accent-soft);
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.wave {
+    display: flex;
+    align-items: flex-end;
+    gap: 2.5px;
+    height: 24px;
+    margin: 0 0 10px;
+    justify-content: center;
+}
+
+.wave span {
+    width: 3px;
+    border-radius: 2px;
+    background: linear-gradient(180deg, var(--accent), var(--accent-2));
+    height: 20%;
+    transform-origin: bottom;
+    animation-name: bounce;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-play-state: paused;
+    opacity: .4;
+}
+
+#playerGrid .card.is-playing .wave span {
+    opacity: 1;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        height: 15%;
     }
 
-    #playerGrid .card::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(140px 90px at 20% -10%, var(--accent-soft), transparent 70%);
-        opacity: .5;
-        pointer-events: none;
+    50% {
+        height: var(--h, 80%);
     }
+}
 
-    #playerGrid .card.is-playing {
-        box-shadow: 0 14px 34px var(--accent-soft);
-    }
+.title-row {
+    text-align: center;
+    margin-bottom: 10px;
+    min-height: 22px;
+}
 
-    #playerGrid .tag {
-        position: static;
-        padding: 0;
-        background: none;
-        pointer-events: auto;
-        font-family: var(--mono);
-        font-size: 10.5px;
-        letter-spacing: .12em;
-        color: var(--accent);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 16px;
-    }
+.title-row .name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
-    #playerGrid .tag .dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: var(--accent);
-    }
+.title-row .empty {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--sub);
+}
 
-    #playerGrid .card.is-playing .tag .dot {
-        animation: pulseDot 1.2s ease-in-out infinite;
-    }
+.controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
 
-    @keyframes pulseDot {
+.btn {
+    font-family: var(--disp);
+    border: 1px solid var(--line);
+    background: var(--field);
+    color: var(--text);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: .2s ease;
+}
 
-        0%,
-        100% {
-            box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent);
-        }
-
-        50% {
-            box-shadow: 0 0 0 6px transparent;
-        }
-    }
-
-    #playerGrid .disc-wrap {
-        display: flex;
-        justify-content: center;
-        margin: 2px 0 10px;
-    }
-
-    #playerGrid .disc {
-        width: 82px;
-        height: 82px;
-        border-radius: 50%;
-        background:
-            radial-gradient(circle at 50% 50%, #101114 0 14px, #202127 15px 28px, #101114 29px 100%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 1px solid var(--line);
-        animation-name: spin;
-        animation-duration: 6s;
-        animation-timing-function: linear;
-        animation-iteration-count: infinite;
-        animation-play-state: paused;
-        position: relative;
-    }
-
-    #playerGrid .disc .core {
-        width: 18px;
-        height: 18px;
-        border-radius: 50%;
-        background: var(--accent);
-        box-shadow: 0 0 18px var(--accent-soft);
-    }
-
-    .disc::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        border-radius: 50%;
-        background: repeating-radial-gradient(circle at center, transparent 0 8px, rgba(255, 255, 255, .03) 8px 9px);
-    }
-
-    .disc .core {
-        width: 26px;
-        height: 26px;
-        border-radius: 50%;
-        background: var(--accent);
-        box-shadow: 0 0 18px var(--accent-soft);
-    }
-
-    @keyframes spin {
-        to {
-            transform: rotate(360deg);
-        }
-    }
-
-    .wave {
-        display: flex;
-        align-items: flex-end;
-        gap: 2.5px;
-        height: 24px;
-        margin: 0 0 10px;
-        justify-content: center;
-    }
-
-    .wave span {
-        width: 3px;
-        border-radius: 2px;
-        background: linear-gradient(180deg, var(--accent), var(--accent-2));
-        height: 20%;
-        transform-origin: bottom;
-        animation-name: bounce;
-        animation-duration: 1s;
-        animation-timing-function: ease-in-out;
-        animation-iteration-count: infinite;
-        animation-play-state: paused;
-        opacity: .4;
-    }
-
-    #playerGrid .card.is-playing .wave span {
-        opacity: 1;
-    }
-
-    @keyframes bounce {
-
-        0%,
-        100% {
-            height: 15%;
-        }
-
-        50% {
-            height: var(--h, 80%);
-        }
-    }
-
-    .title-row {
-        text-align: center;
-        margin-bottom: 10px;
-        min-height: 22px;
-    }
-
-    .title-row .name {
-        font-size: 13px;
-        font-weight: 600;
-        color: var(--text);
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .title-row .empty {
-        font-family: var(--mono);
-        font-size: 11.5px;
-        color: var(--sub);
-    }
-
-    .controls {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        margin-bottom: 10px;
-    }
-
-    .btn {
-        font-family: var(--disp);
-        border: 1px solid var(--line);
-        background: var(--field);
-        color: var(--text);
-        border-radius: 999px;
-        cursor: pointer;
-        transition: .2s ease;
-    }
-
-    /* FIX: "Play Song" button pehle ".play-btn" class share kar raha tha
+/* FIX: "Play Song" button pehle ".play-btn" class share kar raha tha
    us gol circular play-icon ke saath jo LATEST UPLOADS video-cards ke
    thumbnail ke upar dikhta hai (position:absolute, opacity:0,
    border-radius:50%). Isi wajah se music player ka "Play Song" button
    sahi se dikhta hi nahi tha. Ab #playerGrid ke andar scope karke saari
    leaked properties explicitly reset kar di hain. */
-    #playerGrid .play-btn {
-        position: relative;
-        top: auto;
-        left: auto;
-        transform: none;
-        width: 100%;
-        height: auto;
-        border-radius: 999px;
-        opacity: 1;
-        padding: 9px 14px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: var(--accent);
-        border-color: var(--accent);
-        color: #fff;
-        font-size: 12.5px;
-        font-weight: 600;
-        letter-spacing: .01em;
-    }
+#playerGrid .play-btn {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: 100%;
+    height: auto;
+    border-radius: 999px;
+    opacity: 1;
+    padding: 9px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: .01em;
+}
 
-    #playerGrid .play-btn::after {
-        content: none;
-    }
+#playerGrid .play-btn::after {
+    content: none;
+}
 
-    #playerGrid .play-btn:hover {
-        opacity: 1;
-        transform: none;
-        filter: brightness(1.08);
-    }
+#playerGrid .play-btn:hover {
+    opacity: 1;
+    transform: none;
+    filter: brightness(1.08);
+}
 
-    input[type=file] {
-        display: none;
-    }
+input[type=file] {
+    display: none;
+}
 
-    .queue {
-        border-top: 1px solid var(--line);
-        padding-top: 12px;
-    }
+.queue {
+    border-top: 1px solid var(--line);
+    padding-top: 12px;
+}
 
-    .queue-label {
-        font-family: var(--mono);
-        font-size: 10px;
-        letter-spacing: .1em;
-        color: var(--sub);
-        margin-bottom: 8px;
-    }
+.queue-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .1em;
+    color: var(--sub);
+    margin-bottom: 8px;
+}
 
-    .queue-list {
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-        max-height: 84px;
-        overflow-y: auto;
-    }
+.queue-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-height: 84px;
+    overflow-y: auto;
+}
 
-    .queue-list::-webkit-scrollbar {
-        width: 4px;
-    }
+.queue-list::-webkit-scrollbar {
+    width: 4px;
+}
 
-    .queue-list::-webkit-scrollbar-thumb {
-        background: var(--line);
-        border-radius: 4px;
-    }
+.queue-list::-webkit-scrollbar-thumb {
+    background: var(--line);
+    border-radius: 4px;
+}
 
-    .qitem {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 7px 9px;
-        border-radius: 9px;
-        background: var(--field);
-        border: 1px solid transparent;
-        font-size: 11.5px;
-        cursor: pointer;
-        color: var(--sub);
-    }
+.qitem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 7px 9px;
+    border-radius: 9px;
+    background: var(--field);
+    border: 1px solid transparent;
+    font-size: 11.5px;
+    cursor: pointer;
+    color: var(--sub);
+}
 
-    .qitem span.fname {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 110px;
-    }
+.qitem span.fname {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 110px;
+}
 
-    .qitem.active {
-        color: var(--text);
-        border-color: var(--accent);
-        background: color-mix(in srgb, var(--accent) 8%, var(--field));
-    }
+.qitem.active {
+    color: var(--text);
+    border-color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 8%, var(--field));
+}
 
-    .qitem .ext {
-        font-family: var(--mono);
-        font-size: 9px;
-        color: var(--accent);
-    }
+.qitem .ext {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--accent);
+}
 
-    .qempty {
-        font-family: var(--mono);
-        font-size: 11px;
-        color: #c3c4cc;
-    }
+.qempty {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: #c3c4cc;
+}
 
-    .progress {
-        height: 2px;
-        background: var(--line);
-        border-radius: 2px;
-        margin-bottom: 14px;
-        overflow: hidden;
-    }
+.progress {
+    height: 2px;
+    background: var(--line);
+    border-radius: 2px;
+    margin-bottom: 14px;
+    overflow: hidden;
+}
 
-    .progress i {
-        display: block;
-        height: 100%;
-        width: 0%;
-        background: var(--accent);
-    }
+.progress i {
+    display: block;
+    height: 100%;
+    width: 0%;
+    background: var(--accent);
+}
 
-    footer {
-        text-align: center;
-        margin-top: 44px;
-        font-family: var(--mono);
-        font-size: 11px;
-        color: #c3c4cc;
-    }
+footer {
+    text-align: center;
+    margin-top: 44px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: #c3c4cc;
+}
 
-    /* ============ PERFECT FOR ============ */
-    .perfect-section {
-        padding: 0 40px 40px;
-    }
+/* ============ PERFECT FOR ============ */
+.perfect-section {
+    padding: 0 40px 40px;
+}
 
-    .perfect-grid {
-        max-width: 1200px;
-        margin: 0 auto;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-        gap: 18px;
-    }
+.perfect-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 18px;
+}
 
-    .perfect-card {
-        position: relative;
-        border-radius: 10px;
-        overflow: hidden;
-        aspect-ratio: 4/5;
-        border: 1px solid var(--border);
-    }
+.perfect-card {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    aspect-ratio: 4/5;
+    border: 1px solid var(--border);
+}
 
-    .perfect-card img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-        transition: transform .35s ease;
-    }
+.perfect-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform .35s ease;
+}
 
-    .perfect-card:hover img {
-        transform: scale(1.08);
-    }
+.perfect-card:hover img {
+    transform: scale(1.08);
+}
 
-    .perfect-card span {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        padding: 14px 10px;
-        text-align: center;
-        font-size: 12px;
-        font-weight: 700;
-        letter-spacing: 1px;
-        background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
-    }
+.perfect-card span {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 14px 10px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
+}
 
-    /* ============ CTA ============ */
-    .cta-section {
-        text-align: center;
-        padding: 60px 30px 70px;
-    }
+/* ============ CTA ============ */
+.cta-section {
+    text-align: center;
+    padding: 60px 30px 70px;
+}
 
-    .cta-title {
-        font-size: 26px;
-        font-weight: 800;
-        letter-spacing: .5px;
-        line-height: 1.5;
-        margin-bottom: 34px;
-    }
+.cta-title {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: .5px;
+    line-height: 1.5;
+    margin-bottom: 34px;
+}
 
-    .cta-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 12px;
-        border: 1.5px solid var(--violet);
-        color: var(--violet);
-        text-decoration: none;
-        font-weight: 700;
-        font-size: 14px;
-        letter-spacing: 2px;
-        padding: 16px 34px;
-        border-radius: 6px;
-        transition: background .25s ease, color .25s ease, transform .2s ease;
-    }
+.cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    border: 1.5px solid var(--violet);
+    color: var(--violet);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 2px;
+    padding: 16px 34px;
+    border-radius: 6px;
+    transition: background .25s ease, color .25s ease, transform .2s ease;
+}
 
-    .cta-btn:hover {
-        background: var(--violet);
-        color: #0b0b0d;
-        transform: translateY(-2px);
-    }
+.cta-btn:hover {
+    background: var(--violet);
+    color: #0b0b0d;
+    transform: translateY(-2px);
+}
 
-    .arrow {
-        font-size: 16px;
-    }
+.arrow {
+    font-size: 16px;
+}
 
-    /* ============ FOOTER ============ */
-    .footer {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 40px;
-        padding: 30px 30px 40px;
-        border-top: 1px solid var(--border);
-        color: var(--gray);
-        font-size: 13px;
-    }
+/* ============ FOOTER ============ */
+.footer {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px;
+    padding: 30px 30px 40px;
+    border-top: 1px solid var(--border);
+    color: var(--gray);
+    font-size: 13px;
+}
 
-    .footer-item {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
+.footer-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
 
-    .footer-item svg {
-        color: var(--violet);
-        flex-shrink: 0;
-    }
+.footer-item svg {
+    color: var(--violet);
+    flex-shrink: 0;
+}
 
-    /* ============ RESPONSIVE ============ */
-    
+/* ============ RESPONSIVE ============ */
 
-    
 
-    html {
-        scroll-behavior: smooth;
-    }
 
-    #home,
-    #color-section {
-        scroll-margin-top: 200px;
-    }
 
-    #about-section {
-        scroll-margin-top: 190px;
-    }
+html {
+    scroll-behavior: smooth;
+}
 
-    #service-section {
-        scroll-margin-top: 250px;
-    }
-    #music-section{
-        scroll-margin-top: 220px;
-    }
+#home,
+#color-section {
+    scroll-margin-top: 200px;
+}
 
-    /* =========================================================
+#about-section {
+    scroll-margin-top: 190px;
+}
+
+#service-section {
+    scroll-margin-top: 250px;
+}
+
+#music-section {
+    scroll-margin-top: 220px;
+}
+
+/* =========================================================
    WHATSAPP FLOATING BUTTON
    position: fixed => viewport ke relative fix rehta hai,
    isliye page scroll karne par bhi ye apni jagah (right side,
    bottom) pe hi chipka rahega, scroll nahi hoga.
    z-index bahut high rakha hai taaki hamesha sabse upar dikhe.
    ========================================================= */
-    .whatsapp-float {
-        position: fixed;
-        right: 30px;
-        bottom: 30px;
-        width: 60px;
-        height: 60px;
-        background: #25D366;
-        color: #fff;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
-        z-index: 9999;
-        text-decoration: none;
-        transition: transform 0.25s ease, box-shadow 0.25s ease;
-        animation: whatsapp-swing 3s ease-in-out infinite;
-        transform-origin: top center;
-    }
+.whatsapp-float {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    width: 60px;
+    height: 60px;
+    background: #25D366;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+    z-index: 9999;
+    text-decoration: none;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    animation: whatsapp-swing 3s ease-in-out infinite;
+    transform-origin: top center;
+}
 
-    .whatsapp-float:hover {
-        animation-play-state: paused;
-        transform: scale(1.08) rotate(0deg);
-        box-shadow: 0 8px 26px rgba(37, 211, 102, 0.55);
-    }
+.whatsapp-float:hover {
+    animation-play-state: paused;
+    transform: scale(1.08) rotate(0deg);
+    box-shadow: 0 8px 26px rgba(37, 211, 102, 0.55);
+}
 
-    /* SWING: icon ek pendulum ki tarah upar se jhoolta hai —
+/* SWING: icon ek pendulum ki tarah upar se jhoolta hai —
    left-right slowly swing karta hai */
-    @keyframes whatsapp-swing {
+@keyframes whatsapp-swing {
 
-        0%,
-        100% {
-            transform: rotate(0deg);
-        }
-
-        20% {
-            transform: rotate(10deg);
-        }
-
-        40% {
-            transform: rotate(-8deg);
-        }
-
-        60% {
-            transform: rotate(6deg);
-        }
-
-        80% {
-            transform: rotate(-4deg);
-        }
+    0%,
+    100% {
+        transform: rotate(0deg);
     }
 
-    
+    20% {
+        transform: rotate(10deg);
+    }
 
-    /* =========================================================
+    40% {
+        transform: rotate(-8deg);
+    }
+
+    60% {
+        transform: rotate(6deg);
+    }
+
+    80% {
+        transform: rotate(-4deg);
+    }
+}
+
+
+
+/* =========================================================
        SPIDER CURSOR BACKGROUND (canvas#c) — SABHI PAGES KE LIYE
        Ye canvas poori website ke peeche fixed rehta hai, poora
        viewport cover karta hai, aur pointer-events:none isliye
@@ -1888,33 +1935,33 @@
        header, nav, cards, sab content ke PEECHE (background me)
        rahega — chahe user site ke kisi bhi page/section pe ho.
        ========================================================= */
-    #c {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        z-index: -1;
-        pointer-events: none;
-        display: block;
-        background: #000;
-    }
+#c {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+    display: block;
+    background: #000;
+}
 
-    .spider-hint {
-        position: fixed;
-        left: 50%;
-        bottom: 14px;
-        transform: translateX(-50%);
-        color: #8a8a8a;
-        font-size: 12px;
-        letter-spacing: .05em;
-        text-align: center;
-        pointer-events: none;
-        z-index: -1;
-        opacity: .55;
-    }
+.spider-hint {
+    position: fixed;
+    left: 50%;
+    bottom: 14px;
+    transform: translateX(-50%);
+    color: #8a8a8a;
+    font-size: 12px;
+    letter-spacing: .05em;
+    text-align: center;
+    pointer-events: none;
+    z-index: -1;
+    opacity: .55;
+}
 
-    /* =========================================================================
+/* =========================================================================
        ============================ RESPONSIVE ==================================
        =========================================================================
        Ye poori website ke SAARE media-query (responsive) rules ab is EK jagah
@@ -1930,10 +1977,9 @@
          4) max-width: 600px   -> mobile phones
        ========================================================================= */
 
-    /* -----------------------------------------------------------------------
+/* -----------------------------------------------------------------------
        1) BREAKPOINT: max-width 1300px
        Chhote laptop/tablet screens ke liye — hero header padding kam,
        content ko niche shift karte hain (kyunki robot-3d chhota ho jata hai),
        aur 3D robot ko scale down karke thoda upar-left move karte hain.
        ----------------------------------------------------------------------- */
-   

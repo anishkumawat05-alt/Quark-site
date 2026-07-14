@@ -26,7 +26,7 @@
          taaki spider effect sabhi pages pe dikhe.
          ========================================================= -->
     <canvas id="c"></canvas>
-    <div class="spider-hint">move your pointer</div>
+    <!-- <div class="spider-hint">move your pointer</div> -->
 
     <!-- <img class="image-gradient" src="" alt="gradient"> -->
     <div class="layer-blur"></div>
@@ -35,30 +35,50 @@
         <header>
             <div><a href="#" class="logo"><img src="images/logo2.png" alt=""></a></div>
 
-            <nav id="mainNav" class="main-nav">
-                <a href="#home">HOME <span></span></a>
-                <a href="#color-section">COLOUR PAGE <span></span></a>
-                <a href="#about-section">ABOUT <span></span></a>
-                <a href="#service-section">SERVICES <span></span></a>
-                <a href="#music-section">SOUND <span></span></a>
-                <a href="signin-button.html" class="btn-signin">SIGNING</a>
-            </nav>
-            
+            <!-- =========================================================
+                 NAV-LINKS
+                 Pehle ye poora block ek <nav id="mainNav" class="main-nav">
+                 ke andar wrap tha. Ab us <nav> tag ko hata diya gaya hai
+                 aur uski saari zimmedari (id, mobile slide-in panel wala
+                 kaam, styling) seedha isi neeche wale
+                 <div class="nav-links" id="nav-links"> ko de di gayi hai.
+                 CSS me (style.css + media.css) selectors ab isi
+                 ".nav-links" / "#nav-links" ko target karte hain, aur
+                 script.js ka hamburger toggle bhi isi id par kaam karta
+                 hai — isi wajah se 860px wale mobile toggle button ab
+                 sahi se open/close hota hai.
+                 ========================================================= -->
+            <div class="nav-links" id="nav-links">
+                <ul>
+                    <li><a href="#home">HOME <span></span></a></li>
+                    <li><a href="#color-section">COLOUR PAGE <span></span></a></li>
+                    <li><a href="#about-section">ABOUT <span></span></a></li>
+                    <li><a href="#service-section">SERVICES <span></span></a></li>
+                    <li><a href="#music-section">SOUND <span></span></a></li>
+                    <a href="signin-button.html" class="btn-signin">SIGNING</a>
+                </ul>
+            </div>
+
 
             <!-- =========================================================
                  HAMBURGER ICON — sirf 768px aur usse chhoti screens pe
                  dikhta hai (CSS me @media max-width:768px ke andar
-                 display:flex kiya hai). Click par script.js is button
+                 display:flex kiya hai). Click par script.js is link
                  pe "active" class toggle karta hai, jisse 3 lines ek
-                 "X" me animate ho jaati hain aur poora <nav> (id="mainNav")
+                 "X" me animate ho jaati hain aur ".nav-links" (id="nav-links")
                  ek slide-in panel ki tarah right side se open hota hai.
+                 Ye ab <a> tag hai (pehle <button> tha) — isliye JS me
+                 iske default "#" navigation ko preventDefault() se
+                 rok diya gaya hai. aria-controls ab "nav-links" ko point
+                 karta hai (pehle "mainNav" tha, jo <nav> tag ke saath
+                 hata diya gaya).
                  ========================================================= -->
-            <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false"
-                aria-controls="mainNav">
+            <a class="hamburger" id="hamburgerBtn" href="#nav-links" aria-label="Toggle menu" aria-expanded="false"
+                aria-controls="nav-links">
                 <span></span>
                 <span></span>
                 <span></span>
-            </button>
+            </a>
         </header>
 
         <!-- Mobile nav khula hone par background ko dim karne wala overlay —
@@ -103,8 +123,8 @@
                 </div>
             </div>
         </main>
-        <spline-viewer class="robot-3d"
-            url="https://prod.spline.design/itQcYFPcVt2d0So2/scene.splinecode"></spline-viewer>
+        <!-- <spline-viewer class="robot-3d"
+            url="https://prod.spline.design/itQcYFPcVt2d0So2/scene.splinecode"></spline-viewer> -->
     </div>
 
     <div class="section-gap"></div>
@@ -361,7 +381,7 @@
 
     <!-- about section  -->
 
-  <div class="section-gap"></div>
+    <div class="section-gap"></div>
     <h1 class="section-heading">About <span class="accent">Us</span></h1>
     <section class="about" id="about-section">
         <div class="about-card">
@@ -781,7 +801,7 @@
         </svg>
     </a>
 
-    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.98/build/spline-viewer.js"></script>
+    <!-- <script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.98/build/spline-viewer.js"></script> -->
     <script src="script.js"></script>
 
 </body>

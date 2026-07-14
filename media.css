@@ -13,16 +13,16 @@
         right: 2%;
     }
 
-    /* NAYA FIX: nav ko auto-shrink hone se rokte hain,
+    /* NAYA FIX: nav-links ko auto-shrink hone se rokte hain,
        taaki 1000px jaisi widths par gap/spacing apne aap
        kam na ho — gap yahin se fix ho jaata hai jab tak
-       768px breakpoint (mobile hamburger) na aa jaaye */
-    nav {
+       860px breakpoint (mobile hamburger) na aa jaaye */
+    .nav-links {
         gap: 2rem;
         flex-shrink: 0;
     }
 
-    nav a {
+    .nav-links li a {
         flex-shrink: 0;
         font-size: 1rem;
         padding: 6px 5px;
@@ -59,14 +59,29 @@
 }
 
 /* -----------------------------------------------------------------------
-   3) BREAKPOINT: max-width 768px
+   3) BREAKPOINT: max-width 860px
    Mobile-size screens ke liye — yahan par:
-   - top nav links chhup jaate hain (mobile menu abhi nahi hai, sirf
-     logo + sign-in button dikhte hain)
+   - top nav links chhup jaate hain (hamburger slide-in menu dikhta hai)
    - hero heading/description/buttons chhote ho jaate hain
    - 3D robot aur bhi zyada scale down hota hai
    - color/vfx slide ke niche wale 3 video-select boxes ab COLUMN ki
      jagah ROW me aa jaate hain
+   - hamburger menu khulne par nav links ka text WHITE ho jaata hai
+   - About cards aur Music player cards EK LINE me 2-2 karke aate hain
+   - Contact Us (liquid) button ki width portfolio button jaisi fix
+     kar di gayi hai, taaki overflow/misalign na ho
+
+   NOTE: Pehle ye poori mobile slide-in panel styling ".main-nav"
+   (jo <nav id="mainNav" class="main-nav"> tag pe lagti thi) ke
+   naam se likhi hui thi. Ab <nav> tag hata diya gaya hai aur uski
+   saari zimmedari seedha ".nav-links" (div, id="nav-links") ko
+   de di gayi hai — isliye neeche saare selectors ".nav-links" hain.
+   Yahi wajah thi ki hamburger click karne par menu open nahi ho
+   raha tha: JS "#nav-links" par "active" class toggle karta tha,
+   lekin CSS ka slide-in-panel style ".main-nav.active" ko target
+   kar raha tha — dono alag elements the, isliye kuch dikhta hi
+   nahi tha. Ab dono same element (".nav-links") ko target karte
+   hain, isliye toggle sahi se kaam karta hai.
    ----------------------------------------------------------------------- */
 @media screen and (max-width: 860px) {
     header {
@@ -79,17 +94,17 @@
     }
 
     /* =========================================================
-       .main-nav — MOBILE SLIDE-IN MENU
-       Desktop pe nav horizontal row me dikhta hai (upar wala
-       default "nav{}" rule). 768px se chhoti screen pe hum usi
-       <nav class="main-nav"> ko ek FULL-HEIGHT panel bana dete
-       hain jo screen ke RIGHT side se slide-in hota hai.
-       Default state me ye translateX(100%) se screen ke bahar
-       (right side) chhupa rehta hai — JS jab .main-nav pe
-       "active" class add karta hai (hamburger click par), tab
-       translateX(0) hoke andar slide hota hai.
+       .nav-links — MOBILE SLIDE-IN MENU
+       Desktop pe nav-links horizontal row me dikhta hai (style.css
+       ka default ".nav-links{}" rule). 860px se chhoti screen pe
+       hum usi <div class="nav-links" id="nav-links"> ko ek
+       FULL-HEIGHT panel bana dete hain jo screen ke RIGHT side se
+       slide-in hota hai. Default state me ye translateX(100%) se
+       screen ke bahar (right side) chhupa rehta hai — JS jab
+       ".nav-links" pe "active" class add karta hai (hamburger click
+       par), tab translateX(0) hoke andar slide hota hai.
        ========================================================= */
-    .main-nav {
+    .nav-links {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
@@ -108,14 +123,34 @@
         z-index: 1050;
     }
 
-    .main-nav.active {
+    .nav-links.active {
         transform: translateX(0);
     }
 
-    .main-nav a {
+    /* mobile pe ul (jiske andar li>a list + SIGNING button hai)
+       ab column me stack hoga, poori width use karega */
+    .nav-links ul {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.8rem;
+        width: 100%;
+    }
+
+    /* NAYA FIX: style.css ke default "nav-links li a { color: gray; }"
+       ki wajah se mobile slide-in menu ke andar bhi links GRAY hi
+       dikh rahe the. Ab isi jagah color:#fff (white) explicitly
+       de diya hai, taaki hamburger menu open karte hi text white
+       dikhe — sirf ".nav-links" ke mobile version ke andar, isliye
+       desktop wale horizontal nav pe koi asar nahi padega. */
+    .nav-links a {
         font-size: 1.15rem;
         width: 100%;
         padding: 10px 4px;
+        color: #ffffff;
+    }
+
+    .nav-links a:hover {
+        color: #ffffff;
     }
 
     /* mobile menu khule hone par background dim overlay dikhta hai */
@@ -162,6 +197,30 @@
         padding: 0.8rem 2rem;
     }
 
+    /* NAYA FIX: "Contect Us" button (liquid-btn, #btnWrap ke andar)
+       ka parent <a href="contact.html"> tag by default INLINE hota
+       hai, isliye chhoti screens pe uske andar wala button apni
+       fixed 200px width ki wajah se doosre button (View Portfolio)
+       ke saath align/overflow theek se nahi ho pa raha tha.
+       Yahan us <a> ko (jo #btnWrap ko wrap karta hai) inline-flex
+       bana diya, aur .buttons ko wrap karne diya taaki agar jagah
+       kam pade to dono buttons neat tarike se agli line me chale
+       jayen, overflow ya cut na ho. */
+    .buttons {
+        flex-wrap: wrap;
+        row-gap: 0.9rem;
+    }
+
+    .buttons a:has(.btn-wrap) {
+        display: inline-flex;
+    }
+
+    .btn-wrap,
+    .liquid-btn {
+        width: 100%;
+        max-width: 220px;
+    }
+
     /* NAYA FIX: color/vfx compare slider ke niche wale
        video-select boxes (Video 1/2/3 ya VFX 1/2/3) ab
        COLUMN ki jagah ROW me side-by-side aa jaayenge.
@@ -182,6 +241,86 @@
     .video-select-item {
         flex: 1 1 90px;
         padding: 14px 8px;
+    }
+
+    /* NAYA FIX (REVERT): About cards ab wapas SINGLE (1 per line)
+       rahenge — pehle yahan flex-basis 45% karke 2-per-line kiya
+       gaya tha, ab usko hata diya hai taaki default single-column
+       behavior (style.css ke .about-card { flex:1 1 320px; max-
+       width:360px; }) hi apply ho. */
+
+    /* NAYA FIX: "Music Demo" cards ab EK LINE me 2-2 karke rahenge,
+       lekin ab WIDTH aur HEIGHT dono pehle se chhoti kar di gayi
+       hain:
+       - WIDTH: columns ko "repeat(2, 1fr)" ki jagah ek FIXED
+         chhoti width (140px) di hai aur justify-content:center
+         se grid ko beech me la diya — isse cards poori row-width
+         nahi stretch karte, chhote/compact dikhte hain.
+       - HEIGHT: andar ke elements (padding, disc, waveform,
+         queue list) sabki size/height kam karke overall card ki
+         height bhi ghata di hai. */
+    #playerGrid {
+        grid-template-columns: repeat(2, minmax(0, 140px));
+        justify-content: center;
+        gap: 14px;
+    }
+
+    #playerGrid .card {
+        padding: 10px 8px 8px;
+        border-radius: 14px;
+    }
+
+    #playerGrid .disc-wrap {
+        margin: 0 0 6px;
+    }
+
+    #playerGrid .disc {
+        width: 46px;
+        height: 46px;
+    }
+
+    #playerGrid .disc .core {
+        width: 11px;
+        height: 11px;
+    }
+
+    #playerGrid .wave {
+        height: 14px;
+        margin: 0 0 6px;
+    }
+
+    #playerGrid .title-row {
+        margin-bottom: 6px;
+        min-height: 16px;
+    }
+
+    #playerGrid .progress {
+        margin-bottom: 8px;
+    }
+
+    #playerGrid .play-btn {
+        font-size: 10px;
+        padding: 6px 8px;
+    }
+
+    #playerGrid .queue-label {
+        font-size: 8.5px;
+        margin-bottom: 5px;
+    }
+
+    #playerGrid .queue-list {
+        max-height: 52px;
+        gap: 4px;
+    }
+
+    #playerGrid .qitem {
+        padding: 5px 6px;
+        font-size: 10px;
+    }
+
+    #playerGrid .tag {
+        font-size: 9px;
+        margin-bottom: 10px;
     }
 }
 
@@ -210,11 +349,11 @@
         padding: 10px 18px;
     }
 
-    nav {
-        padding: 18px 20px;
+    .nav-links {
+        padding: 90px 1.4rem 2rem;
     }
 
-    .nav-links {
+    .nav-links ul {
         gap: 20px;
     }
 

@@ -424,18 +424,32 @@ const players = ACCENTS.map((theme, i) => new Player(i, theme.songs));
 /* =========================================================
    MOBILE HAMBURGER MENU
    ---------------------------------------------------------
-   Sirf 768px aur usse chhoti screens pe hamburger icon (CSS me
-   display:flex) dikhta hai, aur nav (class="main-nav") ek
-   slide-in panel ban jata hai (CSS me .main-nav.active).
+   Sirf 860px aur usse chhoti screens pe hamburger icon (CSS me
+   display:flex) dikhta hai, aur nav-links (id="nav-links",
+   class="nav-links") ek slide-in panel ban jata hai (CSS me
+   media.css ke andar ".nav-links.active").
 
-   Yahan hum PRIMARILY ".main-nav" CLASS se hi nav ko dhoondte
-   hain (id="mainNav" sirf accessibility ke "aria-controls" ke
-   liye rakha hai) — taaki agar future me kisi aur page pe isi
-   class wala koi aur <nav> ho, wahan bhi yahi script kaam kare.
+   FIX (SCROLL BUG): Pehle nav links pe sirf "closeMenu" laga hua
+   tha aur baaki sab kaam browser ke default "#hash" navigation par
+   chhoda hua tha. Problem ye thi ki jab link click hote hi menu
+   band ho raha tha (transform transition + body.style.overflow
+   reset ek saath ho rahe the), tab browser ka native "#section"
+   jump kai baar silently skip/ignore ho jata tha — isliye menu
+   open/close to sahi chal raha tha, lekin kisi bhi link (HOME,
+   ABOUT, SERVICES, etc.) par click karne se page us section tak
+   scroll hi nahi ho raha tha.
+
+   Ab har in-page link (jo "#" se start hota hai) ke liye hum khud
+   manually "scrollIntoView()" call karte hain — default anchor
+   jump par depend nahi karte. Menu pehle close hota hai, phir
+   thoda sa delay (taaki close-animation/body-overflow reset ho
+   jaaye) ke baad target section tak smooth scroll hota hai.
+   "SIGNING" jaisa normal page link (signin-button.html, jo "#" se
+   start nahi hota) apne default behaviour se hi navigate hoga.
    ========================================================= */
 (function () {
   const hamburger = document.getElementById('hamburgerBtn');
-  const nav = document.querySelector('.main-nav');
+  const nav = document.getElementById('nav-links');
   const overlay = document.getElementById('navOverlay');
   if (!hamburger || !nav) return; // is page pe mobile menu hai hi nahi
 
@@ -455,7 +469,8 @@ const players = ACCENTS.map((theme, i) => new Player(i, theme.songs));
     document.body.style.overflow = '';
   }
 
-  hamburger.addEventListener('click', () => {
+  hamburger.addEventListener('click', (e) => {
+    // e.preventDefault(); // <a href="#"> ka default jump/navigation rokte hain
     if (nav.classList.contains('active')) {
       closeMenu();
     } else {
@@ -466,15 +481,40 @@ const players = ACCENTS.map((theme, i) => new Player(i, theme.songs));
   // overlay pe click karke bhi menu band ho jaye
   if (overlay) overlay.addEventListener('click', closeMenu);
 
-  // kisi bhi nav link pe click karne ke baad menu apne aap band ho jaye
+  // kisi bhi nav link pe click karne ke baad menu band ho aur,
+  // agar wo link isi page ke andar ka section hai, to page khud
+  // us section tak smoothly scroll ho jaye
   nav.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', closeMenu);
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href') || '';
+      const isInPageAnchor = href.startsWith('#') && href.length > 1;
+
+      if (isInPageAnchor) {
+        e.preventDefault(); // default (unreliable) hash-jump ko rokte hain
+
+        const targetEl = document.querySelector(href);
+
+        closeMenu();
+
+        if (targetEl) {
+          // menu close animation/body-scroll-reset ke turant baad
+          // scroll karte hain, taaki dono ek doosre se clash na karein
+          setTimeout(() => {
+            targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 60);
+        }
+      } else {
+        // SIGNING jaisa normal page link — sirf menu close karo,
+        // navigation apne aap default se ho jayega
+        closeMenu();
+      }
+    });
   });
 
   // agar user screen resize kare aur wapas desktop-size ho jaye,
   // to mobile menu ki leftover "active" state clear kar do
   window.addEventListener('resize', () => {
-    if (window.innerWidth > 768) closeMenu();
+    if (window.innerWidth > 860) closeMenu();
   });
 })();
 
@@ -496,10 +536,25 @@ const players = ACCENTS.map((theme, i) => new Player(i, theme.songs));
    Isi script.js ko site ke HAR page pe include karne se (jahan
    bhi <canvas id="c"> aur style.css linked ho) ye spider effect
    automatically us page pe bhi chalu ho jayega.
+
+   NAYA FIX (SPEED + SIZE KAM): neeche "SPIDER_SPEED" aur
+   "SPIDER_SIZE" naam ke 2 control-variables add kiye hain.
+   - SPIDER_SPEED: 1 = original speed, 0.5 = aadhi speed
+     (jitna chhota, utna slow spider pointer ko follow karega
+     aur utna hi slow apne aap idhar-udhar ghoomega)
+   - SPIDER_SIZE: 1 = original size, 0.5 = aadha size
+     (spider ki legs/body chhoti dikhengi)
+   Agar future me speed/size aur kam-zyada karni ho, to bas
+   inhi 2 values ko badal dena — poora code dhoondhne ki
+   zaroorat nahi.
    ========================================================= */
 (function () {
   const canvas = document.getElementById('c');
   if (!canvas) return; // is page pe spider canvas hai hi nahi, to kuch mat karo
+
+  // === EASY CONTROLS: speed aur size yahin se control karo ===
+  const SPIDER_SPEED = 0.2; // pehle effectively 1 tha — ab ~55% slow
+  const SPIDER_SIZE = .5;   // pehle effectively 1 tha — ab 60% size (chhota)
 
   const ctx = canvas.getContext('2d');
   const { sin, cos, PI, hypot, min, max } = Math;
@@ -529,10 +584,22 @@ const players = ACCENTS.map((theme, i) => new Player(i, theme.songs));
     let ty = rnd(innerHeight);
     let x = rnd(innerWidth);
     let y = rnd(innerHeight);
-    let kx = rnd(0.5, 0.5);
-    let ky = rnd(0.5, 0.5);
-    let walkRadius = pt(rnd(50, 50), rnd(50, 50));
-    let r = innerWidth / rnd(100, 150);
+
+    // FIX: kx/ky spider ke "apne aap idhar-udhar ghoomne" (self-walk
+    // oscillation) ki speed control karte hain. SPIDER_SPEED se
+    // multiply karke inhe slow kar diya.
+    let kx = rnd(0.5, 0.5) * SPIDER_SPEED;
+    let ky = rnd(0.5, 0.5) * SPIDER_SPEED;
+
+    // FIX: walkRadius spider ke self-wander ka "kitna bada circle"
+    // banata hai — SPIDER_SIZE se chhota karne par wander area bhi
+    // thoda compact ho jata hai (size ke hisaab se proportionate).
+    let walkRadius = pt(rnd(50, 50) * SPIDER_SIZE, rnd(50, 50) * SPIDER_SIZE);
+
+    // FIX: r spider ki legs/body ki "reach" (size) control karta hai.
+    // Divisor ko SPIDER_SIZE se divide karke size chhoti kar di —
+    // (SPIDER_SIZE chhota => divisor bada => r chhota).
+    let r = (innerWidth / rnd(100, 150)) * SPIDER_SIZE;
 
     function paintPt(pt) {
       pts2.forEach((pt2) => {
@@ -561,17 +628,36 @@ const players = ACCENTS.map((theme, i) => new Player(i, theme.songs));
         let fx = tx + selfMoveX;
         let fy = ty + selfMoveY;
 
-        x += min(innerWidth / 100, (fx - x) / 10);
-        y += min(innerWidth / 100, (fy - y) / 10);
+        // FIX: pehle "min(innerWidth/100, (fx-x)/10)" sirf POSITIVE
+        // (right side) movement pe hi cap lagata tha — kyunki jab
+        // (fx-x) NEGATIVE hota tha (cursor LEFT ki taraf), to
+        // min(positive_cap, negative_number) hamesha wahi negative
+        // number choose kar leta tha (koi cap nahi). Isi wajah se
+        // LEFT jaate waqt spider tez aur RIGHT jaate waqt slow
+        // lagta tha. Ab dono directions me BARABAR cap lagta hai.
+        const maxStepX = (innerWidth / 100) * SPIDER_SPEED;
+        const maxStepY = (innerWidth / 100) * SPIDER_SPEED;
+        const rawStepX = ((fx - x) / 10) * SPIDER_SPEED;
+        const rawStepY = ((fy - y) / 10) * SPIDER_SPEED;
+        x += max(-maxStepX, min(maxStepX, rawStepX));
+        y += max(-maxStepY, min(maxStepY, rawStepY));
 
         let i = 0;
         pts.forEach((pt) => {
           const dx = pt.x - x,
             dy = pt.y - y;
           const len = hypot(dx, dy);
-          let r = min(2, innerWidth / len / 5);
+          let r = min(2, innerWidth / len / 5) * SPIDER_SIZE;
           pt.t = 0;
-          const increasing = len < innerWidth / 10
+          // FIX: pehle "innerWidth / 10" hamesha FIXED tha — ye
+          // decide karta hai ki kitni DOOR tak ke points ko
+          // "spider ke paas hai" maan ke leg/body me shaamil kiya
+          // jaaye. Isi wajah se SPIDER_SIZE kam karne par sirf
+          // legs patli/chhoti dikhti thi, lekin spider jitni JAGAH
+          // (area) cover karta tha wo same hi rehta tha. Ab isko
+          // bhi SPIDER_SIZE se scale kar diya, taaki poora spider
+          // (uska "reach"/area) sahi me chhota ho.
+          const increasing = len < (innerWidth / 10) * SPIDER_SIZE
             && (i++) < 8;
           let dir = increasing ? 0.1 : -0.1;
           if (increasing) {
@@ -586,6 +672,8 @@ const players = ACCENTS.map((theme, i) => new Player(i, theme.songs));
     };
   }
 
+  // FIX: pehle 2 spiders bante the (many(2, spawn)) — ab sirf 1
+  // spider chahiye tha, isliye count 1 kar diya.
   const spiders = many(2, spawn);
 
   addEventListener("pointermove", (e) => {
