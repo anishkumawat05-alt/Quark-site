@@ -573,7 +573,7 @@ const players = ACCENTS.map((theme, i) => new Player(i, theme.songs));
   if (!canvas) return; // is page pe spider canvas hai hi nahi, to kuch mat karo
 
   // === EASY CONTROLS: speed aur size yahin se control karo ===
-  const SPIDER_SPEED = 0.2; // pehle effectively 1 tha — ab ~55% slow
+  const SPIDER_SPEED = 0.3; // pehle effectively 1 tha — ab ~55% slow
   const SPIDER_SIZE = .5;   // pehle effectively 1 tha — ab 60% size (chhota)
 
   const ctx = canvas.getContext('2d');
